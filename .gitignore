@@ -1,0 +1,5 @@
+bin/
+intermediate/
+xcuserdata
+*xccheckout
+projects/Xcode/build
