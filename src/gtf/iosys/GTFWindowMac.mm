@@ -9,10 +9,13 @@
 #include "GTFWindow.h"
 
 #import <Cocoa/Cocoa.h>
-//#import <OpenGL/gl.h>
-//#import <OpenGL/glu.h>
+
 #include "imgui.h"
-#include "glad.h"
+#include "GTFOpenGLRHI.h"
+
+
+#include "IMGuiSetup.h"
+
 /*
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
 static float highDpiScale = 1.0;
@@ -31,12 +34,14 @@ static unsigned int g_backingWidth, g_backingHeight;*/
 @interface GTFOpenGLView : NSOpenGLView
 {
 @public
+    
     GTFWindow* cppWindowInterface;
     NSTimer *animationTimer;
 }
+-(id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format cppParent:(GTFWindow*)cppWin;
 @end
 
-NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title);
+NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title, unsigned int width, unsigned int height);
 
 struct GTFNativeWindow
 {
@@ -44,18 +49,26 @@ struct GTFNativeWindow
     GTFOpenGLView* view;
 };
 
-GTFWindow::GTFWindow(const char* title)
+GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height)
 {
     m_nativeWindow = new GTFNativeWindow;
-    m_nativeWindow->window = setupWindow(this, [NSString stringWithFormat:@"%s", title]);
+    NSString* nsTitle = [NSString stringWithFormat:@"%s", title];
+    m_nativeWindow->window = setupWindow(this, nsTitle, width, height);
     m_nativeWindow->view = [m_nativeWindow->window contentView];
 }
 
-NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title)
+NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title, unsigned int width, unsigned int height)
 {
-    NSWindow* targetWindow;
+    NSScreen *mainScreen = [NSScreen mainScreen];
+    NSRect screenRect = [mainScreen visibleFrame];
     
-    NSRect viewRect = NSMakeRect(100.0, 100.0, 1300.0, 800.0);
+    NSWindow* targetWindow;
+
+    CGFloat xPos = (screenRect.size.width/2) - (width/2);
+    CGFloat yPos = (screenRect.size.height/2) - (height/2);
+
+    
+    NSRect viewRect = NSMakeRect(xPos, yPos, width, height);
     
     targetWindow = [[NSWindow alloc] initWithContentRect:viewRect styleMask:NSTitledWindowMask|NSMiniaturizableWindowMask|NSResizableWindowMask|NSClosableWindowMask backing:NSBackingStoreBuffered defer:YES];
     [targetWindow setTitle:title];
@@ -74,7 +87,7 @@ NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title)
     };
     
     NSOpenGLPixelFormat *format = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
-    GTFOpenGLView *view = [[GTFOpenGLView alloc] initWithFrame:targetWindow.frame pixelFormat:format nativeParent: cppWindow];
+    GTFOpenGLView *view = [[GTFOpenGLView alloc] initWithFrame:targetWindow.frame pixelFormat:format cppParent:cppWindow];
     [format release];
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_6)
@@ -91,15 +104,19 @@ NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title)
     
     [[view openGLContext] makeCurrentContext];
     
-    if(!gladLoadGL())
+    RHI->init();
+    
+    /*if(!gladLoadGL())
     {
         NSLog(@"gladLoadGL :: Something went wrong!\n");
     }
     else
     {
         NSLog(@"OpenGL Version %d.%d\n", GLVersion.major, GLVersion.minor);
-    }
+    }*/
     
+    [targetWindow orderFrontRegardless];
+
     return targetWindow;
 }
 
@@ -112,7 +129,7 @@ NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title)
     [self setNeedsDisplay:YES];
 }
 
--(id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format nativeParent:(GTFWindow*)cppWin
+-(id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format cppParent:(GTFWindow*)cppWin
 {
     self = [super initWithFrame:frameRect pixelFormat:format];
     if (self)
@@ -139,7 +156,7 @@ NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title)
 
 - (void)drawView
 {
-    [self lockFocus];
+    //[self lockFocus];
     [[self openGLContext] makeCurrentContext];
     NSWindow *mainWindow = [self window];
     NSPoint mousePosition = [mainWindow mouseLocationOutsideOfEventStream];
@@ -152,30 +169,40 @@ NSWindow* setupWindow(GTFWindow* cppWindow, NSString* title)
     
     clock_t thisclock = clock();
     unsigned long clock_delay = thisclock - cppWindowInterface->m_lastClock;
-    double milliseconds = clock_delay * 1000.0f / CLOCKS_PER_SEC;
-    
+    //double milliseconds = clock_delay * 1000.0f / CLOCKS_PER_SEC;
+    double deltaTime = clock_delay / double(CLOCKS_PER_SEC);
     //draw here
-    
-    
-    
+
     cppWindowInterface->m_lastClock = thisclock;
     
-    cppWindowInterface->frame();
+    ImGuiIO& io = ImGui::GetIO();
+    io.DisplaySize = ImVec2((float)cppWindowInterface->m_windowWidth, (float)cppWindowInterface->m_windowHeight);
+    io.DeltaTime = deltaTime;
+    io.MousePos = ImVec2((float)cppWindowInterface->m_mouseCoords[0], (float)cppWindowInterface->m_mouseCoords[1]);
+    io.MouseDown[0] = cppWindowInterface->m_mousePressed[0];
+    io.MouseDown[1] = cppWindowInterface->m_mousePressed[1];
+    io.MouseDown[2] = cppWindowInterface->m_mousePressed[2];
+    ImGui::NewFrame();
     
+    cppWindowInterface->preFrame(deltaTime);
+    cppWindowInterface->frame(deltaTime);
+    cppWindowInterface->postFrame(deltaTime);
+    
+    ImGui::Render();
     [[self openGLContext] flushBuffer];
     
     
-    [self unlockFocus];
+    //[self unlockFocus];
     
     if (!animationTimer)
     {
-        animationTimer = [[NSTimer scheduledTimerWithTimeInterval:0.017 target:self selector:@selector(animationTimerFired:) userInfo:nil repeats:YES] retain];
+        animationTimer = [[NSTimer scheduledTimerWithTimeInterval:0.01666666 target:self selector:@selector(animationTimerFired:) userInfo:nil repeats:YES] retain];
     }
 }
 
 -(void)setViewportRect:(NSRect)bounds
 {
-    glViewport(0, 0, bounds.size.width, bounds.size.height);
+    RHI->viewport(0, 0, bounds.size.width, bounds.size.height);
     cppWindowInterface->m_windowWidth = bounds.size.width;
 	cppWindowInterface->m_windowHeight = bounds.size.height;
     
@@ -409,6 +436,7 @@ static void resetKeys()
 
 -(void)dealloc
 {
+    
     [super dealloc];
 }
 

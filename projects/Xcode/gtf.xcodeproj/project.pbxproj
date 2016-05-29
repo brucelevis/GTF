@@ -174,18 +174,32 @@
 		3F8CFBCF1CF3904300A33B95 /* tinyfiledialogs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F8CFB2A1CF3904300A33B95 /* tinyfiledialogs.h */; };
 		3F8CFBDF1CF391D600A33B95 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8CFBDC1CF391BE00A33B95 /* AppKit.framework */; };
 		3F8CFBF31CF3935100A33B95 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFBF21CF3935100A33B95 /* main.cpp */; };
-		3F8CFC031CF3948F00A33B95 /* GTFApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFBFD1CF3948F00A33B95 /* GTFApp.cpp */; };
-		3F8CFC041CF3948F00A33B95 /* GTFApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F8CFBFE1CF3948F00A33B95 /* GTFApp.h */; };
-		3F8CFC051CF3948F00A33B95 /* GTFWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFBFF1CF3948F00A33B95 /* GTFWindow.cpp */; };
-		3F8CFC061CF3948F00A33B95 /* GTFWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F8CFC001CF3948F00A33B95 /* GTFWindow.h */; };
-		3F8CFC071CF3948F00A33B95 /* GTFWindowMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFC011CF3948F00A33B95 /* GTFWindowMac.mm */; };
-		3F8CFC081CF3948F00A33B95 /* GTFWindowWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFC021CF3948F00A33B95 /* GTFWindowWin.cpp */; };
-		3F8CFC0B1CF394DD00A33B95 /* GTFAppMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFC091CF394DD00A33B95 /* GTFAppMac.mm */; };
 		3F8CFC121CF39B4400A33B95 /* libgtf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F20694F1CED0F0300EB5FFA /* libgtf.a */; };
 		3F8CFC131CF39B5000A33B95 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8CFBDC1CF391BE00A33B95 /* AppKit.framework */; };
 		3F8CFC151CF39B5600A33B95 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8CFC141CF39B5600A33B95 /* OpenGL.framework */; };
 		3F8CFC181CF78AFA00A33B95 /* NoiseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFC161CF78AFA00A33B95 /* NoiseApp.cpp */; };
 		3F8CFC1B1CF793BA00A33B95 /* NoiseWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFC191CF793BA00A33B95 /* NoiseWindow.cpp */; };
+		3F9ACC511CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC421CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp */; };
+		3F9ACC521CFA19FE00A4A254 /* GTFGUIGraphEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC431CFA19FE00A4A254 /* GTFGUIGraphEditor.h */; };
+		3F9ACC531CFA19FE00A4A254 /* ImGuiSetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC441CFA19FE00A4A254 /* ImGuiSetup.h */; };
+		3F9ACC541CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC451CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp */; };
+		3F9ACC551CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC461CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp */; };
+		3F9ACC561CFA19FE00A4A254 /* GTFApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC481CFA19FE00A4A254 /* GTFApp.cpp */; };
+		3F9ACC571CFA19FE00A4A254 /* GTFApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC491CFA19FE00A4A254 /* GTFApp.h */; };
+		3F9ACC581CFA19FE00A4A254 /* GTFAppMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC4A1CFA19FE00A4A254 /* GTFAppMac.mm */; };
+		3F9ACC591CFA19FE00A4A254 /* GTFAppWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC4B1CFA19FE00A4A254 /* GTFAppWin.cpp */; };
+		3F9ACC5A1CFA19FE00A4A254 /* GTFWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC4C1CFA19FE00A4A254 /* GTFWindow.cpp */; };
+		3F9ACC5B1CFA19FE00A4A254 /* GTFWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC4D1CFA19FE00A4A254 /* GTFWindow.h */; };
+		3F9ACC5C1CFA19FE00A4A254 /* GTFWindowMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC4E1CFA19FE00A4A254 /* GTFWindowMac.mm */; };
+		3F9ACC5D1CFA19FE00A4A254 /* GTFWindowWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC4F1CFA19FE00A4A254 /* GTFWindowWin.cpp */; };
+		3F9ACC601CFB0BD800A4A254 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC5E1CFB0BD700A4A254 /* PerlinNoise.cpp */; };
+		3F9ACC631CFB0C0E00A4A254 /* stb_image_write.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC611CFB0C0E00A4A254 /* stb_image_write.h */; };
+		3F9ACC641CFB0C0E00A4A254 /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC621CFB0C0E00A4A254 /* stb_image.h */; };
+		3F9ACC6A1CFB0CD700A4A254 /* GTFOpenGLRHI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC661CFB0CD700A4A254 /* GTFOpenGLRHI.h */; };
+		3F9ACC6B1CFB0CD700A4A254 /* GTFRHI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC671CFB0CD700A4A254 /* GTFRHI.cpp */; };
+		3F9ACC6C1CFB0CD700A4A254 /* GTFRHI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC681CFB0CD700A4A254 /* GTFRHI.h */; };
+		3F9ACC6E1CFB0CE200A4A254 /* GTFOpenGLRHI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC6D1CFB0CE200A4A254 /* GTFOpenGLRHI.cpp */; };
+		3F9ACC711CFB2A8400A4A254 /* GeneratorWorker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC6F1CFB2A8400A4A254 /* GeneratorWorker.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -480,19 +494,34 @@
 		3F8CFBDC1CF391BE00A33B95 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3F8CFBE41CF3928800A33B95 /* NoiseGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NoiseGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8CFBF21CF3935100A33B95 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		3F8CFBFD1CF3948F00A33B95 /* GTFApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFApp.cpp; sourceTree = "<group>"; };
-		3F8CFBFE1CF3948F00A33B95 /* GTFApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFApp.h; sourceTree = "<group>"; };
-		3F8CFBFF1CF3948F00A33B95 /* GTFWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFWindow.cpp; sourceTree = "<group>"; };
-		3F8CFC001CF3948F00A33B95 /* GTFWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFWindow.h; sourceTree = "<group>"; };
-		3F8CFC011CF3948F00A33B95 /* GTFWindowMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GTFWindowMac.mm; sourceTree = "<group>"; };
-		3F8CFC021CF3948F00A33B95 /* GTFWindowWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFWindowWin.cpp; sourceTree = "<group>"; };
-		3F8CFC091CF394DD00A33B95 /* GTFAppMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GTFAppMac.mm; sourceTree = "<group>"; };
-		3F8CFC0D1CF394F400A33B95 /* GTFAppWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFAppWin.cpp; sourceTree = "<group>"; };
 		3F8CFC141CF39B5600A33B95 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3F8CFC161CF78AFA00A33B95 /* NoiseApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoiseApp.cpp; sourceTree = "<group>"; };
 		3F8CFC171CF78AFA00A33B95 /* NoiseApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoiseApp.h; sourceTree = "<group>"; };
 		3F8CFC191CF793BA00A33B95 /* NoiseWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoiseWindow.cpp; sourceTree = "<group>"; };
 		3F8CFC1A1CF793BA00A33B95 /* NoiseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoiseWindow.h; sourceTree = "<group>"; };
+		3F9ACC421CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFGUIGraphEditor.cpp; sourceTree = "<group>"; };
+		3F9ACC431CFA19FE00A4A254 /* GTFGUIGraphEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFGUIGraphEditor.h; sourceTree = "<group>"; };
+		3F9ACC441CFA19FE00A4A254 /* ImGuiSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImGuiSetup.h; sourceTree = "<group>"; };
+		3F9ACC451CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiSetup_OGL3.cpp; sourceTree = "<group>"; };
+		3F9ACC461CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiSetup_Shared.cpp; sourceTree = "<group>"; };
+		3F9ACC481CFA19FE00A4A254 /* GTFApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFApp.cpp; sourceTree = "<group>"; };
+		3F9ACC491CFA19FE00A4A254 /* GTFApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFApp.h; sourceTree = "<group>"; };
+		3F9ACC4A1CFA19FE00A4A254 /* GTFAppMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GTFAppMac.mm; sourceTree = "<group>"; };
+		3F9ACC4B1CFA19FE00A4A254 /* GTFAppWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFAppWin.cpp; sourceTree = "<group>"; };
+		3F9ACC4C1CFA19FE00A4A254 /* GTFWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFWindow.cpp; sourceTree = "<group>"; };
+		3F9ACC4D1CFA19FE00A4A254 /* GTFWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFWindow.h; sourceTree = "<group>"; };
+		3F9ACC4E1CFA19FE00A4A254 /* GTFWindowMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GTFWindowMac.mm; sourceTree = "<group>"; };
+		3F9ACC4F1CFA19FE00A4A254 /* GTFWindowWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFWindowWin.cpp; sourceTree = "<group>"; };
+		3F9ACC5E1CFB0BD700A4A254 /* PerlinNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerlinNoise.cpp; sourceTree = "<group>"; };
+		3F9ACC5F1CFB0BD700A4A254 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerlinNoise.h; sourceTree = "<group>"; };
+		3F9ACC611CFB0C0E00A4A254 /* stb_image_write.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_write.h; sourceTree = "<group>"; };
+		3F9ACC621CFB0C0E00A4A254 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		3F9ACC661CFB0CD700A4A254 /* GTFOpenGLRHI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFOpenGLRHI.h; sourceTree = "<group>"; };
+		3F9ACC671CFB0CD700A4A254 /* GTFRHI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFRHI.cpp; sourceTree = "<group>"; };
+		3F9ACC681CFB0CD700A4A254 /* GTFRHI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFRHI.h; sourceTree = "<group>"; };
+		3F9ACC6D1CFB0CE200A4A254 /* GTFOpenGLRHI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFOpenGLRHI.cpp; sourceTree = "<group>"; };
+		3F9ACC6F1CFB2A8400A4A254 /* GeneratorWorker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeneratorWorker.cpp; sourceTree = "<group>"; };
+		3F9ACC701CFB2A8400A4A254 /* GeneratorWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneratorWorker.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -872,6 +901,8 @@
 		3F8CFB201CF3904300A33B95 /* stb */ = {
 			isa = PBXGroup;
 			children = (
+				3F9ACC611CFB0C0E00A4A254 /* stb_image_write.h */,
+				3F9ACC621CFB0C0E00A4A254 /* stb_image.h */,
 			);
 			path = stb;
 			sourceTree = "<group>";
@@ -918,6 +949,10 @@
 				3F8CFC171CF78AFA00A33B95 /* NoiseApp.h */,
 				3F8CFC191CF793BA00A33B95 /* NoiseWindow.cpp */,
 				3F8CFC1A1CF793BA00A33B95 /* NoiseWindow.h */,
+				3F9ACC5E1CFB0BD700A4A254 /* PerlinNoise.cpp */,
+				3F9ACC5F1CFB0BD700A4A254 /* PerlinNoise.h */,
+				3F9ACC6F1CFB2A8400A4A254 /* GeneratorWorker.cpp */,
+				3F9ACC701CFB2A8400A4A254 /* GeneratorWorker.h */,
 			);
 			path = NoiseGenerator;
 			sourceTree = "<group>";
@@ -925,16 +960,49 @@
 		3F8CFBFC1CF3948F00A33B95 /* gtf */ = {
 			isa = PBXGroup;
 			children = (
-				3F8CFC0D1CF394F400A33B95 /* GTFAppWin.cpp */,
-				3F8CFC091CF394DD00A33B95 /* GTFAppMac.mm */,
-				3F8CFBFD1CF3948F00A33B95 /* GTFApp.cpp */,
-				3F8CFBFE1CF3948F00A33B95 /* GTFApp.h */,
-				3F8CFC021CF3948F00A33B95 /* GTFWindowWin.cpp */,
-				3F8CFC011CF3948F00A33B95 /* GTFWindowMac.mm */,
-				3F8CFBFF1CF3948F00A33B95 /* GTFWindow.cpp */,
-				3F8CFC001CF3948F00A33B95 /* GTFWindow.h */,
+				3F9ACC411CFA19FE00A4A254 /* gui */,
+				3F9ACC471CFA19FE00A4A254 /* iosys */,
+				3F9ACC501CFA19FE00A4A254 /* render */,
 			);
 			path = gtf;
+			sourceTree = "<group>";
+		};
+		3F9ACC411CFA19FE00A4A254 /* gui */ = {
+			isa = PBXGroup;
+			children = (
+				3F9ACC421CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp */,
+				3F9ACC431CFA19FE00A4A254 /* GTFGUIGraphEditor.h */,
+				3F9ACC441CFA19FE00A4A254 /* ImGuiSetup.h */,
+				3F9ACC451CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp */,
+				3F9ACC461CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp */,
+			);
+			path = gui;
+			sourceTree = "<group>";
+		};
+		3F9ACC471CFA19FE00A4A254 /* iosys */ = {
+			isa = PBXGroup;
+			children = (
+				3F9ACC481CFA19FE00A4A254 /* GTFApp.cpp */,
+				3F9ACC491CFA19FE00A4A254 /* GTFApp.h */,
+				3F9ACC4A1CFA19FE00A4A254 /* GTFAppMac.mm */,
+				3F9ACC4B1CFA19FE00A4A254 /* GTFAppWin.cpp */,
+				3F9ACC4C1CFA19FE00A4A254 /* GTFWindow.cpp */,
+				3F9ACC4D1CFA19FE00A4A254 /* GTFWindow.h */,
+				3F9ACC4E1CFA19FE00A4A254 /* GTFWindowMac.mm */,
+				3F9ACC4F1CFA19FE00A4A254 /* GTFWindowWin.cpp */,
+			);
+			path = iosys;
+			sourceTree = "<group>";
+		};
+		3F9ACC501CFA19FE00A4A254 /* render */ = {
+			isa = PBXGroup;
+			children = (
+				3F9ACC6D1CFB0CE200A4A254 /* GTFOpenGLRHI.cpp */,
+				3F9ACC661CFB0CD700A4A254 /* GTFOpenGLRHI.h */,
+				3F9ACC671CFB0CD700A4A254 /* GTFRHI.cpp */,
+				3F9ACC681CFB0CD700A4A254 /* GTFRHI.h */,
+			);
+			path = render;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -952,9 +1020,11 @@
 				3F8CFBC91CF3904300A33B95 /* khrplatform.h in Headers */,
 				3F8CFBAE1CF3904300A33B95 /* mat3x2.hpp in Headers */,
 				3F8CFBBA1CF3904300A33B95 /* vector_relational.hpp in Headers */,
+				3F9ACC521CFA19FE00A4A254 /* GTFGUIGraphEditor.h in Headers */,
 				3F8CFB541CF3904300A33B95 /* type_vec1.hpp in Headers */,
 				3F8CFB431CF3904300A33B95 /* precision.hpp in Headers */,
 				3F8CFBC41CF3904300A33B95 /* stb_rect_pack.h in Headers */,
+				3F9ACC6C1CFB0CD700A4A254 /* GTFRHI.h in Headers */,
 				3F8CFBA61CF3904300A33B95 /* type_aligned.hpp in Headers */,
 				3F8CFB721CF3904300A33B95 /* closest_point.hpp in Headers */,
 				3F8CFB561CF3904300A33B95 /* type_vec3.hpp in Headers */,
@@ -999,12 +1069,12 @@
 				3F8CFB961CF3904300A33B95 /* projection.hpp in Headers */,
 				3F8CFBA51CF3904300A33B95 /* transform2.hpp in Headers */,
 				3F8CFB991CF3904300A33B95 /* raw_data.hpp in Headers */,
+				3F9ACC5B1CFA19FE00A4A254 /* GTFWindow.h in Headers */,
 				3F8CFB5F1CF3904300A33B95 /* constants.hpp in Headers */,
 				3F8CFBB31CF3904300A33B95 /* mat4x4.hpp in Headers */,
 				3F8CFB641CF3904300A33B95 /* matrix_inverse.hpp in Headers */,
 				3F8CFB4A1CF3904300A33B95 /* type_mat2x2.hpp in Headers */,
 				3F8CFB8D1CF3904300A33B95 /* mixed_product.hpp in Headers */,
-				3F8CFC041CF3948F00A33B95 /* GTFApp.h in Headers */,
 				3F8CFB741CF3904300A33B95 /* color_space_YCoCg.hpp in Headers */,
 				3F8CFBB71CF3904300A33B95 /* vec2.hpp in Headers */,
 				3F8CFBA41CF3904300A33B95 /* transform.hpp in Headers */,
@@ -1041,6 +1111,7 @@
 				3F8CFBC61CF3904300A33B95 /* stb_truetype.h in Headers */,
 				3F8CFB711CF3904300A33B95 /* bit.hpp in Headers */,
 				3F8CFB941CF3904300A33B95 /* perpendicular.hpp in Headers */,
+				3F9ACC531CFA19FE00A4A254 /* ImGuiSetup.h in Headers */,
 				3F8CFB9B1CF3904300A33B95 /* rotate_vector.hpp in Headers */,
 				3F8CFB771CF3904300A33B95 /* component_wise.hpp in Headers */,
 				3F8CFB571CF3904300A33B95 /* type_vec4.hpp in Headers */,
@@ -1065,10 +1136,12 @@
 				3F8CFB381CF3904300A33B95 /* func_packing.hpp in Headers */,
 				3F8CFB461CF3904300A33B95 /* type_gentype.hpp in Headers */,
 				3F8CFBAA1CF3904300A33B95 /* integer.hpp in Headers */,
+				3F9ACC571CFA19FE00A4A254 /* GTFApp.h in Headers */,
 				3F8CFB441CF3904300A33B95 /* setup.hpp in Headers */,
 				3F8CFB5A1CF3904300A33B95 /* fwd.hpp in Headers */,
 				3F8CFB9F1CF3904300A33B95 /* simd_quat.hpp in Headers */,
 				3F8CFB701CF3904300A33B95 /* associated_min_max.hpp in Headers */,
+				3F9ACC641CFB0C0E00A4A254 /* stb_image.h in Headers */,
 				3F8CFB5B1CF3904300A33B95 /* geometric.hpp in Headers */,
 				3F8CFB631CF3904300A33B95 /* matrix_integer.hpp in Headers */,
 				3F8CFB2E1CF3904300A33B95 /* _noise.hpp in Headers */,
@@ -1087,7 +1160,6 @@
 				3F8CFB5E1CF3904300A33B95 /* color_space.hpp in Headers */,
 				3F8CFB311CF3904300A33B95 /* _vectorize.hpp in Headers */,
 				3F8CFB9E1CF3904300A33B95 /* simd_mat4.hpp in Headers */,
-				3F8CFC061CF3948F00A33B95 /* GTFWindow.h in Headers */,
 				3F8CFBCD1CF3904300A33B95 /* tiny_obj_loader.h in Headers */,
 				3F8CFB481CF3904300A33B95 /* type_int.hpp in Headers */,
 				3F8CFB4F1CF3904300A33B95 /* type_mat3x4.hpp in Headers */,
@@ -1097,7 +1169,9 @@
 				3F8CFB5C1CF3904300A33B95 /* glm.hpp in Headers */,
 				3F8CFB2C1CF3904300A33B95 /* _features.hpp in Headers */,
 				3F8CFBC21CF3904300A33B95 /* imgui_internal.h in Headers */,
+				3F9ACC6A1CFB0CD700A4A254 /* GTFOpenGLRHI.h in Headers */,
 				3F8CFB551CF3904300A33B95 /* type_vec2.hpp in Headers */,
+				3F9ACC631CFB0C0E00A4A254 /* stb_image_write.h in Headers */,
 				3F8CFBB61CF3904300A33B95 /* trigonometric.hpp in Headers */,
 				3F8CFB761CF3904300A33B95 /* compatibility.hpp in Headers */,
 				3F8CFBAD1CF3904300A33B95 /* mat2x4.hpp in Headers */,
@@ -1174,20 +1248,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F8CFB3B1CF3904300A33B95 /* glm.cpp in Sources */,
+				3F9ACC6B1CFB0CD700A4A254 /* GTFRHI.cpp in Sources */,
 				3F8CFB321CF3904300A33B95 /* dummy.cpp in Sources */,
-				3F8CFC0B1CF394DD00A33B95 /* GTFAppMac.mm in Sources */,
 				3F8CFBC01CF3904300A33B95 /* imgui_extra_widgets.cpp in Sources */,
 				3F8CFBCA1CF3904300A33B95 /* mikktspace.cpp in Sources */,
+				3F9ACC541CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp in Sources */,
+				3F9ACC581CFA19FE00A4A254 /* GTFAppMac.mm in Sources */,
+				3F9ACC551CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp in Sources */,
+				3F9ACC5D1CFA19FE00A4A254 /* GTFWindowWin.cpp in Sources */,
 				3F8CFBBE1CF3904300A33B95 /* imgui_demo.cpp in Sources */,
-				3F8CFC031CF3948F00A33B95 /* GTFApp.cpp in Sources */,
+				3F9ACC561CFA19FE00A4A254 /* GTFApp.cpp in Sources */,
+				3F9ACC5C1CFA19FE00A4A254 /* GTFWindowMac.mm in Sources */,
 				3F8CFBCC1CF3904300A33B95 /* tiny_obj_loader.cc in Sources */,
 				3F8CFBBF1CF3904300A33B95 /* imgui_draw.cpp in Sources */,
-				3F8CFC071CF3948F00A33B95 /* GTFWindowMac.mm in Sources */,
 				3F8CFBBC1CF3904300A33B95 /* imgui.cpp in Sources */,
-				3F8CFC081CF3948F00A33B95 /* GTFWindowWin.cpp in Sources */,
 				3F8CFBC71CF3904300A33B95 /* glad.c in Sources */,
+				3F9ACC511CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp in Sources */,
+				3F9ACC5A1CFA19FE00A4A254 /* GTFWindow.cpp in Sources */,
+				3F9ACC591CFA19FE00A4A254 /* GTFAppWin.cpp in Sources */,
 				3F8CFBCE1CF3904300A33B95 /* tinyfiledialogs.c in Sources */,
-				3F8CFC051CF3948F00A33B95 /* GTFWindow.cpp in Sources */,
+				3F9ACC6E1CFB0CE200A4A254 /* GTFOpenGLRHI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1195,6 +1275,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9ACC711CFB2A8400A4A254 /* GeneratorWorker.cpp in Sources */,
+				3F9ACC601CFB0BD800A4A254 /* PerlinNoise.cpp in Sources */,
 				3F8CFC1B1CF793BA00A33B95 /* NoiseWindow.cpp in Sources */,
 				3F8CFC181CF78AFA00A33B95 /* NoiseApp.cpp in Sources */,
 				3F8CFBF31CF3935100A33B95 /* main.cpp in Sources */,
@@ -1244,6 +1326,9 @@
 					../../src/thirdparty/tinylibs,
 					../../src/thirdparty/stb,
 					../../external/FBX/2016.1.2/include,
+					../../src/render,
+					../../src/iosys,
+					../../src/gui,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OBJROOT = ../../intermediate;
@@ -1288,6 +1373,9 @@
 					../../src/thirdparty/tinylibs,
 					../../src/thirdparty/stb,
 					../../external/FBX/2016.1.2/include,
+					../../src/render,
+					../../src/iosys,
+					../../src/gui,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OBJROOT = ../../intermediate;
@@ -1300,6 +1388,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../src/thirdparty/glm,
+					../../src/thirdparty/imgui,
+					../../src/thirdparty/tinylibs,
+					../../src/thirdparty/stb,
+					../../external/FBX/2016.1.2/include,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1308,6 +1405,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../src/thirdparty/glm,
+					../../src/thirdparty/imgui,
+					../../src/thirdparty/tinylibs,
+					../../src/thirdparty/stb,
+					../../external/FBX/2016.1.2/include,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1315,7 +1421,6 @@
 		3F8CFBEB1CF3928900A33B95 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1337,7 +1442,6 @@
 		3F8CFBEC1CF3928900A33B95 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1380,6 +1484,7 @@
 				3F8CFBEC1CF3928900A33B95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

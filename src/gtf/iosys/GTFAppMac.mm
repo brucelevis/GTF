@@ -10,6 +10,9 @@
 #include "glad.h"
 #include "GTFWindow.h"
 #include "GTFApp.h"
+#include "imgui.h"
+#include "ImGuiSetup.h"
+#include "GTFOpenGLRHI.h"
 
 //GTFOpenGLView interface
 @interface GTFOpenGLView : NSOpenGLView
@@ -61,6 +64,8 @@
 
 - (void)dealloc
 {
+    ImGuiGL3_InvalidateDeviceObjects();
+    ImGui::Shutdown();
     [super dealloc];
 }
 
@@ -78,7 +83,14 @@
     //GTFWindow::createNew("test3");
     //GTFWindow::createNew("test4");
     
+    
+    
+    //[self.window orderFrontRegardless];
+
+    RHI = new MPOpenGLRHI();
     cppAppInterface->readyToStart();
+    
+    IMGUIExample_InitImGui();
     
 }
 
@@ -105,6 +117,8 @@ int GTFApp::run(int argc, const char * argv[])
     m_nativeApp->delegate->cppAppInterface = this;
     
     [[NSApplication sharedApplication] setDelegate:m_nativeApp->delegate];
+    [[NSApplication sharedApplication] activateIgnoringOtherApps : YES];
+    [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
     [NSApp run];
     return NSApplicationMain(argc, argv);
 }

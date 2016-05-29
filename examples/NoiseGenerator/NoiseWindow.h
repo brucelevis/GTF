@@ -7,10 +7,16 @@
 //
 
 #include "GTFWindow.h"
+#include "GeneratorWorker.h"
+#include "GTFRHI.h"
 
 class NoiseWindow : public GTFWindow
 {
 public:
-    NoiseWindow(const char* title) : GTFWindow(title){};
-    virtual void frame();
+    NoiseWindow(const char* title);
+    virtual void frame(double deltaTime) override;
+private:
+    GeneratorWorker* m_worker;
+    GeneratorInfo m_info;
+    GTFRHITexture2DPtr m_texture;
 };
