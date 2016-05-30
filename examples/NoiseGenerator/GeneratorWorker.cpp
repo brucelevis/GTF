@@ -8,6 +8,8 @@
 
 #include "GeneratorWorker.h"
 #include "PerlinNoise.h"
+#include "GTFGradient.h"
+
 #include <cmath>
 
 bool GeneratorWorker::update(GeneratorInfo& info)
@@ -46,6 +48,8 @@ void GeneratorWorker::run()
 {
     PerlinNoise pn(m_info.seed);
     
+    GTFGradient gradient;
+    
 	unsigned int kk = 0;
 	// Visit every pixel of the image and assign a color generated with Perlin noise
 	for(unsigned int i = 0; i < m_info.resY; ++i) {     // y
@@ -76,9 +80,15 @@ void GeneratorWorker::run()
             
 			// Map the values to the [0, 255] interval, for simplicity we use
 			// 50 shaders of grey
-			m_info.image[(kk*3)+0] = floor(255 * n);
-			m_info.image[(kk*3)+1] = floor(255 * n);
-			m_info.image[(kk*3)+2] = floor(255 * n);
+            float color[3];
+            gradient.getColorAt(n, color);
+            m_info.image[(kk*3)+0] = floor(255 * color[0]);
+			m_info.image[(kk*3)+1] = floor(255 * color[1]);
+			m_info.image[(kk*3)+2] = floor(255 * color[2]);
+            
+			//m_info.image[(kk*3)+0] = floor(255 * n);
+			//m_info.image[(kk*3)+1] = floor(255 * n);
+			//m_info.image[(kk*3)+2] = floor(255 * n);
 			kk++;
             
             

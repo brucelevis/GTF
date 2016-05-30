@@ -10,6 +10,9 @@
 
 #include "GTFRHI.h"
 #include "imgui.h"
+#define IMGUI_DEFINE_MATH_OPERATORS
+#include "imgui_internal.h"
+
 #include "GTFGUIGraphEditor.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
@@ -31,7 +34,7 @@ void NoiseWindow::frame(double deltaTime)
 {
 
     // Start the frame
-    /*static bool show_test_window = true;
+    /*
     static bool show_another_window = false;
     static ImVec4 clear_col = ImColor(114, 144, 154);
     
@@ -56,31 +59,39 @@ void NoiseWindow::frame(double deltaTime)
         ImGui::End();
     }
     
+     static bool graphOpened = true;
+     ShowExampleAppCustomNodeGraph(&graphOpened);*/
+     
     // 3. Show the ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
+    /*static bool show_test_window = true;
     if (show_test_window)
     {
         ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
         ImGui::ShowTestWindow(&show_test_window);
-    }
-    
-    static bool graphOpened = true;
-    ShowExampleAppCustomNodeGraph(&graphOpened);*/
-    
+    }*/
     
     ImGui::SetNextWindowPos(ImVec2(m_windowWidth - 420, 20), ImGuiSetCond_Always);
     ImGui::SetNextWindowSize(ImVec2(400, m_windowHeight - 40), ImGuiSetCond_Always);
-    ImGui::SetNextWindowFocus();
     ImGuiWindowFlags flags = 0;
     flags |= ImGuiWindowFlags_NoCollapse;
     flags |= ImGuiWindowFlags_NoMove;
     flags |= ImGuiWindowFlags_NoResize;
     flags |= ImGuiWindowFlags_NoTitleBar;
+    flags |= ImGuiWindowFlags_HorizontalScrollbar;
     
-    if(ImGui::Begin("Options", nullptr, flags))
+    ImGui::Begin("Options", nullptr, flags	);
     {
+    
         ImGui::Text("Options");
         ImGui::Separator();
         int seed = m_info.seed;
+        static unsigned int resList[] = {128, 256, 512, 1024, 2048};
+        static const char* resListStr[] = {"128", "256", "512", "1024", "2048"};
+        
+
+        m_info.dirty |= ImGui::Combo("Resolution", &m_currentRes, resListStr, 5);
+        m_info.resX = m_info.resY = resList[m_currentRes];
+        
         m_info.dirty |= ImGui::InputInt("Seed", &seed);
         m_info.seed = seed;
         m_info.dirty |= ImGui::SliderFloat("PanX", &m_info.panX, -1.0f, 20.0f, "%.2f");
@@ -100,7 +111,6 @@ void NoiseWindow::frame(double deltaTime)
         m_info.dirty |= ImGui::Checkbox("Is Wood", &m_info.wood);
         
 
-        
     }
     ImGui::End();
     
@@ -110,13 +120,22 @@ void NoiseWindow::frame(double deltaTime)
     if(ImGui::Begin("Texture", nullptr, flags))
     {
         ImGui::Image(reinterpret_cast<ImTextureID>(m_texture->getName()), ImVec2(m_info.resX, m_info.resY));
+        if(ImGui::IsWindowHovered() && !ImGui::IsAnyItemActive() && ImGui::IsMouseDragging(0, 0.0f))
+        {
+            ImVec2 scrolling = ImVec2(ImGui::GetScrollX(), ImGui::GetScrollY());
+            scrolling = scrolling - ImGui::GetIO().MouseDelta;
+            ImGui::SetScrollX(scrolling.x);
+            ImGui::SetScrollY(scrolling.y);
+        }
         
     }
     ImGui::End();
     
-    if(!ImGui::IsMouseDown(0) && m_worker->update(m_info))
+    
+    if(m_worker->update(m_info))
     {
-        m_texture->copyFromBuffer(m_info.image);
+        //m_texture->copyFromBuffer(m_info.image);
+        m_texture->setup(EGTFRHITexInternalFormat::RHI_RGB8, m_info.resX, m_info.resY, EGTFRHITexFormat::RHI_RGB, EGTFRHIValueType::RHI_UNSIGNED_BYTE, m_info.image);
         delete [] m_info.image;
     }
     

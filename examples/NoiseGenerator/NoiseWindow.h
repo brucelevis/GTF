@@ -19,4 +19,5 @@ private:
     GeneratorWorker* m_worker;
     GeneratorInfo m_info;
     GTFRHITexture2DPtr m_texture;
+    int m_currentRes { 2 };
 };
