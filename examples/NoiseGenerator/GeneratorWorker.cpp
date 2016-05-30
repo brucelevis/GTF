@@ -49,6 +49,15 @@ void GeneratorWorker::run()
     PerlinNoise pn(m_info.seed);
     
     GTFGradient gradient;
+    gradient.marks.clear();
+    gradient.addMark(0.0f, GTFColor(0xA0793D));
+    gradient.addMark(0.2f, GTFColor(0xAA8347));
+    gradient.addMark(0.3f, GTFColor(0xB48D51));
+    gradient.addMark(0.4f, GTFColor(0xBE975B));
+    gradient.addMark(0.6f, GTFColor(0xC8A165));
+    gradient.addMark(0.7f, GTFColor(0xD2AB6F));
+    gradient.addMark(0.8f, GTFColor(0xDCB579));
+    gradient.addMark(1.0f, GTFColor(0xE6BF83));
     
 	unsigned int kk = 0;
 	// Visit every pixel of the image and assign a color generated with Perlin noise
@@ -80,11 +89,9 @@ void GeneratorWorker::run()
             
 			// Map the values to the [0, 255] interval, for simplicity we use
 			// 50 shaders of grey
-            float color[3];
-            gradient.getColorAt(n, color);
-            m_info.image[(kk*3)+0] = floor(255 * color[0]);
-			m_info.image[(kk*3)+1] = floor(255 * color[1]);
-			m_info.image[(kk*3)+2] = floor(255 * color[2]);
+            GTFColor color = gradient.getColorAt(n);
+            color.asU8A(&m_info.image[(kk*3)+0]);
+            
             
 			//m_info.image[(kk*3)+0] = floor(255 * n);
 			//m_info.image[(kk*3)+1] = floor(255 * n);

@@ -115,7 +115,7 @@ void NoiseWindow::frame(double deltaTime)
     ImGui::End();
     
     ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(580, 680), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(m_windowWidth - 460, m_windowHeight - 40), ImGuiSetCond_Always);
     
     if(ImGui::Begin("Texture", nullptr, flags))
     {

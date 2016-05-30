@@ -9,21 +9,31 @@
 #pragma once
 
 #include <list>
+#include <memory>
+#include "GTFColor.h"
+#include "GTFLangUtils.h"
 
 
-struct GTFGradientMark
+typedef std::shared_ptr<class GTFGradientMark> GTFGradientMarkPtr;
+class GTFGradientMark
 {
-    float color[3];
+public:
+    static GTFGradientMarkPtr create() { return GTFGradientMarkPtr(new GTFGradientMark); }
+    GTFColor color;
     float position; //0 to 1
+private:
+    GTF_DEFAULT_CTORS_EMPTY_IMPL(GTFGradientMark)
 };
 
 class GTFGradient
 {
 public:
     GTFGradient();
-    void addMark(float position, float* color);
-    void removeMark(GTFGradientMark* mark);
-    void getColorAt(float position, float* color);
+    ~GTFGradient();
+    void addMark(float position, GTFColor color);
+    void removeMark(GTFGradientMarkPtr mark);
+    void reverseMarks();
+    GTFColor const getColorAt(float position);
     
-    std::list<GTFGradientMark*> marks;
+    std::list<GTFGradientMarkPtr> marks;
 };

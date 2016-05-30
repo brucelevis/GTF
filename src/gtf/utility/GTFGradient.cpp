@@ -7,44 +7,52 @@
 //
 
 #include "GTFGradient.h"
+#include "GTFColor.h"
 
 #include <string.h>
 #include <glm/glm.hpp>
 
 GTFGradient::GTFGradient()
 {
-    float black[3] = {0.2,0.2,0.0};
-    addMark(0.0f, black);
-    
-    float yellow[3] = {0.5,0.5,0.1};
-    addMark(0.2f, yellow);
-    
-    float white[3] = {1,1,0.8};
-    addMark(1.0f, white);
+    addMark(0.0f, GTFCOLORS::BLACK);
+    addMark(1.0f, GTFCOLORS::WHITE);
 }
 
-void GTFGradient::addMark(float position, float* color)
+GTFGradient::~GTFGradient()
 {
-    GTFGradientMark* newMark = new GTFGradientMark();
+    
+}
+
+void GTFGradient::reverseMarks()
+{
+    for(GTFGradientMarkPtr mark : marks)
+    {
+        mark->position = 1.0f - mark->position;
+    }
+}
+
+void GTFGradient::addMark(float position, GTFColor color)
+{
+    position = glm::clamp(position, 0.0f, 1.0f);
+    GTFGradientMarkPtr newMark = GTFGradientMark::create();
     newMark->position = position;
-    memcpy(newMark->color, color, sizeof(float) * 3);
+    newMark->color = color;
     marks.push_back(newMark);
 }
 
-void GTFGradient::removeMark(GTFGradientMark* mark)
+void GTFGradient::removeMark(GTFGradientMarkPtr mark)
 {
     marks.remove(mark);
-    delete mark;
 }
 
-void GTFGradient::getColorAt(float position, float* color)
+GTFColor const GTFGradient::getColorAt(float position)
 {
     position = glm::clamp(position, 0.0f, 1.0f);
     
-    GTFGradientMark* lower = nullptr;
-    GTFGradientMark* upper = nullptr;
+    GTFGradientMarkPtr lower = nullptr;
+    GTFGradientMarkPtr upper = nullptr;
     
-    for(GTFGradientMark* mark : marks)
+    for(GTFGradientMarkPtr mark : marks)
     {
         if(mark->position < position)
         {
@@ -74,25 +82,20 @@ void GTFGradient::getColorAt(float position, float* color)
     else if(!lower && !upper)
     {
         //color[0] = color[1] = color[2] = 0;
-        return;
+        return GTFColor(0.0f);
     }
     
     if(upper == lower)
     {
-        memcpy(color, upper->color, sizeof(float) * 3);
-        return;
+        return upper->color;
     }
     else
     {
-        glm::vec3 colorA(lower->color[0], lower->color[1], lower->color[2]);
-        glm::vec3 colorB(upper->color[0], upper->color[1], upper->color[2]);
         float distance = upper->position - lower->position;
         float delta = (position - lower->position) / distance;
         
         //lerp
-        glm::vec3 finalColor = ((1.0f - delta) * colorA) + ((delta) * colorB);
-        color[0] = finalColor.x;
-        color[1] = finalColor.y;
-        color[2] = finalColor.z;
+        GTFColor finalColor = ((1.0f - delta) * lower->color) + ((delta) * upper->color);
+        return finalColor;
     }
 }

@@ -11,6 +11,10 @@
 		3F102EB51CFC828D00A11E17 /* GTFGUIGradientPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102EB31CFC828D00A11E17 /* GTFGUIGradientPicker.h */; };
 		3F102EBA1CFC82F100A11E17 /* GTFGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102EB81CFC82F100A11E17 /* GTFGradient.h */; };
 		3F102EBB1CFC870100A11E17 /* GTFGradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102EB71CFC82F100A11E17 /* GTFGradient.cpp */; };
+		3F102EBE1CFCB8D900A11E17 /* GTFColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102EBC1CFCB8D900A11E17 /* GTFColor.cpp */; };
+		3F102EBF1CFCB8D900A11E17 /* GTFColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102EBD1CFCB8D900A11E17 /* GTFColor.h */; };
+		3F102EC21CFCD8DF00A11E17 /* GTFLangUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102EC01CFCD8DF00A11E17 /* GTFLangUtils.cpp */; };
+		3F102EC31CFCD8DF00A11E17 /* GTFLangUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102EC11CFCD8DF00A11E17 /* GTFLangUtils.h */; };
 		3F8CFBBB1CF3904300A33B95 /* imconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F8CFB131CF3904200A33B95 /* imconfig.h */; };
 		3F8CFBBC1CF3904300A33B95 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFB141CF3904200A33B95 /* imgui.cpp */; };
 		3F8CFBBD1CF3904300A33B95 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F8CFB151CF3904200A33B95 /* imgui.h */; };
@@ -79,6 +83,10 @@
 		3F102EB31CFC828D00A11E17 /* GTFGUIGradientPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFGUIGradientPicker.h; sourceTree = "<group>"; };
 		3F102EB71CFC82F100A11E17 /* GTFGradient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFGradient.cpp; sourceTree = "<group>"; };
 		3F102EB81CFC82F100A11E17 /* GTFGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFGradient.h; sourceTree = "<group>"; };
+		3F102EBC1CFCB8D900A11E17 /* GTFColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFColor.cpp; sourceTree = "<group>"; };
+		3F102EBD1CFCB8D900A11E17 /* GTFColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFColor.h; sourceTree = "<group>"; };
+		3F102EC01CFCD8DF00A11E17 /* GTFLangUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFLangUtils.cpp; sourceTree = "<group>"; };
+		3F102EC11CFCD8DF00A11E17 /* GTFLangUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFLangUtils.h; sourceTree = "<group>"; };
 		3F20694F1CED0F0300EB5FFA /* libgtf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgtf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8CFB131CF3904200A33B95 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
 		3F8CFB141CF3904200A33B95 /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
@@ -162,6 +170,10 @@
 			children = (
 				3F102EB71CFC82F100A11E17 /* GTFGradient.cpp */,
 				3F102EB81CFC82F100A11E17 /* GTFGradient.h */,
+				3F102EBC1CFCB8D900A11E17 /* GTFColor.cpp */,
+				3F102EBD1CFCB8D900A11E17 /* GTFColor.h */,
+				3F102EC01CFCD8DF00A11E17 /* GTFLangUtils.cpp */,
+				3F102EC11CFCD8DF00A11E17 /* GTFLangUtils.h */,
 			);
 			path = utility;
 			sourceTree = "<group>";
@@ -358,6 +370,7 @@
 				3F8CFBCF1CF3904300A33B95 /* tinyfiledialogs.h in Headers */,
 				3F9ACC5B1CFA19FE00A4A254 /* GTFWindow.h in Headers */,
 				3F8CFBCB1CF3904300A33B95 /* mikktspace.h in Headers */,
+				3F102EBF1CFCB8D900A11E17 /* GTFColor.h in Headers */,
 				3F102EBA1CFC82F100A11E17 /* GTFGradient.h in Headers */,
 				3F102EB51CFC828D00A11E17 /* GTFGUIGradientPicker.h in Headers */,
 				3F8CFBC51CF3904300A33B95 /* stb_textedit.h in Headers */,
@@ -365,6 +378,7 @@
 				3F9ACC531CFA19FE00A4A254 /* ImGuiSetup.h in Headers */,
 				3F8CFBC11CF3904300A33B95 /* imgui_extra_widgets.h in Headers */,
 				3F8CFBBB1CF3904300A33B95 /* imconfig.h in Headers */,
+				3F102EC31CFCD8DF00A11E17 /* GTFLangUtils.h in Headers */,
 				3F9ACC571CFA19FE00A4A254 /* GTFApp.h in Headers */,
 				3F9ACC641CFB0C0E00A4A254 /* stb_image.h in Headers */,
 				3F8CFBBD1CF3904300A33B95 /* imgui.h in Headers */,
@@ -452,6 +466,7 @@
 				3F9ACC581CFA19FE00A4A254 /* GTFAppMac.mm in Sources */,
 				3F9ACC551CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp in Sources */,
 				3F9ACC5D1CFA19FE00A4A254 /* GTFWindowWin.cpp in Sources */,
+				3F102EBE1CFCB8D900A11E17 /* GTFColor.cpp in Sources */,
 				3F8CFBBE1CF3904300A33B95 /* imgui_demo.cpp in Sources */,
 				3F9ACC561CFA19FE00A4A254 /* GTFApp.cpp in Sources */,
 				3F9ACC5C1CFA19FE00A4A254 /* GTFWindowMac.mm in Sources */,
@@ -461,6 +476,7 @@
 				3F8CFBBC1CF3904300A33B95 /* imgui.cpp in Sources */,
 				3F8CFBC71CF3904300A33B95 /* glad.c in Sources */,
 				3F9ACC511CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp in Sources */,
+				3F102EC21CFCD8DF00A11E17 /* GTFLangUtils.cpp in Sources */,
 				3F102EB41CFC828D00A11E17 /* GTFGUIGradientPicker.cpp in Sources */,
 				3F9ACC5A1CFA19FE00A4A254 /* GTFWindow.cpp in Sources */,
 				3F9ACC591CFA19FE00A4A254 /* GTFAppWin.cpp in Sources */,
