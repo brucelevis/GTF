@@ -70,6 +70,9 @@ void NoiseWindow::frame(double deltaTime)
         ImGui::ShowTestWindow(&show_test_window);
     }*/
     
+    static bool graphOpened = true;
+    ShowExampleAppCustomNodeGraph(&graphOpened);
+    
     ImGui::SetNextWindowPos(ImVec2(m_windowWidth - 420, 20), ImGuiSetCond_Always);
     ImGui::SetNextWindowSize(ImVec2(400, m_windowHeight - 40), ImGuiSetCond_Always);
     ImGuiWindowFlags flags = 0;

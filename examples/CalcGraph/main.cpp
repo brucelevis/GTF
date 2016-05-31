@@ -2,7 +2,7 @@
 //  main.cpp
 //  gtf
 //
-//  Created by David Gallardo on 23/05/16.
+//  Created by David Gallardo on 31/05/16.
 //  Copyright (c) 2016 GTF Development Group. All rights reserved.
 //
 
@@ -10,14 +10,14 @@
 
 
 #include "GTFApp.h"
-#include "NoiseWindow.h"
+#include "CalcWindow.h"
 
-class NoiseApp : public GTFApp
+class CalcApp : public GTFApp
 {
 public:
     virtual void readyToStart()
     {
-        m_window = new NoiseWindow("NoiseGenerator");
+        m_window = new NoiseWindow("CalcGraph");
     }
 private:
     GTFWindow* m_window;

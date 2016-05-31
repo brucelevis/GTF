@@ -49,6 +49,8 @@ enum ConnectionType
 	ConnectionType_Vec3,
 	ConnectionType_Float,
 	ConnectionType_Int,
+    ConnectionType_Texture_R8,
+    ConnectionType_Texture_RGB8
 };
 
 

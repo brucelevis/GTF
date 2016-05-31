@@ -15,13 +15,15 @@ public:
     
     GTFColor();
     //explicit GTFColor(float rgb);
-    explicit GTFColor(float r, float g, float b, float a = 1.0f);
-    explicit GTFColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
+    GTFColor(float r, float g, float b, float a = 1.0f);
+    GTFColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
     explicit GTFColor(unsigned int hexARGB);
     float* asF32A(float* color, bool includeAlpha = false);
     unsigned int asHEX( bool includeAlpha = false);
     unsigned char* asU8A(unsigned char* color, bool includeAlpha = false);
-
+    
+    //TODO: HSV, static helpers
+    
     //rgba
     float r;
     float g;
