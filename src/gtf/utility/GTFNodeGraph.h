@@ -6,93 +6,152 @@
 //  Copyright (c) 2016 GTF Development Group. All rights reserved.
 //
 
-#define GTF_MAX_NODE_CONNECTION_COUNT 32
+#pragma once
 
 #include <functional>
 #include <list>
 #include <vector>
+#include <map>
 
 #include "GTFUniqueId.h"
+#include "GTFRHI.h"
 
-/*
-enum class GTFNodeConnectionType : unsigned char
-{
-	NCT_Color,
-	NCT_Vec3,
-	NCT_Float,
-	NCT_Int,
-    NCT_Texture_R8,
-    NCT_Texture_RGB8,
-    NCT_RESERVED0,
-    NCT_RESERVED1,
-    NCT_RESERVED2,
-    NCT_RESERVED3
-};*/
 
-struct GTFNodeConnectionType
+class GTFNodeConnectionDescBase
 {
 public:
-    GTFUniqueId conTypeId;
-    bool operator==(GTFNodeConnectionType const & other) const { return other.conTypeId == conTypeId; };
+    inline GTFNodeConnectionDescBase( GTFUniqueId _t, std::string const & _n)
+    : unique_id(_t)
+    ,  displayName(_n){}
+    
+    std::string displayName;
+    GTFUniqueId unique_id;
+    bool checkType(GTFNodeConnectionDescBase const * other) const { return other->unique_id == unique_id; }
+    
+    virtual class GTFNodeConnectionBase* createConnectionInstance(bool _input) = 0;
 };
 
-struct GTFNodeConnectionDesc
+class GTFNodeTypeBase
 {
 public:
-    inline GTFNodeConnectionDesc(std::string const & _n, GTFNodeConnectionType const & _t)
-    : name(_n)
-    , type(_t) { }
-    std::string name;
-    GTFNodeConnectionType type;
-    bool isInput { false };
-    bool checkType(GTFNodeConnectionDesc const & other) const { return other.type == type; }
-};
-
-struct GTFNodeType
-{
-public:
+    inline GTFNodeTypeBase(GTFUniqueId uid, std::string name)
+    : unique_id(uid)
+    , displayName(name){};
+    
 	GTFUniqueId unique_id;
-	GTFNodeConnectionDesc inputConnections[GTF_MAX_NODE_CONNECTION_COUNT];
-	GTFNodeConnectionDesc outputConnections[GTF_MAX_NODE_CONNECTION_COUNT];
-    std::function<void(class GTFNodeType*, class GTFNode*)> drawBodyFunction { nullptr };
+    std::string displayName;
+    std::vector<GTFNodeConnectionDescBase*> inputConnectionsDesc;
+	std::vector<GTFNodeConnectionDescBase*> outputConnectionsDesc;
+    virtual class GTFNode* createNodeInstance() = 0;
+    
 };
 
-
-struct GTFNodeConnection
+class GTFNodeConnectionBase
 {
-	GTFNodeConnectionDesc desc;
-    
-	inline GTFNodeConnection(GTFNodeConnectionDesc _desc)
+public:
+	inline GTFNodeConnectionBase(GTFNodeConnectionDescBase const * _desc, bool _input)
     : desc(_desc)
-	{
-		input = nullptr;
-	}
+    , isInput(_input){};
     
-    union
-    {
-        GTFNodeConnection* input;
-        std::list<GTFNodeConnection*> output;
-    };
+    virtual ~GTFNodeConnectionBase(){};
+    
+    int posX, posY;
+    bool isInput;
+    bool isReady;
+    bool isDirty;
+    
+    GTFNodeConnectionDescBase const * desc;
+    
+    //connections
+    
+    GTFNodeConnectionBase* input { nullptr };
+    std::list<GTFNodeConnectionBase*> output;
+    
 };
+
+template <typename T> class GTFNodeConnection : public GTFNodeConnectionBase
+{
+public:
+    inline GTFNodeConnection(GTFNodeConnectionDescBase const * _desc, bool _input)
+    : GTFNodeConnectionBase(_desc, _input){};
+    
+    using PTR_TYPE = GTFNodeConnection<T>*;
+    
+    T data { 0 };
+    
+    static PTR_TYPE CAST(GTFNodeConnectionBase* con){ return dynamic_cast<PTR_TYPE>(con); };
+};
+
+using GTFNodeConnectionI32 = GTFNodeConnection<int32_t>;
+using GTFNodeConnectionU32 = GTFNodeConnection<uint32_t>;
+using GTFNodeConnectionF32 = GTFNodeConnection<float>;
+using GTFNodeConnectionF32V3 = GTFNodeConnection<float[3]>;
 
 class GTFNode
 {
 public:
-    GTFNode(GTFUniqueId _typeId);
+    virtual void update() = 0;
     
-    GTFUniqueId typeId;
     int posX, posY;
+    int width, height;
+    bool dirty;
+    unsigned int nodeId;
+    GTFNodeTypeBase const * type;
     std::string name;
-	std::vector<GTFNodeConnection*> inputConnections;
-	std::vector<GTFNodeConnection*> outputConnections;
+	std::vector<GTFNodeConnectionBase*> inputConnections;
+	std::vector<GTFNodeConnectionBase*> outputConnections;
+};
+
+template <typename CON_T> class GTFNodeConnectionDesc : public GTFNodeConnectionDescBase
+{
+public:
+    inline GTFNodeConnectionDesc(GTFUniqueId _t, std::string const & _dn)
+    : GTFNodeConnectionDescBase(_t, _dn){};
+    
+    GTFNodeConnectionBase* createConnectionInstance(bool _input) override
+    {
+        GTFNodeConnectionBase * con = new CON_T(this, _input);
+        con->desc = this;
+        return con;
+    };
+};
+
+template <typename NODE_T> class GTFNodeType : public GTFNodeTypeBase
+{
+public:
+    inline GTFNodeType(GTFUniqueId uid, std::string name) : GTFNodeTypeBase(uid, name){};
+    GTFNode* createNodeInstance() override
+    {
+        GTFNode* node = new NODE_T();
+        node->type = this;
+        return node;
+    };
+};
+
+class GTFNodeGraphType
+{
+public:
+    GTFNodeGraphType(GTFUniqueId graphId) : unique_id(graphId){};
+    
+    void registerNodeType(GTFNodeTypeBase* nodeType);
+
+    std::map<GTFUniqueId, GTFNodeTypeBase*> nodeTypeRegistry;
+    
+    GTFUniqueId unique_id;
 };
 
 class GTFNodeGraph
 {
 public:
-    void registerConnectionType(GTFNodeConnectionType const & connectionType);
-    void registerNodeType(GTFNodeType* nodeType);
+    GTFNodeGraph(GTFNodeGraphType* type) : m_graphType(type){};
+    virtual ~GTFNodeGraph();
+    virtual GTFNode* createNode(GTFUniqueId typeId, int atX, int atY);
+    virtual void updateNodes();
+    virtual void updateGUI() = 0;
     
+protected:
+    GTFNodeGraphType * m_graphType { nullptr };
     std::list<GTFNode*> nodeList;
     
+    unsigned int nodeCounter {0};
 };

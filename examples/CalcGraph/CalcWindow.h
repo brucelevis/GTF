@@ -9,8 +9,15 @@
 #pragma once
 
 #include "GTFWindow.h"
+#include "CalcNodeGraph.h"
 
 class CalcWindow : public GTFWindow
 {
+public:
+    CalcWindow(const char* title);
+    ~CalcWindow();
+    virtual void frame(double deltaTime) override;
     
+    GTFNodeGraphType* calcGraphType;
+    CalcNodeGraph* calcGraphInstance;
 };

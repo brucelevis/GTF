@@ -21,12 +21,14 @@
 		3F102ED71CFE276600A11E17 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102ED51CFE276600A11E17 /* main.cpp */; };
 		3F102EDA1CFE27E400A11E17 /* CalcWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102ED81CFE27E400A11E17 /* CalcWindow.cpp */; };
 		3F102EDD1CFE27F900A11E17 /* CalcNodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102EDB1CFE27F900A11E17 /* CalcNodes.cpp */; };
-		3F102EE01CFE282100A11E17 /* GTFNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102EDE1CFE282100A11E17 /* GTFNodeGraph.cpp */; };
-		3F102EE11CFE282100A11E17 /* GTFNodeGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102EDF1CFE282100A11E17 /* GTFNodeGraph.h */; };
 		3F102EE41CFE38E600A11E17 /* GTFUniqueId.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102EE21CFE38E600A11E17 /* GTFUniqueId.cpp */; };
 		3F102EE51CFE38E600A11E17 /* GTFUniqueId.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102EE31CFE38E600A11E17 /* GTFUniqueId.h */; };
 		3F102F921CFE399B00A11E17 /* GTFCRC32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102F901CFE399B00A11E17 /* GTFCRC32.cpp */; };
 		3F102F931CFE399B00A11E17 /* GTFCRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102F911CFE399B00A11E17 /* GTFCRC32.h */; };
+		3F69E60E1CFEDB3500EF4639 /* GTFErrorHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */; };
+		3F69E6111D001B8C00EF4639 /* CalcNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */; };
+		3F69E6141D0039D200EF4639 /* GTFNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E6121D0039D200EF4639 /* GTFNodeGraph.cpp */; };
+		3F69E6151D0039D200EF4639 /* GTFNodeGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F69E6131D0039D200EF4639 /* GTFNodeGraph.h */; };
 		3F8CFBBB1CF3904300A33B95 /* imconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F8CFB131CF3904200A33B95 /* imconfig.h */; };
 		3F8CFBBC1CF3904300A33B95 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFB141CF3904200A33B95 /* imgui.cpp */; };
 		3F8CFBBD1CF3904300A33B95 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F8CFB151CF3904200A33B95 /* imgui.h */; };
@@ -113,13 +115,16 @@
 		3F102ED91CFE27E400A11E17 /* CalcWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcWindow.h; sourceTree = "<group>"; };
 		3F102EDB1CFE27F900A11E17 /* CalcNodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalcNodes.cpp; sourceTree = "<group>"; };
 		3F102EDC1CFE27F900A11E17 /* CalcNodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcNodes.h; sourceTree = "<group>"; };
-		3F102EDE1CFE282100A11E17 /* GTFNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFNodeGraph.cpp; sourceTree = "<group>"; };
-		3F102EDF1CFE282100A11E17 /* GTFNodeGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFNodeGraph.h; sourceTree = "<group>"; };
 		3F102EE21CFE38E600A11E17 /* GTFUniqueId.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFUniqueId.cpp; sourceTree = "<group>"; };
 		3F102EE31CFE38E600A11E17 /* GTFUniqueId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFUniqueId.h; sourceTree = "<group>"; };
 		3F102F901CFE399B00A11E17 /* GTFCRC32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = GTFCRC32.cpp; sourceTree = "<group>"; };
 		3F102F911CFE399B00A11E17 /* GTFCRC32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFCRC32.h; sourceTree = "<group>"; };
 		3F20694F1CED0F0300EB5FFA /* libgtf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgtf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFErrorHandling.h; sourceTree = "<group>"; };
+		3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalcNodeGraph.cpp; sourceTree = "<group>"; };
+		3F69E6101D001B8C00EF4639 /* CalcNodeGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcNodeGraph.h; sourceTree = "<group>"; };
+		3F69E6121D0039D200EF4639 /* GTFNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFNodeGraph.cpp; sourceTree = "<group>"; };
+		3F69E6131D0039D200EF4639 /* GTFNodeGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFNodeGraph.h; sourceTree = "<group>"; };
 		3F8CFB131CF3904200A33B95 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
 		3F8CFB141CF3904200A33B95 /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
 		3F8CFB151CF3904200A33B95 /* imgui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui.h; sourceTree = "<group>"; };
@@ -208,18 +213,19 @@
 		3F102EB61CFC82C600A11E17 /* utility */ = {
 			isa = PBXGroup;
 			children = (
+				3F69E6121D0039D200EF4639 /* GTFNodeGraph.cpp */,
+				3F69E6131D0039D200EF4639 /* GTFNodeGraph.h */,
 				3F102EB71CFC82F100A11E17 /* GTFGradient.cpp */,
 				3F102EB81CFC82F100A11E17 /* GTFGradient.h */,
 				3F102EBC1CFCB8D900A11E17 /* GTFColor.cpp */,
 				3F102EBD1CFCB8D900A11E17 /* GTFColor.h */,
 				3F102EC01CFCD8DF00A11E17 /* GTFLangUtils.cpp */,
 				3F102EC11CFCD8DF00A11E17 /* GTFLangUtils.h */,
-				3F102EDE1CFE282100A11E17 /* GTFNodeGraph.cpp */,
-				3F102EDF1CFE282100A11E17 /* GTFNodeGraph.h */,
 				3F102EE21CFE38E600A11E17 /* GTFUniqueId.cpp */,
 				3F102EE31CFE38E600A11E17 /* GTFUniqueId.h */,
 				3F102F901CFE399B00A11E17 /* GTFCRC32.cpp */,
 				3F102F911CFE399B00A11E17 /* GTFCRC32.h */,
+				3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */,
 			);
 			path = utility;
 			sourceTree = "<group>";
@@ -232,6 +238,8 @@
 				3F102ED91CFE27E400A11E17 /* CalcWindow.h */,
 				3F102EDB1CFE27F900A11E17 /* CalcNodes.cpp */,
 				3F102EDC1CFE27F900A11E17 /* CalcNodes.h */,
+				3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */,
+				3F69E6101D001B8C00EF4639 /* CalcNodeGraph.h */,
 			);
 			path = CalcGraph;
 			sourceTree = "<group>";
@@ -428,13 +436,14 @@
 				3F9ACC531CFA19FE00A4A254 /* ImGuiSetup.h in Headers */,
 				3F102F931CFE399B00A11E17 /* GTFCRC32.h in Headers */,
 				3F8CFBC11CF3904300A33B95 /* imgui_extra_widgets.h in Headers */,
-				3F102EE11CFE282100A11E17 /* GTFNodeGraph.h in Headers */,
 				3F8CFBBB1CF3904300A33B95 /* imconfig.h in Headers */,
 				3F102EC31CFCD8DF00A11E17 /* GTFLangUtils.h in Headers */,
 				3F9ACC571CFA19FE00A4A254 /* GTFApp.h in Headers */,
 				3F9ACC641CFB0C0E00A4A254 /* stb_image.h in Headers */,
 				3F8CFBBD1CF3904300A33B95 /* imgui.h in Headers */,
 				3F8CFBCD1CF3904300A33B95 /* tiny_obj_loader.h in Headers */,
+				3F69E6151D0039D200EF4639 /* GTFNodeGraph.h in Headers */,
+				3F69E60E1CFEDB3500EF4639 /* GTFErrorHandling.h in Headers */,
 				3F8CFBC81CF3904300A33B95 /* glad.h in Headers */,
 				3F8CFBC21CF3904300A33B95 /* imgui_internal.h in Headers */,
 				3F9ACC6A1CFB0CD700A4A254 /* GTFOpenGLRHI.h in Headers */,
@@ -531,6 +540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F102EDD1CFE27F900A11E17 /* CalcNodes.cpp in Sources */,
+				3F69E6111D001B8C00EF4639 /* CalcNodeGraph.cpp in Sources */,
 				3F102EDA1CFE27E400A11E17 /* CalcWindow.cpp in Sources */,
 				3F102ED71CFE276600A11E17 /* main.cpp in Sources */,
 			);
@@ -550,7 +560,6 @@
 				3F102EBE1CFCB8D900A11E17 /* GTFColor.cpp in Sources */,
 				3F8CFBBE1CF3904300A33B95 /* imgui_demo.cpp in Sources */,
 				3F9ACC561CFA19FE00A4A254 /* GTFApp.cpp in Sources */,
-				3F102EE01CFE282100A11E17 /* GTFNodeGraph.cpp in Sources */,
 				3F9ACC5C1CFA19FE00A4A254 /* GTFWindowMac.mm in Sources */,
 				3F102EE41CFE38E600A11E17 /* GTFUniqueId.cpp in Sources */,
 				3F8CFBCC1CF3904300A33B95 /* tiny_obj_loader.cc in Sources */,
@@ -559,6 +568,7 @@
 				3F8CFBBC1CF3904300A33B95 /* imgui.cpp in Sources */,
 				3F8CFBC71CF3904300A33B95 /* glad.c in Sources */,
 				3F9ACC511CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp in Sources */,
+				3F69E6141D0039D200EF4639 /* GTFNodeGraph.cpp in Sources */,
 				3F102EC21CFCD8DF00A11E17 /* GTFLangUtils.cpp in Sources */,
 				3F102EB41CFC828D00A11E17 /* GTFGUIGradientPicker.cpp in Sources */,
 				3F9ACC5A1CFA19FE00A4A254 /* GTFWindow.cpp in Sources */,

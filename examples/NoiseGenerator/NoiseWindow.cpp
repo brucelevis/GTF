@@ -73,14 +73,16 @@ void NoiseWindow::frame(double deltaTime)
     static bool graphOpened = true;
     ShowExampleAppCustomNodeGraph(&graphOpened);
     
-    ImGui::SetNextWindowPos(ImVec2(m_windowWidth - 420, 20), ImGuiSetCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(400, m_windowHeight - 40), ImGuiSetCond_Always);
+    
     ImGuiWindowFlags flags = 0;
     flags |= ImGuiWindowFlags_NoCollapse;
     flags |= ImGuiWindowFlags_NoMove;
     flags |= ImGuiWindowFlags_NoResize;
     flags |= ImGuiWindowFlags_NoTitleBar;
     flags |= ImGuiWindowFlags_HorizontalScrollbar;
+    
+    ImGui::SetNextWindowPos(ImVec2(m_windowWidth - 420, 20), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(400, m_windowHeight - 40), ImGuiSetCond_Always);
     
     ImGui::Begin("Options", nullptr, flags	);
     {

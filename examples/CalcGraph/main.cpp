@@ -17,7 +17,7 @@ class CalcApp : public GTFApp
 public:
     virtual void readyToStart()
     {
-        m_window = new NoiseWindow("CalcGraph");
+        m_window = new CalcWindow("CalcGraph");
     }
 private:
     GTFWindow* m_window;
@@ -25,6 +25,6 @@ private:
 
 int main(int argc, const char * argv[])
 {
-    GTFApp* app = new NoiseApp();
+    GTFApp* app = new CalcApp();
     return app->run(argc, argv);
 }

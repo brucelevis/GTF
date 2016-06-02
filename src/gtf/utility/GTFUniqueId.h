@@ -10,10 +10,10 @@
 
 #include <string>
 #include <cstdint>
+#include "GTFCRC32.h"
 
-
-#define GTF_UNIQUEID(__str) (BName(bone_crc32::WSID_CONST(__str), __str))
-#define GTF_HASH(__str) (bone_crc32::WSID_CONST(__str))
+#define GTF_UID(__str) (GTFUniqueId(gtfcrc32::WSID_CONST(__str), __str))
+#define GTF_HASH(__str) (gtfcrc32::WSID_CONST(__str))
 
 //typedef BHashMap<U32, BString> BNameRegistry;
 
