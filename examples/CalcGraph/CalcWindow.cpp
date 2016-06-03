@@ -72,7 +72,19 @@ void CalcWindow::frame(double deltaTime)
     
     ImGui::Begin("NodeProperties", nullptr, flags	);
     {
+        ImGui::Text("Node Properties");
+        ImGui::Separator();
         
+        if(calcGraphInstance->selectedNodes.size() == 1)
+        {
+            CalcNode* node = CalcNode::CAST(calcGraphInstance->selectedNodes.front());
+            if(node && node->type == ECalcNodeType::CNT_NUMBER)
+            {
+                
+                node->dirty = ImGui::InputInt("Value", &node->number);
+            }
+            
+        }
     }
     ImGui::End();
     

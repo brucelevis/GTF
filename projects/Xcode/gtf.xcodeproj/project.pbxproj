@@ -56,8 +56,6 @@
 		3F8CFC131CF39B5000A33B95 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8CFBDC1CF391BE00A33B95 /* AppKit.framework */; };
 		3F8CFC151CF39B5600A33B95 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8CFC141CF39B5600A33B95 /* OpenGL.framework */; };
 		3F8CFC1B1CF793BA00A33B95 /* NoiseWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CFC191CF793BA00A33B95 /* NoiseWindow.cpp */; };
-		3F9ACC511CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC421CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp */; };
-		3F9ACC521CFA19FE00A4A254 /* GTFGUIGraphEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC431CFA19FE00A4A254 /* GTFGUIGraphEditor.h */; };
 		3F9ACC531CFA19FE00A4A254 /* ImGuiSetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9ACC441CFA19FE00A4A254 /* ImGuiSetup.h */; };
 		3F9ACC541CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC451CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp */; };
 		3F9ACC551CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9ACC461CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp */; };
@@ -153,8 +151,6 @@
 		3F8CFC141CF39B5600A33B95 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3F8CFC191CF793BA00A33B95 /* NoiseWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoiseWindow.cpp; sourceTree = "<group>"; };
 		3F8CFC1A1CF793BA00A33B95 /* NoiseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoiseWindow.h; sourceTree = "<group>"; };
-		3F9ACC421CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFGUIGraphEditor.cpp; sourceTree = "<group>"; };
-		3F9ACC431CFA19FE00A4A254 /* GTFGUIGraphEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFGUIGraphEditor.h; sourceTree = "<group>"; };
 		3F9ACC441CFA19FE00A4A254 /* ImGuiSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImGuiSetup.h; sourceTree = "<group>"; };
 		3F9ACC451CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiSetup_OGL3.cpp; sourceTree = "<group>"; };
 		3F9ACC461CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImGuiSetup_Shared.cpp; sourceTree = "<group>"; };
@@ -379,8 +375,6 @@
 				3F9ACC441CFA19FE00A4A254 /* ImGuiSetup.h */,
 				3F9ACC451CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp */,
 				3F9ACC461CFA19FE00A4A254 /* ImGuiSetup_Shared.cpp */,
-				3F9ACC421CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp */,
-				3F9ACC431CFA19FE00A4A254 /* GTFGUIGraphEditor.h */,
 				3F102EB21CFC828D00A11E17 /* GTFGUIGradientPicker.cpp */,
 				3F102EB31CFC828D00A11E17 /* GTFGUIGradientPicker.h */,
 			);
@@ -421,7 +415,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F8CFBC91CF3904300A33B95 /* khrplatform.h in Headers */,
-				3F9ACC521CFA19FE00A4A254 /* GTFGUIGraphEditor.h in Headers */,
 				3F8CFBC41CF3904300A33B95 /* stb_rect_pack.h in Headers */,
 				3F9ACC6C1CFB0CD700A4A254 /* GTFRHI.h in Headers */,
 				3F8CFBC31CF3904300A33B95 /* imguidock.h in Headers */,
@@ -567,7 +560,6 @@
 				3F8CFBBF1CF3904300A33B95 /* imgui_draw.cpp in Sources */,
 				3F8CFBBC1CF3904300A33B95 /* imgui.cpp in Sources */,
 				3F8CFBC71CF3904300A33B95 /* glad.c in Sources */,
-				3F9ACC511CFA19FE00A4A254 /* GTFGUIGraphEditor.cpp in Sources */,
 				3F69E6141D0039D200EF4639 /* GTFNodeGraph.cpp in Sources */,
 				3F102EC21CFCD8DF00A11E17 /* GTFLangUtils.cpp in Sources */,
 				3F102EB41CFC828D00A11E17 /* GTFGUIGradientPicker.cpp in Sources */,

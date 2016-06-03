@@ -15,7 +15,7 @@
 
 #include "GTFUniqueId.h"
 #include "GTFRHI.h"
-
+#include "imgui.h"
 
 class GTFNodeConnectionDescBase
 {
@@ -96,7 +96,9 @@ public:
     
     int posX, posY;
     int width, height;
-    bool dirty;
+    bool dirty { true };
+    bool selected { false };
+    bool mouseClicking { false };
     unsigned int nodeId;
     GTFNodeTypeBase const * type;
     std::string name;
@@ -142,18 +144,59 @@ public:
     GTFUniqueId unique_id;
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+enum class GTFDragState : uint8_t
+{
+	DS_DEFAULT,
+	DS_HOVER,
+	DS_BEGIN_DRAG,
+	DS_DRAGING,
+	DS_CONNCECT,
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+struct GTFDragNode
+{
+	ImVec2 pos;
+	GTFNodeConnectionBase* con;
+};
+
 class GTFNodeGraph
 {
 public:
-    GTFNodeGraph(GTFNodeGraphType* type) : m_graphType(type){};
+    GTFNodeGraph(GTFNodeGraphType* type) : graphType(type){};
     virtual ~GTFNodeGraph();
     virtual GTFNode* createNode(GTFUniqueId typeId, int atX, int atY);
     virtual void updateNodes();
-    virtual void updateGUI() = 0;
+    virtual void updateGUI();
+    
+    GTFNodeGraphType * graphType { nullptr };
+    std::list<GTFNode*> nodeList;
+    std::list<GTFNode*> selectedNodes;
+    GTFNode* lastClickedNode { nullptr };
     
 protected:
-    GTFNodeGraphType * m_graphType { nullptr };
-    std::list<GTFNode*> nodeList;
+    virtual void drawHermite(ImDrawList* drawList, ImVec2 p1, ImVec2 p2, int STEPS);
+    virtual bool isConnectorHovered(GTFNodeConnectionBase* c, ImVec2 offset);
+    virtual GTFNodeConnectionBase* getHoverCon(ImVec2 offset, ImVec2* pos, bool resetCon = true);
+    virtual void updateDraging(ImVec2 offset);
+    virtual GTFNode* findNodeByCon(GTFNodeConnectionBase const * findCon);
+    virtual void renderLines(ImDrawList* drawList, ImVec2 offset);
+    virtual void displayNode(ImDrawList* drawList, ImVec2 offset, GTFNode* node, int& node_selected);
+    
+    
+    
     
     unsigned int nodeCounter {0};
+    
+    GTFDragNode dragNode;
+    GTFDragState dragState { GTFDragState::DS_DEFAULT };
+};
+
+namespace GTFNODEGRAPH
+{
+    static const float GTF_NODE_SLOT_RADIUS = 6.0f;
+    static const ImVec2 GTF_NODE_WINDOW_PADDING {8.0f, 8.0f};
 };
