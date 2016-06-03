@@ -72,7 +72,7 @@ public:
             
             for (GTFNodeConnectionBase* con : outputConnections[0]->output)
             {
-                GTFNodeConnectionI32 * numberCon = dynamic_cast< GTFNodeConnectionI32 * >(con);
+                GTFNodeConnectionI32 * numberCon = GTFNodeConnectionI32::CAST(con);
                 numberCon->isDirty = true;
             }
             
@@ -94,24 +94,52 @@ public:
             dirty = true;
         }
         
-        if(dirty &&
-           inputConnections[0]->input != nullptr &&
-           inputConnections[0]->input->isReady &&
-           inputConnections[1]->input != nullptr &&
-           inputConnections[1]->input->isReady)
+        if(dirty)
         {
-            GTFNodeConnectionI32 * inputA = dynamic_cast< GTFNodeConnectionI32 * >(inputConnections[0]->input);
-            GTFNodeConnectionI32 * inputB = dynamic_cast< GTFNodeConnectionI32 * >(inputConnections[1]->input);
-            GTFNodeConnectionI32 * output = dynamic_cast< GTFNodeConnectionI32 * >(outputConnections[0]);
+            GTFNodeConnectionI32 * inputA = GTFNodeConnectionI32::CAST(inputConnections[0]);
+            GTFNodeConnectionI32 * inputB = GTFNodeConnectionI32::CAST(inputConnections[1]);
             
-            number = output->data = MathOp(inputA->data, inputB->data);
-            output->isReady = true;
-            //dirty = false;
-        }
-        else
-        {
-            GTFNodeConnectionI32 * output = dynamic_cast< GTFNodeConnectionI32 * >(outputConnections[0]);
-            number = output->data = 0;
+            int readyInputs = 0;
+            
+            if(inputConnections[0]->input != nullptr &&
+               inputConnections[0]->input->isReady)
+            {
+                GTFNodeConnectionI32 const * inputASource = GTFNodeConnectionI32::CAST(inputConnections[0]->input);
+                inputA->data = inputASource->data;
+                readyInputs++;
+            }
+            else
+            {
+                inputA->data = 0;
+            }
+            
+            if(inputConnections[1]->input != nullptr &&
+               inputConnections[1]->input->isReady)
+            {
+                GTFNodeConnectionI32 const * inputBSource = GTFNodeConnectionI32::CAST(inputConnections[1]->input);
+                inputB->data = inputBSource->data;
+                readyInputs++;
+            }
+            else
+            {
+                inputB->data = 0;
+            }
+            
+            {
+                inputA->isDirty = false;
+                inputB->isDirty = false;
+                GTFNodeConnectionI32 * output = GTFNodeConnectionI32::CAST(outputConnections[0]);
+                
+                number = output->data = MathOp(inputA->data, inputB->data);
+                output->isReady = true; //(readyInputs == 2);
+
+                for(auto otherOut : output->output)
+                {
+                    otherOut->isDirty = true;
+                }
+                
+                dirty = false;
+            }
         }
     }
     

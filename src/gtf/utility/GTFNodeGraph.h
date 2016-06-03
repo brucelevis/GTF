@@ -56,15 +56,15 @@ public:
     virtual ~GTFNodeConnectionBase(){};
     
     int posX, posY;
-    bool isInput;
-    bool isReady;
-    bool isDirty;
+    bool isInput { false };
+    bool isReady { true };
+    bool isDirty { false };
     
     GTFNodeConnectionDescBase const * desc;
     
     //connections
     
-    GTFNodeConnectionBase* input { nullptr };
+    GTFNodeConnectionBase * input { nullptr };
     std::list<GTFNodeConnectionBase*> output;
     
 };
@@ -76,10 +76,12 @@ public:
     : GTFNodeConnectionBase(_desc, _input){};
     
     using PTR_TYPE = GTFNodeConnection<T>*;
+    using PTR_TYPE_CONST = GTFNodeConnection<T> const *;
     
     T data { 0 };
     
     static PTR_TYPE CAST(GTFNodeConnectionBase* con){ return dynamic_cast<PTR_TYPE>(con); };
+    static PTR_TYPE_CONST CAST(GTFNodeConnectionBase const * con){ return dynamic_cast<PTR_TYPE_CONST>(con); };
 };
 
 using GTFNodeConnectionI32 = GTFNodeConnection<int32_t>;

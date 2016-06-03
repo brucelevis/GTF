@@ -21,10 +21,23 @@ static inline ImVec2 operator-(const ImVec2& lhs, const ImVec2& rhs) { return Im
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void CalcNodeGraph::drawHermite(ImDrawList* drawList, ImVec2 p1, ImVec2 p2, int STEPS)
+void CalcNodeGraph::drawHermite(ImDrawList* drawList, ImVec2 p1, ImVec2 p2, int STEPS = 32)
 {
-	ImVec2 t1 = ImVec2(+80.0f, 0.0f);
-	ImVec2 t2 = ImVec2(+80.0f, 0.0f);
+    ImVec2 diff = p2 - p1;
+    
+    if(diff.x < 0)
+    {
+        diff.x = abs(diff.x) * 3;
+        if(diff.x > 800)
+            STEPS = 64;
+    }
+    else
+    {
+        diff.x = 0;
+    }
+    
+	ImVec2 t1 = ImVec2(+180.0f + diff.x, 0.0f);
+	ImVec2 t2 = ImVec2(+180.0f + diff.x, 0.0f);
     
 	for (int step = 0; step <= STEPS; step++)
 	{
@@ -136,7 +149,15 @@ void CalcNodeGraph::updateDraging(ImVec2 offset)
             
 			drawList->ChannelsSetCurrent(0); // Background
             
-			drawHermite(drawList, dragNode.pos, ImGui::GetIO().MousePos, 12);
+            
+            if(dragNode.con->isInput)
+            {
+                drawHermite(drawList, ImGui::GetIO().MousePos, dragNode.pos);
+            }
+            else
+            {
+                drawHermite(drawList, dragNode.pos, ImGui::GetIO().MousePos);
+            }
             
 			if (!ImGui::IsMouseDown(0))
 			{
@@ -160,11 +181,14 @@ void CalcNodeGraph::updateDraging(ImVec2 offset)
                     if(con->isInput)
                     {
                         con->input = dragNode.con;
+                        con->isDirty = true;
+                        dragNode.con->output.push_back(con);
                     }
                     else
                     {
                         con->output.push_back(dragNode.con);
                         dragNode.con->input = con;
+                        dragNode.con->isDirty = true;
                     }
                     
                     
@@ -261,7 +285,17 @@ void CalcNodeGraph::displayNode(ImDrawList* drawList, ImVec2 offset, GTFNode* no
 	for (GTFNodeConnectionBase* con : node->inputConnections)
 	{
 		ImGui::SetCursorScreenPos(textOffset + ImVec2(10.0f, 0));
-		ImGui::Text("%s", con->desc->displayName.c_str());
+		
+        auto numberCon = GTFNodeConnectionI32::CAST(con);
+        
+        if(numberCon)
+        {
+            ImGui::Text("%d", numberCon->data);
+        }
+        else
+        {
+            ImGui::Text("%s", con->desc->displayName.c_str());
+        }
         
 		ImColor conColor = ImColor(150, 150, 150);
         
@@ -324,7 +358,7 @@ void CalcNodeGraph::displayNode(ImDrawList* drawList, ImVec2 offset, GTFNode* no
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TODO: Ugly fix: me
 
-GTFNode* CalcNodeGraph::findNodeByCon(GTFNodeConnectionBase* findCon)
+GTFNode* CalcNodeGraph::findNodeByCon(GTFNodeConnectionBase const * findCon)
 {
 	for (GTFNode* node : nodeList)
 	{
@@ -362,8 +396,7 @@ void CalcNodeGraph::renderLines(ImDrawList* drawList, ImVec2 offset)
             
 			drawHermite(drawList,
                         offset + ImVec2(targetNode->posX, targetNode->posY) + ImVec2(con->input->posX, con->input->posY),
-                        offset + ImVec2(node->posX, node->posY) + ImVec2(con->posX, con->posY),
-                        12);
+                        offset + ImVec2(node->posX, node->posY) + ImVec2(con->posX, con->posY));
 		}
 	}
 }

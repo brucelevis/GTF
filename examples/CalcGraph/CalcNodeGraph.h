@@ -46,7 +46,7 @@ private:
     GTFNodeConnectionBase* getHoverCon(ImVec2 offset, ImVec2* pos);
     void updateDraging(ImVec2 offset);
     void displayNode(ImDrawList* drawList, ImVec2 offset, GTFNode* node, int& node_selected);
-    GTFNode* findNodeByCon(GTFNodeConnectionBase* findCon);
+    GTFNode* findNodeByCon(GTFNodeConnectionBase const * findCon);
     void renderLines(ImDrawList* drawList, ImVec2 offset);
     
     DragNode dragNode;
