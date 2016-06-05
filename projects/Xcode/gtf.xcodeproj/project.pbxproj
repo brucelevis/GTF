@@ -87,6 +87,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		3F849FD81D049AF80086B3A8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		3F8CFBE21CF3928800A33B95 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +132,7 @@
 		3F69E6101D001B8C00EF4639 /* CalcNodeGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcNodeGraph.h; sourceTree = "<group>"; };
 		3F69E6121D0039D200EF4639 /* GTFNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GTFNodeGraph.cpp; sourceTree = "<group>"; };
 		3F69E6131D0039D200EF4639 /* GTFNodeGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFNodeGraph.h; sourceTree = "<group>"; };
+		3F849FDA1D049AF80086B3A8 /* TextureGraph */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TextureGraph; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8CFB131CF3904200A33B95 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
 		3F8CFB141CF3904200A33B95 /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
 		3F8CFB151CF3904200A33B95 /* imgui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui.h; sourceTree = "<group>"; };
@@ -193,6 +203,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F849FD71D049AF80086B3A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F8CFBE11CF3928800A33B95 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,8 +273,16 @@
 				3F20694F1CED0F0300EB5FFA /* libgtf.a */,
 				3F8CFBE41CF3928800A33B95 /* NoiseGenerator */,
 				3F102ED31CFE091E00A11E17 /* CalcGraph */,
+				3F849FDA1D049AF80086B3A8 /* TextureGraph */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3F849FE31D049B1E0086B3A8 /* TextureGraph */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TextureGraph;
 			sourceTree = "<group>";
 		};
 		3F8CFA0D1CF3904200A33B95 /* src */ = {
@@ -337,6 +362,7 @@
 		3F8CFBED1CF3929F00A33B95 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				3F849FE31D049B1E0086B3A8 /* TextureGraph */,
 				3F102ED41CFE098500A11E17 /* CalcGraph */,
 				3F8CFBEF1CF392D000A33B95 /* NoiseGenerator */,
 			);
@@ -482,6 +508,23 @@
 			productReference = 3F20694F1CED0F0300EB5FFA /* libgtf.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		3F849FD91D049AF80086B3A8 /* TextureGraph */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F849FE21D049AF80086B3A8 /* Build configuration list for PBXNativeTarget "TextureGraph" */;
+			buildPhases = (
+				3F849FD61D049AF80086B3A8 /* Sources */,
+				3F849FD71D049AF80086B3A8 /* Frameworks */,
+				3F849FD81D049AF80086B3A8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextureGraph;
+			productName = TextureGraph;
+			productReference = 3F849FDA1D049AF80086B3A8 /* TextureGraph */;
+			productType = "com.apple.product-type.tool";
+		};
 		3F8CFBE31CF3928800A33B95 /* NoiseGenerator */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F8CFBEA1CF3928900A33B95 /* Build configuration list for PBXNativeTarget "NoiseGenerator" */;
@@ -523,6 +566,7 @@
 				3F20694E1CED0F0300EB5FFA /* gtf */,
 				3F8CFBE31CF3928800A33B95 /* NoiseGenerator */,
 				3F102EC41CFE091D00A11E17 /* CalcGraph */,
+				3F849FD91D049AF80086B3A8 /* TextureGraph */,
 			);
 		};
 /* End PBXProject section */
@@ -568,6 +612,13 @@
 				3F102F921CFE399B00A11E17 /* GTFCRC32.cpp in Sources */,
 				3F8CFBCE1CF3904300A33B95 /* tinyfiledialogs.c in Sources */,
 				3F9ACC6E1CFB0CE200A4A254 /* GTFOpenGLRHI.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F849FD61D049AF80086B3A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,6 +810,26 @@
 			};
 			name = Release;
 		};
+		3F849FE01D049AF80086B3A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3F849FE11D049AF80086B3A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		3F8CFBEB1CF3928900A33B95 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -827,6 +898,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		3F849FE21D049AF80086B3A8 /* Build configuration list for PBXNativeTarget "TextureGraph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F849FE01D049AF80086B3A8 /* Debug */,
+				3F849FE11D049AF80086B3A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		3F8CFBEA1CF3928900A33B95 /* Build configuration list for PBXNativeTarget "NoiseGenerator" */ = {
 			isa = XCConfigurationList;

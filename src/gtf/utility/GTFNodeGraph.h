@@ -92,6 +92,7 @@ using GTFNodeConnectionF32V3 = GTFNodeConnection<float[3]>;
 class GTFNode
 {
 public:
+    virtual ~GTFNode();
     virtual void update() = 0;
     
     int posX, posY;

@@ -11,11 +11,33 @@
 
 #include <glm/glm.hpp>
 
-#include "imgui.h"
-
 static inline ImVec2 operator+(const ImVec2& lhs, const ImVec2& rhs) { return ImVec2(lhs.x+rhs.x, lhs.y+rhs.y); }
 static inline ImVec2 operator-(const ImVec2& lhs, const ImVec2& rhs) { return ImVec2(lhs.x-rhs.x, lhs.y-rhs.y); }
 
+
+GTFNode::~GTFNode()
+{
+    for (GTFNodeConnectionBase* con : inputConnections)
+    {
+        if(con->input != nullptr)
+        {
+            con->input->output.remove(con);
+        }
+        
+        delete con;
+    }
+    
+    for (GTFNodeConnectionBase* con : outputConnections)
+    {
+        for (auto out : con->output)
+        {
+            out->input = nullptr;
+            out->isDirty = true;
+        }
+        
+        delete con;
+    }
+}
 
 void GTFNodeGraphType::registerNodeType(GTFNodeTypeBase* nodeType)
 {
@@ -28,6 +50,8 @@ void GTFNodeGraphType::registerNodeType(GTFNodeTypeBase* nodeType)
         nodeTypeRegistry.insert(std::make_pair(nodeType->unique_id, nodeType));
     }
 }
+
+
 
 GTFNode* GTFNodeGraph::createNode(GTFUniqueId typeId, int atX, int atY)
 {
@@ -642,8 +666,18 @@ void GTFNodeGraph::updateGUI()
         }
     }
     
-    
-    
+    if(ImGui::IsKeyDown(ImGuiKey_Delete))
+    {
+        lastClickedNode = nullptr;
+        for(GTFNode* node : selectedNodes)
+        {
+            nodeList.remove(node);
+            delete node;
+        }
+        
+        selectedNodes.clear();
+    }
+
     if (open_context_menu)
     {
         ImGui::OpenPopup("context_menu");
