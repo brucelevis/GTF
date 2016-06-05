@@ -237,8 +237,34 @@ void GTFNodeGraph::updateDraging(ImVec2 offset)
 				return;
 			}
             
-			if (ImGui::IsMouseClicked(0) && dragNode.con)
+            bool ctrlPressed = ImGui::GetIO().KeyCtrl;
+            
+			if (ImGui::IsMouseClicked(0) && dragNode.con && !ctrlPressed)
+            {
 				dragState = GTFDragState::DS_DRAGING;
+                return;
+            }
+            
+            if (ImGui::IsMouseClicked(0) && dragNode.con && ctrlPressed)
+            {
+                if(dragNode.con->isInput && dragNode.con->input)
+                {
+                    dragNode.con->input->output.remove(dragNode.con);
+                    dragNode.con->input = nullptr;
+                    dragNode.con->isDirty = true;
+                }
+                else
+                {
+                    for(auto outputCon : dragNode.con->output)
+                    {
+                        outputCon->isDirty = true;
+                        outputCon->input = nullptr;
+                    }
+                    
+                    dragNode.con->output.clear();
+                }
+            }
+                
             
 			break;
 		}
@@ -432,7 +458,8 @@ void GTFNodeGraph::displayNode(ImDrawList* drawList, ImVec2 offset, GTFNode* nod
     
     if(node->selected)
     {
-        node_bg_color = ImColor(50,80,50);
+        drawList->AddRect(node_rect_min - GTFNODEGRAPH::GTF_NODE_SSELECTED_MARGIN,
+                          node_rect_max + GTFNODEGRAPH::GTF_NODE_SSELECTED_MARGIN, ImColor(100,100,100), 4.0f);
     }
     
 	drawList->AddRectFilled(node_rect_min, node_rect_max, node_bg_color, 4.0f);

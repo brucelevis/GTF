@@ -198,5 +198,6 @@ protected:
 namespace GTFNODEGRAPH
 {
     static const float GTF_NODE_SLOT_RADIUS = 6.0f;
+    static const ImVec2 GTF_NODE_SSELECTED_MARGIN {5.0f, 5.0f};
     static const ImVec2 GTF_NODE_WINDOW_PADDING {8.0f, 8.0f};
 };
