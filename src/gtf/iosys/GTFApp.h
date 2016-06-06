@@ -8,14 +8,14 @@
 
 #pragma once
 #include <memory>
-
+#include <list>
 class GTFApp
 {
 public:
     virtual void readyToStart() = 0;
     int run(int argc, const char * argv[]);
+    void registerWindow(class GTFWindow* window);
 
-private:
-    //MacOSX
-    struct GTFNativeApp* m_nativeApp;
+protected:
+    std::list<class GTFWindow*> m_registeredWindows;
 };

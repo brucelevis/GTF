@@ -10,7 +10,7 @@
 
 #include "imgui.h"
 
-void IMGUIExample_InitImGui()
+void GTFIMGUI_InitImGui()
 {
     ImGuiIO& io = ImGui::GetIO();
     // Time elapsed since last frame, in seconds

@@ -8,7 +8,7 @@
 
 #include "imgui.h"
 
-void IMGUIExample_InitImGui();
+void GTFIMGUI_InitImGui();
 void ImGuiGL3_CreateFontsTexture();
 bool ImGuiGL3_CreateDeviceObjects();
 void ImGuiGL3_RenderDrawLists(ImDrawData* draw_data);

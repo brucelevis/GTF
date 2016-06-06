@@ -9,25 +9,139 @@
 #include "GTFWindow.h"
 #include "imgui.h"
 
-void GTFWindow::mouseMove(double x, double y)
+#include "glad.h"
+#include <glfw/glfw3.h>
+#include <functional>
+
+#include "ImGuiSetup.h"
+#include "GTFOpenGLRHI.h"
+
+#include <iostream>
+
+struct GTFNativeWindow
 {
+    GLFWwindow* glfw_window;
+    GTFWindow* gtf_window;
     
+    void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+    {
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        {
+            glfwSetWindowShouldClose(window, GLFW_TRUE);
+        }
+    }
+};
+
+
+GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height, GTFWindow* parentWindow)
+{
+    using namespace std::placeholders;
+    
+    m_windowWidth = width;
+    m_windowHeight = height;
+    
+    m_nativeWindow = new GTFNativeWindow();
+    m_nativeWindow->gtf_window = this;
+    
+    
+    
+    GLFWwindow* parentNative = (parentWindow) ? parentWindow->m_nativeWindow->glfw_window : nullptr;
+    GLFWwindow* window = glfwCreateWindow(width, height, title, NULL,  parentNative);
+    
+    //glfwSetKeyCallback(window, *key_callback.target<GLFWkeyfun>());
+    
+    glfwSetWindowUserPointer(window, this);
+    
+    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods){
+        GTFWindow* mainWinRef = reinterpret_cast<GTFWindow*>(glfwGetWindowUserPointer(window));
+        mainWinRef->keyEvent(key, scancode, action, mods);
+    });
+    
+    glfwSetCharCallback(window, [](GLFWwindow* window, unsigned int c){
+        GTFWindow* mainWinRef = reinterpret_cast<GTFWindow*>(glfwGetWindowUserPointer(window));
+        mainWinRef->charInputEvent(c);
+    });
+    
+    glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos){
+        GTFWindow* mainWinRef = reinterpret_cast<GTFWindow*>(glfwGetWindowUserPointer(window));
+        mainWinRef->mouseMove(xpos, ypos);
+    });
+    
+    glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods){
+        GTFWindow* mainWinRef = reinterpret_cast<GTFWindow*>(glfwGetWindowUserPointer(window));
+        mainWinRef->mouseButton(button, action == GLFW_PRESS);
+    });
+    
+    glfwSetScrollCallback(window, [](GLFWwindow* window, double xoffset, double yoffset){
+        GTFWindow* mainWinRef = reinterpret_cast<GTFWindow*>(glfwGetWindowUserPointer(window));
+        mainWinRef->mouseScroll(xoffset, yoffset);
+    });
+    
+    glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height){
+        GTFWindow* mainWinRef = reinterpret_cast<GTFWindow*>(glfwGetWindowUserPointer(window));
+        mainWinRef->resize(width, height);
+    });
+    
+    glfwSetDropCallback(window, [](GLFWwindow* window, int count, const char** paths){
+        GTFWindow* mainWinRef = reinterpret_cast<GTFWindow*>(glfwGetWindowUserPointer(window));
+        mainWinRef->fileDrop(count, paths);
+    });
+    
+    glfwMakeContextCurrent(window);
+    
+    //gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+    
+    RHI = new MPOpenGLRHI();
+    
+    if(RHI->init())
+    {
+        std::cout << "ERROR: MPMainWindow::run : Can't initalize RHI!";
+    }
+    
+    glfwSwapInterval(1);
+    
+    
+    m_nativeWindow->glfw_window = window;
+    
+    
+    GTFIMGUI_InitImGui();
 }
 
-void GTFWindow::mouseClick(unsigned int button)
+GTFWindow::~GTFWindow()
 {
+    ImGuiGL3_InvalidateDeviceObjects();
+    glfwDestroyWindow(m_nativeWindow->glfw_window);
+    delete m_nativeWindow;
+}
+
+void GTFWindow::mouseMove(double x, double y)
+{
+    m_mouseCoords[0] = x;
+    m_mouseCoords[1] = y;
+}
+
+void GTFWindow::mouseButton(unsigned int button, bool pressed)
+{
+    m_mousePressed[button] = pressed;
 }
 
 void GTFWindow::mouseScroll(double xoffset, double yoffset)
 {
+
 }
 
-void GTFWindow::keyEvent(unsigned int keyCode, bool down)
+void GTFWindow::keyEvent(int key, int scancode, int action, int mods)
 {
 }
 
 void GTFWindow::charInputEvent(unsigned int charCode)
 {
+}
+
+void GTFWindow::resize(int newWidth, int newHeight)
+{
+    m_windowWidth = newWidth;
+    m_windowHeight = newHeight;
 }
 
 void GTFWindow::fileDrop(int count, const char** paths)
@@ -36,6 +150,14 @@ void GTFWindow::fileDrop(int count, const char** paths)
 
 void GTFWindow::preFrame(double deltaTime)
 {
+    ImGuiIO& io = ImGui::GetIO();
+    io.DisplaySize = ImVec2((float)m_windowWidth, (float)m_windowHeight);
+    io.DeltaTime = deltaTime;
+    io.MousePos = ImVec2((float)m_mouseCoords[0], (float)m_mouseCoords[1]);
+    io.MouseDown[0] = m_mousePressed[0];
+    io.MouseDown[1] = m_mousePressed[1];
+    io.MouseDown[2] = m_mousePressed[2];
+    ImGui::NewFrame();
 }
 
 void GTFWindow::frame(double deltaTime)
@@ -45,5 +167,7 @@ void GTFWindow::frame(double deltaTime)
 
 void GTFWindow::postFrame(double deltaTime)
 {
-    
+    ImGui::Render();
+    glfwSwapBuffers(m_nativeWindow->glfw_window);
+    glfwPollEvents();
 }

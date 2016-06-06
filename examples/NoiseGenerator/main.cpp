@@ -18,6 +18,7 @@ public:
     virtual void readyToStart()
     {
         m_window = new NoiseWindow("NoiseGenerator");
+        registerWindow(m_window);
     }
 private:
     GTFWindow* m_window;

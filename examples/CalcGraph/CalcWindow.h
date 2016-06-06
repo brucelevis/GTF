@@ -15,7 +15,7 @@ class CalcWindow : public GTFWindow
 {
 public:
     CalcWindow(const char* title);
-    ~CalcWindow();
+    ~CalcWindow(){};
     virtual void frame(double deltaTime) override;
     
     GTFNodeGraphType* calcGraphType;

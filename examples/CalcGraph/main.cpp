@@ -15,9 +15,10 @@
 class CalcApp : public GTFApp
 {
 public:
-    virtual void readyToStart()
+    virtual void readyToStart() override
     {
         m_window = new CalcWindow("CalcGraph");
+        registerWindow(m_window);
     }
 private:
     GTFWindow* m_window;

@@ -100,5 +100,6 @@ void CalcWindow::frame(double deltaTime)
     
     
     // Rendering
+    RHI->viewport(0, 0, m_windowWidth, m_windowHeight);
     RHI->clearColorAndDepthBuffers();
 }
