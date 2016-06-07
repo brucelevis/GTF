@@ -49,7 +49,7 @@ PerlinNoise::PerlinNoise(unsigned int seed) {
 	p.insert(p.end(), p.begin(), p.end());
 }
 
-double PerlinNoise::noise(double x, double y, double z) {
+double PerlinNoise::noise(double x, double y, double z) const {
 	// Find the unit cube that contains the point
 	int X = (int) floor(x) & 255;
 	int Y = (int) floor(y) & 255;
@@ -78,15 +78,15 @@ double PerlinNoise::noise(double x, double y, double z) {
 	return (res + 1.0)/2.0;
 }
 
-double PerlinNoise::fade(double t) {
+double PerlinNoise::fade(double t) const {
 	return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
-double PerlinNoise::lerp(double t, double a, double b) {
+double PerlinNoise::lerp(double t, double a, double b) const {
 	return a + t * (b - a);
 }
 
-double PerlinNoise::grad(int hash, double x, double y, double z) {
+double PerlinNoise::grad(int hash, double x, double y, double z) const {
 	int h = hash & 15;
 	// Convert lower 4 bits of hash inot 12 gradient directions
 	double u = h < 8 ? x : y,

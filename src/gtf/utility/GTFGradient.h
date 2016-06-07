@@ -33,7 +33,7 @@ public:
     void addMark(float position, GTFColor color);
     void removeMark(GTFGradientMarkPtr mark);
     void reverseMarks();
-    GTFColor const getColorAt(float position);
+    GTFColor const getColorAt(float position) const;
     
     std::list<GTFGradientMarkPtr> marks;
 };

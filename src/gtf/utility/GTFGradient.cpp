@@ -45,7 +45,7 @@ void GTFGradient::removeMark(GTFGradientMarkPtr mark)
     marks.remove(mark);
 }
 
-GTFColor const GTFGradient::getColorAt(float position)
+GTFColor const GTFGradient::getColorAt(float position) const
 {
     position = glm::clamp(position, 0.0f, 1.0f);
     

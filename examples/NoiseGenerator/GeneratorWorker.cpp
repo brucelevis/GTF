@@ -11,6 +11,8 @@
 #include "GTFGradient.h"
 
 #include <cmath>
+#include <thread>
+#include <iostream>
 
 bool GeneratorWorker::update(GeneratorInfo& info)
 {
@@ -59,48 +61,65 @@ void GeneratorWorker::run()
     gradient.addMark(0.8f, GTFColor(0xDCB579));
     gradient.addMark(1.0f, GTFColor(0xE6BF83));
     
-	unsigned int kk = 0;
-	// Visit every pixel of the image and assign a color generated with Perlin noise
-	for(unsigned int i = 0; i < m_info.resY; ++i) {     // y
-		for(unsigned int j = 0; j < m_info.resX; ++j) {  // x
-            
-            if(m_cancel)
+    unsigned num_cpus = std::thread::hardware_concurrency();
+    std::cout << "Launching " << num_cpus << " threads" << std::endl;
+    
+    std::vector<std::thread> threads(num_cpus);
+    unsigned int elementsPerCPU = m_info.resX * m_info.resY / num_cpus;
+    
+    std::mutex iomutex;
+
+    for (unsigned threadIndex = 0; threadIndex < num_cpus; ++threadIndex)
+    {
+        threads[threadIndex] = std::thread([=, &iomutex]
+        {
+            // Visit every pixel of the image and assign a color generated with Perlin noise
+            int from = threadIndex * elementsPerCPU;
+            int to = (threadIndex + 1) * elementsPerCPU;
+            for(int e = from; e < to; e++)
             {
-                return;
+                int i = e % m_info.resX;
+                int j = e / m_info.resY;
+                
+                if(m_cancel)
+                {
+                    return;
+                }
+                
+                double x = (double)i/((double)m_info.resX);
+                double y = (double)j/((double)m_info.resY);
+                
+                double n = 0;
+                
+                if(!m_info.wood)
+                {
+                    // Typical Perlin noise
+                    n = pn.noise(m_info.panX * m_info.density * x, m_info.panY *  m_info.density * y, m_info.panZ);
+                }
+                else
+                {
+                    // Wood like structure
+                    n = m_info.density * pn.noise(m_info.panX  * x, m_info.panY * y, m_info.panZ);
+                    n = n - floor(n);
+                }
+                
+                
+                // Map the values to the [0, 255] interval, for simplicity we use
+                // 50 shaders of grey
+                GTFColor color = gradient.getColorAt(n);
+                color.asU8A(&m_info.image[(e*3)+0]);
+                
+                
+                //m_info.image[(kk*3)+0] = floor(255 * n);
+                //m_info.image[(kk*3)+1] = floor(255 * n);
+                //m_info.image[(kk*3)+2] = floor(255 * n);
             }
-            
-			double x = (double)j/((double)m_info.resX);
-			double y = (double)i/((double)m_info.resY);
-            
-            double n = 0;
-            
-            if(!m_info.wood)
-            {
-                // Typical Perlin noise
-                n = pn.noise(m_info.panX * m_info.density * x, m_info.panY *  m_info.density * y, m_info.panZ);
-            }
-            else
-            {
-                // Wood like structure
-                n = m_info.density * pn.noise(m_info.panX  * x, m_info.panY * y, m_info.panZ);
-                n = n - floor(n);
-            }
-			
-            
-			// Map the values to the [0, 255] interval, for simplicity we use
-			// 50 shaders of grey
-            GTFColor color = gradient.getColorAt(n);
-            color.asU8A(&m_info.image[(kk*3)+0]);
-            
-            
-			//m_info.image[(kk*3)+0] = floor(255 * n);
-			//m_info.image[(kk*3)+1] = floor(255 * n);
-			//m_info.image[(kk*3)+2] = floor(255 * n);
-			kk++;
-            
-            
-		}
+        });
 	}
+    
+    for (auto& t : threads) {
+        t.join();
+    }
     
     m_ready = true;
 }

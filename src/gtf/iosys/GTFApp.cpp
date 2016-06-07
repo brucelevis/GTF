@@ -8,6 +8,7 @@
 
 #include "GTFApp.h"
 #include "GTFWindow.h"
+#include "ImGuiSetup.h"
 
 #include <glfw/glfw3.h>
 
@@ -36,6 +37,8 @@ int GTFApp::run(int argc, const char * argv[])
     
     bool quit = false;
     
+    std::list<GTFWindow*> toClose;
+    
     while(!quit)
     {
         for(GTFWindow* window : m_registeredWindows)
@@ -43,9 +46,31 @@ int GTFApp::run(int argc, const char * argv[])
             window->preFrame(0.016);
             window->frame(0.016);
             window->postFrame(0.016);
+            
+            if(window->wantToClose())
+            {
+                toClose.push_back(window);
+            }
+            
             quit |= window->mustQuitApp();
         }
+        
+        for(GTFWindow* window : toClose)
+        {
+            m_registeredWindows.remove(window);
+            
+            if(m_registeredWindows.size() == 0)
+            {
+                ImGuiGL3_InvalidateDeviceObjects();
+            }
+            
+            delete window;
+        }
+        
+        quit |= (m_registeredWindows.size() == 0);
     }
+    
+    
     
     glfwTerminate();
     

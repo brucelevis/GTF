@@ -109,9 +109,14 @@ GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height,
 
 GTFWindow::~GTFWindow()
 {
-    ImGuiGL3_InvalidateDeviceObjects();
+    
     glfwDestroyWindow(m_nativeWindow->glfw_window);
     delete m_nativeWindow;
+}
+
+bool GTFWindow::wantToClose() const
+{
+    return glfwWindowShouldClose(m_nativeWindow->glfw_window);
 }
 
 void GTFWindow::mouseMove(double x, double y)
