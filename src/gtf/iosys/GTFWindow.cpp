@@ -7,7 +7,10 @@
 //
 
 #include "GTFWindow.h"
+#include "GTFApp.h"
+
 #include "imgui.h"
+#include "imgui_internal.h"
 
 #include "glad.h"
 #include <glfw/glfw3.h>
@@ -33,9 +36,11 @@ struct GTFNativeWindow
 };
 
 
-GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height, GTFWindow* parentWindow)
+GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height)
 {
     using namespace std::placeholders;
+    
+    m_title = title;
     
     m_windowWidth = width;
     m_windowHeight = height;
@@ -45,7 +50,13 @@ GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height,
     
     
     
-    GLFWwindow* parentNative = (parentWindow) ? parentWindow->m_nativeWindow->glfw_window : nullptr;
+    GLFWwindow* parentNative = nullptr;
+    
+    if(GTFAPP->getMainWindow())
+    {
+        parentNative = GTFAPP->getMainWindow()->m_nativeWindow->glfw_window;
+    }
+    
     GLFWwindow* window = glfwCreateWindow(width, height, title, NULL,  parentNative);
     
     //glfwSetKeyCallback(window, *key_callback.target<GLFWkeyfun>());
@@ -91,25 +102,37 @@ GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height,
     
     //gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     
-    RHI = new MPOpenGLRHI();
-    
-    if(RHI->init())
+    if(!RHI)
     {
-        std::cout << "ERROR: MPMainWindow::run : Can't initalize RHI!";
+        RHI = new MPOpenGLRHI();
+        
+        if(RHI->init())
+        {
+            std::cout << "ERROR: MPMainWindow::run : Can't initalize RHI!";
+        }
+        
+        ImGuiGL3_CreateDeviceObjects();
     }
     
     glfwSwapInterval(1);
     
     
     m_nativeWindow->glfw_window = window;
-    
-    
+    m_imguiState = new ImGuiState();
+    ImGui::SetInternalState(m_imguiState);
     GTFIMGUI_InitImGui();
+    ImGuiGL3_CreateFontsTexture();
 }
 
 GTFWindow::~GTFWindow()
 {
+    ImGui::SetInternalState(m_imguiState);
     
+    if(GTFAPP->getMainWindow() != this)
+        m_imguiState->IO.Fonts = nullptr;
+    
+    ImGui::Shutdown();
+    delete m_imguiState;
     glfwDestroyWindow(m_nativeWindow->glfw_window);
     delete m_nativeWindow;
 }
@@ -132,15 +155,28 @@ void GTFWindow::mouseButton(unsigned int button, bool pressed)
 
 void GTFWindow::mouseScroll(double xoffset, double yoffset)
 {
-
+    ImGuiIO& io = m_imguiState->IO;
+    io.MouseWheel = yoffset;
 }
 
 void GTFWindow::keyEvent(int key, int scancode, int action, int mods)
 {
+    ImGuiIO& io = m_imguiState->IO;
+    if (action == GLFW_PRESS)
+        io.KeysDown[key] = true;
+    if (action == GLFW_RELEASE)
+        io.KeysDown[key] = false;
+    
+    io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+    io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+    io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
 }
 
 void GTFWindow::charInputEvent(unsigned int charCode)
 {
+    ImGuiIO& io = m_imguiState->IO;
+    if (charCode > 0 && charCode < 0x10000)
+        io.AddInputCharacter((unsigned short)charCode);
 }
 
 void GTFWindow::resize(int newWidth, int newHeight)
@@ -155,6 +191,8 @@ void GTFWindow::fileDrop(int count, const char** paths)
 
 void GTFWindow::preFrame(double deltaTime)
 {
+    glfwMakeContextCurrent(m_nativeWindow->glfw_window);
+    ImGui::SetInternalState(m_imguiState);
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2((float)m_windowWidth, (float)m_windowHeight);
     io.DeltaTime = deltaTime;
@@ -174,5 +212,5 @@ void GTFWindow::postFrame(double deltaTime)
 {
     ImGui::Render();
     glfwSwapBuffers(m_nativeWindow->glfw_window);
-    glfwPollEvents();
+    
 }

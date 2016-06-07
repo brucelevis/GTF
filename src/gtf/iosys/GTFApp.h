@@ -12,10 +12,17 @@
 class GTFApp
 {
 public:
+    GTFApp();
+    virtual ~GTFApp();
     virtual void readyToStart() = 0;
     int run(int argc, const char * argv[]);
     void registerWindow(class GTFWindow* window);
-
+    GTFWindow* getMainWindow() const { return m_mainWindow; }
+    void setMainWindow(GTFWindow* mw) { m_mainWindow = mw; }
+    
 protected:
     std::list<class GTFWindow*> m_registeredWindows;
+    class GTFWindow* m_mainWindow;
 };
+
+extern GTFApp* GTFAPP;

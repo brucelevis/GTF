@@ -8,12 +8,13 @@
 
 #pragma once
 #include <memory>
+#include <string>
 
 class GTFWindow
 {
 public:
     //GTFWindow(){};
-    GTFWindow(const char* title, unsigned int width, unsigned int height, GTFWindow* parentWindow = nullptr);
+    GTFWindow(const char* title, unsigned int width, unsigned int height);
     virtual ~GTFWindow();
     virtual void preFrame(double deltaTime);
     virtual void frame(double deltaTime);
@@ -28,7 +29,6 @@ public:
     virtual void fileDrop(int count, const char** paths);
     
     virtual bool wantToClose() const;
-    virtual bool mustQuitApp() const { return m_mustQuitApp; }
     
 public:
     //window properties
@@ -40,9 +40,10 @@ public:
     
 protected:
     bool m_mustQuitApp { false };
+    std::string m_title;
     
 private:
     struct GTFNativeWindow* m_nativeWindow;
-
+    struct ImGuiState* m_imguiState;
     
 };

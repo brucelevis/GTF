@@ -12,10 +12,23 @@
 
 #include <glfw/glfw3.h>
 
+GTFApp* GTFAPP(nullptr);
+
 static void error_callback(int error, const char* description)
 {
     fprintf(stderr, "Error: %s\n", description);
 }
+
+GTFApp::GTFApp()
+{
+    GTFAPP = this;
+}
+
+GTFApp::~GTFApp()
+{
+
+}
+
 
 int GTFApp::run(int argc, const char * argv[])
 {
@@ -35,6 +48,12 @@ int GTFApp::run(int argc, const char * argv[])
     
     readyToStart();
     
+    if(m_registeredWindows.size() == 0)
+    {
+        glfwTerminate();
+        return 2;
+    }
+        
     bool quit = false;
     
     std::list<GTFWindow*> toClose;
@@ -51,8 +70,6 @@ int GTFApp::run(int argc, const char * argv[])
             {
                 toClose.push_back(window);
             }
-            
-            quit |= window->mustQuitApp();
         }
         
         for(GTFWindow* window : toClose)
@@ -64,13 +81,27 @@ int GTFApp::run(int argc, const char * argv[])
                 ImGuiGL3_InvalidateDeviceObjects();
             }
             
+            quit |= (window == m_mainWindow);
+            
             delete window;
         }
         
+        toClose.clear();
+        
+        if(quit)
+        {
+            for(GTFWindow* window : m_registeredWindows)
+            {
+                delete window;
+            }
+            
+            m_registeredWindows.clear();
+        }
+        
         quit |= (m_registeredWindows.size() == 0);
+        
+        glfwPollEvents();
     }
-    
-    
     
     glfwTerminate();
     
@@ -80,4 +111,6 @@ int GTFApp::run(int argc, const char * argv[])
 void GTFApp::registerWindow(class GTFWindow* window)
 {
     m_registeredWindows.push_back(window);
+    if(m_mainWindow == nullptr)
+        m_mainWindow = window;
 }

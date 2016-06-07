@@ -19,6 +19,7 @@ public:
     {
         m_window = new NoiseWindow("NoiseGenerator");
         registerWindow(m_window);
+        setMainWindow(m_window);
     }
 private:
     GTFWindow* m_window;

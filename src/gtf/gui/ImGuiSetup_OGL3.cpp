@@ -24,17 +24,21 @@ void ImGuiGL3_CreateFontsTexture()
 {
     ImGuiIO& io = ImGui::GetIO();
     
-    // Build texture atlas
-    unsigned char* pixels;
-    int width, height;
-    io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits for OpenGL3 demo because it is more likely to be compatible with user's existing shader.
     
     // Create OpenGL texture
-    glGenTextures(1, &g_FontTexture);
-    glBindTexture(GL_TEXTURE_2D, g_FontTexture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+    if(g_FontTexture == 0)
+    {
+        // Build texture atlas
+        unsigned char* pixels;
+        int width, height;
+        io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits for OpenGL3 demo because it is more likely to be compatible with user's existing shader.
+        
+        glGenTextures(1, &g_FontTexture);
+        glBindTexture(GL_TEXTURE_2D, g_FontTexture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+    }
     
     // Store our identifier
     io.Fonts->TexID = (void *)(intptr_t)g_FontTexture;
@@ -111,16 +115,11 @@ bool ImGuiGL3_CreateDeviceObjects()
     glVertexAttribPointer(g_AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
     
-    ImGuiGL3_CreateFontsTexture();
-    
     // Restore modified GL state
     glBindTexture(GL_TEXTURE_2D, last_texture);
     glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
     glBindVertexArray(last_vertex_array);
-    
-    
-    
-    
+
     return true;
 }
 
@@ -234,7 +233,7 @@ void ImGuiGL3_InvalidateDeviceObjects()
     if (g_FontTexture)
     {
         glDeleteTextures(1, &g_FontTexture);
-        ImGui::GetIO().Fonts->TexID = 0;
+        //ImGui::GetIO().Fonts->TexID = 0;
         g_FontTexture = 0;
     }
 }

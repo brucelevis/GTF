@@ -667,7 +667,7 @@ void GTFNodeGraph::updateGUI()
         }
     }
     
-    if(ImGui::IsKeyDown(ImGuiKey_Delete))
+    if(ImGui::IsKeyDown(ImGui::GetKeyIndex(ImGuiKey_Delete)))
     {
         lastClickedNode = nullptr;
         for(GTFNode* node : selectedNodes)
