@@ -3,3 +3,6 @@ intermediate/
 xcuserdata
 *xccheckout
 projects/Xcode/build
+*.sdf
+*.vcxproj.user
+*.VC.opendb

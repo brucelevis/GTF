@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\thirdparty">
+      <UniqueIdentifier>{494b3a14-5af4-4a60-bf55-8b61437d26da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\thirdparty\imgui">
+      <UniqueIdentifier>{cca2fe2d-66bf-4962-a935-c3c13d6fe68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\thirdparty\stb">
+      <UniqueIdentifier>{c1d0e3c5-ae3a-425c-bc41-d5520af4a371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\thirdparty\tinylibs">
+      <UniqueIdentifier>{c1425006-8c2d-4eb2-b5e2-875710af141d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gtf">
+      <UniqueIdentifier>{440123a8-fabb-4008-9a0e-be6a0a767317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gtf\gui">
+      <UniqueIdentifier>{0b632bc8-6a86-4e0c-ae5d-27e9634a755e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gtf\iosys">
+      <UniqueIdentifier>{ef5732bd-1782-4dbd-a197-b1b1a4a34fa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gtf\render">
+      <UniqueIdentifier>{a06f0874-4609-4570-9cb0-724f10a5e60e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gtf\utility">
+      <UniqueIdentifier>{6511373e-3aca-461d-8464-a1d139c1d5d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\thirdparty\tinylibs\glad.c">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\tinylibs\mikktspace.cpp">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\tinylibs\tinyfiledialogs.c">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\tinylibs\tiny_obj_loader.cc">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui.cpp">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_demo.cpp">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_draw.cpp">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_extra_widgets.cpp">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\gui\GTFGUIGradientPicker.cpp">
+      <Filter>src\gtf\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_OGL3.cpp">
+      <Filter>src\gtf\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_Shared.cpp">
+      <Filter>src\gtf\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\iosys\GTFApp.cpp">
+      <Filter>src\gtf\iosys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\iosys\GTFAppWin.cpp">
+      <Filter>src\gtf\iosys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\iosys\GTFWindow.cpp">
+      <Filter>src\gtf\iosys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\iosys\GTFWindowWin.cpp">
+      <Filter>src\gtf\iosys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\render\GTFOpenGLRHI.cpp">
+      <Filter>src\gtf\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\render\GTFRHI.cpp">
+      <Filter>src\gtf\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\utility\GTFColor.cpp">
+      <Filter>src\gtf\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\utility\GTFCRC32.cpp">
+      <Filter>src\gtf\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\utility\GTFGradient.cpp">
+      <Filter>src\gtf\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\utility\GTFLangUtils.cpp">
+      <Filter>src\gtf\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\utility\GTFNodeGraph.cpp">
+      <Filter>src\gtf\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\gtf\utility\GTFUniqueId.cpp">
+      <Filter>src\gtf\utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\thirdparty\tinylibs\glad.h">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\tinylibs\khrplatform.h">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\tinylibs\mikktspace.h">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\tinylibs\tinyfiledialogs.h">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\tinylibs\tiny_obj_loader.h">
+      <Filter>src\thirdparty\tinylibs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\stb\stb_image.h">
+      <Filter>src\thirdparty\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\stb\stb_image_write.h">
+      <Filter>src\thirdparty\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\imconfig.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\imguidock.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui_extra_widgets.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui_internal.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\stb_rect_pack.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\stb_textedit.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\stb_truetype.h">
+      <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\gui\GTFGUIGradientPicker.h">
+      <Filter>src\gtf\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\gui\ImGuiSetup.h">
+      <Filter>src\gtf\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\iosys\GTFApp.h">
+      <Filter>src\gtf\iosys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\iosys\GTFWindow.h">
+      <Filter>src\gtf\iosys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\render\GTFOpenGLRHI.h">
+      <Filter>src\gtf\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\render\GTFRHI.h">
+      <Filter>src\gtf\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\utility\GTFColor.h">
+      <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\utility\GTFCRC32.h">
+      <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\utility\GTFErrorHandling.h">
+      <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\utility\GTFGradient.h">
+      <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\utility\GTFLangUtils.h">
+      <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\utility\GTFNodeGraph.h">
+      <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\gtf\utility\GTFUniqueId.h">
+      <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\thirdparty\imgui\imguidock.inl">
+      <Filter>src\thirdparty\imgui</Filter>
+    </None>
+  </ItemGroup>
+</Project>
