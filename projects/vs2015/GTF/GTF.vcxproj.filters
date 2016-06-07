@@ -70,13 +70,7 @@
     <ClCompile Include="..\..\..\src\gtf\iosys\GTFApp.cpp">
       <Filter>src\gtf\iosys</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\gtf\iosys\GTFAppWin.cpp">
-      <Filter>src\gtf\iosys</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\gtf\iosys\GTFWindow.cpp">
-      <Filter>src\gtf\iosys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\gtf\iosys\GTFWindowWin.cpp">
       <Filter>src\gtf\iosys</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\gtf\render\GTFOpenGLRHI.cpp">

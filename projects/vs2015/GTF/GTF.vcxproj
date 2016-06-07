@@ -71,20 +71,24 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
     <TargetName>lib$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
     <TargetName>lib$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,9 +135,7 @@
     <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_OGL3.cpp" />
     <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_Shared.cpp" />
     <ClCompile Include="..\..\..\src\gtf\iosys\GTFApp.cpp" />
-    <ClCompile Include="..\..\..\src\gtf\iosys\GTFAppWin.cpp" />
     <ClCompile Include="..\..\..\src\gtf\iosys\GTFWindow.cpp" />
-    <ClCompile Include="..\..\..\src\gtf\iosys\GTFWindowWin.cpp" />
     <ClCompile Include="..\..\..\src\gtf\render\GTFOpenGLRHI.cpp" />
     <ClCompile Include="..\..\..\src\gtf\render\GTFRHI.cpp" />
     <ClCompile Include="..\..\..\src\gtf\utility\GTFColor.cpp" />
