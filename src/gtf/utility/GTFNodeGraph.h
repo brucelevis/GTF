@@ -61,6 +61,7 @@ public:
     bool isDirty { false };
     
     GTFNodeConnectionDescBase const * desc;
+    class GTFNode* parentNode;
     
     //connections
     

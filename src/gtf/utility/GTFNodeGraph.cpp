@@ -84,6 +84,7 @@ GTFNode* GTFNodeGraph::createNode(GTFUniqueId typeId, int atX, int atY)
             inputTextSize.y += textSize.y;
             inputTextSize.y += 4.0f;		// size between text entries
             
+            con->parentNode = node;
             node->inputConnections.push_back(con);
         }
         
@@ -117,6 +118,7 @@ GTFNode* GTFNodeGraph::createNode(GTFUniqueId typeId, int atX, int atY)
             inputTextSize.y += textSize.y;
             inputTextSize.y += 4.0f;		// size between text entries
             
+            con->parentNode = node;
             node->outputConnections.push_back(con);
         }
         
@@ -228,6 +230,38 @@ GTFNodeConnectionBase* GTFNodeGraph::getHoverCon(ImVec2 offset, ImVec2* pos, boo
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+bool checkRecursiveIntegrity(GTFNodeConnectionBase const * targetCon, GTFNode const * forbbidenNode)
+{
+    if(!targetCon) return true;
+    if(targetCon->parentNode == forbbidenNode) return false;
+    
+    if(targetCon->isInput)
+    {
+        for(auto outCon : targetCon->parentNode->outputConnections)
+        {
+            for(auto con : outCon->output)
+            {
+                if(!checkRecursiveIntegrity(con, forbbidenNode))
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    else
+    {
+        for(auto inCon : targetCon->parentNode->inputConnections)
+        {
+            if(!checkRecursiveIntegrity(inCon->input, forbbidenNode))
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+
 void GTFNodeGraph::updateDraging(ImVec2 offset)
 {
 	switch (dragState)
@@ -332,7 +366,8 @@ void GTFNodeGraph::updateDraging(ImVec2 offset)
 				// Lets connect the nodes.
 				// TODO: Make sure we connect stuff in the correct way!
                 // TODO2: fixed at node type level, add rules for custom connections?
-                if(con->isInput != dragNode.con->isInput)
+                // TODO3: prevent recursive node graphs (DONE)
+                if(con->isInput != dragNode.con->isInput && checkRecursiveIntegrity(con, dragNode.con->parentNode))
                 {
                     if(con->isInput)
                     {
