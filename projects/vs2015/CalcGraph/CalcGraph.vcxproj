@@ -18,8 +18,19 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\examples\CalcGraph\CalcNodeGraph.cpp" />
+    <ClCompile Include="..\..\..\examples\CalcGraph\CalcNodes.cpp" />
+    <ClCompile Include="..\..\..\examples\CalcGraph\CalcWindow.cpp" />
+    <ClCompile Include="..\..\..\examples\CalcGraph\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\examples\CalcGraph\CalcNodeGraph.h" />
+    <ClInclude Include="..\..\..\examples\CalcGraph\CalcNodes.h" />
+    <ClInclude Include="..\..\..\examples\CalcGraph\CalcWindow.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D2B4E76E-DB45-4F12-BDCD-59D24AE574A9}</ProjectGuid>
+    <ProjectGuid>{DB75BDFD-BF93-4F26-8BDB-4537C448EF38}</ProjectGuid>
     <RootNamespace>NoiseGenerator</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -148,17 +159,6 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;OpenGL32.lib;libGTF.lib;glfw3.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\examples\NoiseGenerator\GeneratorWorker.cpp" />
-    <ClCompile Include="..\..\..\examples\NoiseGenerator\main.cpp" />
-    <ClCompile Include="..\..\..\examples\NoiseGenerator\NoiseWindow.cpp" />
-    <ClCompile Include="..\..\..\examples\NoiseGenerator\PerlinNoise.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\examples\NoiseGenerator\GeneratorWorker.h" />
-    <ClInclude Include="..\..\..\examples\NoiseGenerator\NoiseWindow.h" />
-    <ClInclude Include="..\..\..\examples\NoiseGenerator\PerlinNoise.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

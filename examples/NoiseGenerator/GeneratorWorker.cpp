@@ -12,6 +12,7 @@
 
 #include <cmath>
 #include <thread>
+#include <mutex>
 #include <iostream>
 
 bool GeneratorWorker::update(GeneratorInfo& info)
