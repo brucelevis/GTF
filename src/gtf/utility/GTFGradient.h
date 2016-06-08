@@ -33,7 +33,16 @@ public:
     void addMark(float position, GTFColor color);
     void removeMark(GTFGradientMarkPtr mark);
     void reverseMarks();
-    GTFColor const getColorAt(float position) const;
+    void refreshCache();
+    void getColorAt(float position, GTFColor& color) const;
+    void computeColorAt(float position, GTFColor& color) const;
+    
+    void getF32RGB(float position, float* rgb) const;
     
     std::list<GTFGradientMarkPtr> marks;
+    
+private:
+    
+    
+    GTFColor m_cachedValues[256];
 };

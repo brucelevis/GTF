@@ -48,7 +48,7 @@ GTFColor::GTFColor(unsigned int hexARGB)
     b = (hexARGB & 0xFF) / 255.0f;
 }
 
-float* GTFColor::asF32A(float* color, bool includeAlpha)
+float* GTFColor::asF32A(float* color, bool includeAlpha) const
 {
     color[0] = r;
     color[1] = g;
@@ -60,14 +60,14 @@ float* GTFColor::asF32A(float* color, bool includeAlpha)
     return color;
 }
 
-unsigned int GTFColor::asHEX( bool includeAlpha)
+unsigned int GTFColor::asHEX( bool includeAlpha) const
 {
     unsigned int uiR = r * 255, uiG = g * 255, uiB = b * 255, uiA = a * 255;
     
     return (includeAlpha * uiA << 24) + (uiR << 16) + (uiG << 8) + uiB;
 }
 
-unsigned char* GTFColor::asU8A(unsigned char* color, bool includeAlpha)
+unsigned char* GTFColor::asU8A(unsigned char* color, bool includeAlpha) const
 {
     color[0] = floor(r * 255);
     color[1] = floor(g * 255);
@@ -77,4 +77,9 @@ unsigned char* GTFColor::asU8A(unsigned char* color, bool includeAlpha)
         color[3] = floor(a * 255);
     
     return color;
+}
+
+GTFColor GTFColor::fromU8RGB(unsigned char r, unsigned g, unsigned char b)
+{
+    return GTFColor(r/255.0f, g/255.0f, b/255.0f, 1.0f);
 }

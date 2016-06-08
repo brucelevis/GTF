@@ -18,11 +18,13 @@ public:
     GTFColor(float r, float g, float b, float a = 1.0f);
     GTFColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
     explicit GTFColor(unsigned int hexARGB);
-    float* asF32A(float* color, bool includeAlpha = false);
-    unsigned int asHEX( bool includeAlpha = false);
-    unsigned char* asU8A(unsigned char* color, bool includeAlpha = false);
+    float* asF32A(float* color, bool includeAlpha = false) const;
+    unsigned int asHEX( bool includeAlpha = false) const;
+    unsigned char* asU8A(unsigned char* color, bool includeAlpha = false) const;
     
     //TODO: HSV, static helpers
+    static GTFColor fromU8RGB(unsigned char r, unsigned g, unsigned char b);
+    
     
     //rgba
     float r;

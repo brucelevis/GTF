@@ -68,15 +68,14 @@ void GeneratorWorker::run()
     std::vector<std::thread> threads(num_cpus);
     unsigned int elementsPerCPU = m_info.resX * m_info.resY / num_cpus;
     
-    std::mutex iomutex;
-
     for (unsigned threadIndex = 0; threadIndex < num_cpus; ++threadIndex)
     {
-        threads[threadIndex] = std::thread([=, &iomutex]
+        threads[threadIndex] = std::thread([=]
         {
             // Visit every pixel of the image and assign a color generated with Perlin noise
             int from = threadIndex * elementsPerCPU;
             int to = (threadIndex + 1) * elementsPerCPU;
+            GTFColor color;
             for(int e = from; e < to; e++)
             {
                 int i = e % m_info.resX;
@@ -107,7 +106,7 @@ void GeneratorWorker::run()
                 
                 // Map the values to the [0, 255] interval, for simplicity we use
                 // 50 shaders of grey
-                GTFColor color = gradient.getColorAt(n);
+                gradient.getColorAt(n, color);
                 color.asU8A(&m_info.image[(e*3)+0]);
                 
                 

@@ -16,6 +16,7 @@ GTFGradient::GTFGradient()
 {
     addMark(0.0f, GTFCOLORS::BLACK);
     addMark(1.0f, GTFCOLORS::WHITE);
+    
 }
 
 GTFGradient::~GTFGradient()
@@ -38,14 +39,24 @@ void GTFGradient::addMark(float position, GTFColor color)
     newMark->position = position;
     newMark->color = color;
     marks.push_back(newMark);
+    refreshCache();
 }
 
 void GTFGradient::removeMark(GTFGradientMarkPtr mark)
 {
     marks.remove(mark);
+    refreshCache();
 }
 
-GTFColor const GTFGradient::getColorAt(float position) const
+void GTFGradient::getColorAt(float position, GTFColor& color) const
+{
+    position = glm::clamp(position, 0.0f, 1.0f);
+    
+    int cachePos = position * 255;
+    color = m_cachedValues[cachePos];
+}
+
+void GTFGradient::computeColorAt(float position, GTFColor& color) const
 {
     position = glm::clamp(position, 0.0f, 1.0f);
     
@@ -82,12 +93,13 @@ GTFColor const GTFGradient::getColorAt(float position) const
     else if(!lower && !upper)
     {
         //color[0] = color[1] = color[2] = 0;
-        return GTFColor(0.0f);
+        //color = GTFColor(0.0f);
+        color.r = color.g = color.b = 0.0f;
     }
     
     if(upper == lower)
     {
-        return upper->color;
+        color = upper->color;
     }
     else
     {
@@ -95,7 +107,14 @@ GTFColor const GTFGradient::getColorAt(float position) const
         float delta = (position - lower->position) / distance;
         
         //lerp
-        GTFColor finalColor = ((1.0f - delta) * lower->color) + ((delta) * upper->color);
-        return finalColor;
+        color = ((1.0f - delta) * lower->color) + ((delta) * upper->color);
+    }
+}
+
+void GTFGradient::refreshCache()
+{
+    for(int i = 0; i < 256; ++i)
+    {
+        computeColorAt(i/255.0f, m_cachedValues[i]);
     }
 }
