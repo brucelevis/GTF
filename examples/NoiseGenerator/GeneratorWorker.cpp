@@ -15,6 +15,19 @@
 #include <mutex>
 #include <iostream>
 
+GeneratorWorker::GeneratorWorker()
+{
+    m_gradient.marks.clear();
+    m_gradient.addMark(0.0f, GTFColor(0xA0793D));
+    m_gradient.addMark(0.2f, GTFColor(0xAA8347));
+    m_gradient.addMark(0.3f, GTFColor(0xB48D51));
+    m_gradient.addMark(0.4f, GTFColor(0xBE975B));
+    m_gradient.addMark(0.6f, GTFColor(0xC8A165));
+    m_gradient.addMark(0.7f, GTFColor(0xD2AB6F));
+    m_gradient.addMark(0.8f, GTFColor(0xDCB579));
+    m_gradient.addMark(1.0f, GTFColor(0xE6BF83));
+}
+
 bool GeneratorWorker::update(GeneratorInfo& info)
 {
     if(info.dirty)
@@ -50,18 +63,7 @@ bool GeneratorWorker::update(GeneratorInfo& info)
 void GeneratorWorker::run()
 {
     PerlinNoise pn(m_info.seed);
-    
-    GTFGradient gradient;
-    gradient.marks.clear();
-    gradient.addMark(0.0f, GTFColor(0xA0793D));
-    gradient.addMark(0.2f, GTFColor(0xAA8347));
-    gradient.addMark(0.3f, GTFColor(0xB48D51));
-    gradient.addMark(0.4f, GTFColor(0xBE975B));
-    gradient.addMark(0.6f, GTFColor(0xC8A165));
-    gradient.addMark(0.7f, GTFColor(0xD2AB6F));
-    gradient.addMark(0.8f, GTFColor(0xDCB579));
-    gradient.addMark(1.0f, GTFColor(0xE6BF83));
-    
+
     unsigned num_cpus = std::thread::hardware_concurrency();
     std::cout << "Launching " << num_cpus << " threads" << std::endl;
     
@@ -106,7 +108,7 @@ void GeneratorWorker::run()
                 
                 // Map the values to the [0, 255] interval, for simplicity we use
                 // 50 shaders of grey
-                gradient.getColorAt(n, color);
+                m_gradient.getColorAt(n, color);
                 color.asU8A(&m_info.image[(e*3)+0]);
                 
                 

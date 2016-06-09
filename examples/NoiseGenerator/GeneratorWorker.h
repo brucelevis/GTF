@@ -9,6 +9,7 @@
 #pragma once 
 
 #include <thread>
+#include "GTFGradient.h"
 
 struct GeneratorInfo
 {
@@ -28,6 +29,7 @@ struct GeneratorInfo
 class GeneratorWorker
 {
 public:
+    GeneratorWorker();
     bool update(GeneratorInfo& info);
 private:
     void run();
@@ -36,4 +38,6 @@ private:
     bool m_cancel { false };
     bool m_running { false };
     bool m_ready { false };
+    
+    GTFGradient m_gradient;
 };

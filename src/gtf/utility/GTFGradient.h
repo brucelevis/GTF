@@ -32,10 +32,9 @@ public:
     void getColorAt(float position, GTFColor& color) const;
     void computeColorAt(float position, GTFColor& color) const;
     
-	std::list<GTFGradientMark*> const & getMarksRef() const { return marks; };
+    std::list<GTFGradientMark*> marks;
     
 private:
-	std::list<GTFGradientMark*> marks;
-    
+	   
     GTFColor m_cachedValues[256];
 };
