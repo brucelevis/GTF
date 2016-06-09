@@ -9,6 +9,8 @@
 #include "NoiseWindow.h"
 
 #include "GTFRHI.h"
+#include "GTFGUIGradientPicker.h"
+
 #include "imgui.h"
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui_internal.h"
@@ -110,7 +112,8 @@ void NoiseWindow::frame(double deltaTime)
         
         m_info.dirty |= ImGui::Checkbox("Is Wood", &m_info.wood);
         
-
+        static bool showPopup;
+        GTFGUIGradientPicker::displayWidget(&showPopup, &m_worker->m_gradient);
     }
     ImGui::End();
     

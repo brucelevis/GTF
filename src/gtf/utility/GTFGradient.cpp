@@ -42,6 +42,8 @@ void GTFGradient::addMark(float position, GTFColor color)
     newMark->position = position;
     newMark->color = color;
     marks.push_back(newMark);
+    marks.sort([](const GTFGradientMark * a, const GTFGradientMark * b) { return a->position < b->position; });
+    
     refreshCache();
 }
 

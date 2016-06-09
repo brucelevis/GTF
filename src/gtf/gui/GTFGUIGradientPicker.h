@@ -9,3 +9,11 @@
 #pragma once
 
 #include "GTFGradient.h"
+
+class GTFGUIGradientPicker
+{
+public:
+    static void displayWidget(bool* show, GTFGradient* gradient);
+    static void showPopupFor(bool* show, GTFGradient* gradient);
+
+};

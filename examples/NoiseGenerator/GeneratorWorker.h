@@ -31,6 +31,8 @@ class GeneratorWorker
 public:
     GeneratorWorker();
     bool update(GeneratorInfo& info);
+    GTFGradient m_gradient;
+    
 private:
     void run();
     GeneratorInfo m_info;
@@ -39,5 +41,5 @@ private:
     bool m_running { false };
     bool m_ready { false };
     
-    GTFGradient m_gradient;
+    
 };

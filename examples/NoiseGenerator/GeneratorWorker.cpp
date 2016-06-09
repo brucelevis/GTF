@@ -18,14 +18,14 @@
 GeneratorWorker::GeneratorWorker()
 {
     m_gradient.marks.clear();
-    m_gradient.addMark(0.0f, GTFColor(0xA0793D));
-    m_gradient.addMark(0.2f, GTFColor(0xAA8347));
-    m_gradient.addMark(0.3f, GTFColor(0xB48D51));
-    m_gradient.addMark(0.4f, GTFColor(0xBE975B));
-    m_gradient.addMark(0.6f, GTFColor(0xC8A165));
-    m_gradient.addMark(0.7f, GTFColor(0xD2AB6F));
-    m_gradient.addMark(0.8f, GTFColor(0xDCB579));
-    m_gradient.addMark(1.0f, GTFColor(0xE6BF83));
+    m_gradient.addMark(0.0f, GTFColor(0xFFA0793D));
+    m_gradient.addMark(0.2f, GTFColor(0xFFAA8347));
+    m_gradient.addMark(0.3f, GTFColor(0xFFB48D51));
+    m_gradient.addMark(0.4f, GTFColor(0xFFBE975B));
+    m_gradient.addMark(0.6f, GTFColor(0xFFC8A165));
+    m_gradient.addMark(0.7f, GTFColor(0xFFD2AB6F));
+    m_gradient.addMark(0.8f, GTFColor(0xFFDCB579));
+    m_gradient.addMark(1.0f, GTFColor(0xFFE6BF83));
 }
 
 bool GeneratorWorker::update(GeneratorInfo& info)

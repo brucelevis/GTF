@@ -19,7 +19,8 @@ public:
     GTFColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
     explicit GTFColor(unsigned int hexARGB);
     float* asF32A(float* color, bool includeAlpha = false) const;
-    unsigned int asHEX( bool includeAlpha = false) const;
+    unsigned int asHEXARGB( bool includeAlpha = false) const;
+    unsigned int asHEXABGR( bool includeAlpha = false) const;
     unsigned char* asU8A(unsigned char* color, bool includeAlpha = false) const;
     
     //TODO: HSV, static helpers
