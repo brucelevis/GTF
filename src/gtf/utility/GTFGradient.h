@@ -14,15 +14,10 @@
 #include "GTFLangUtils.h"
 
 
-typedef std::shared_ptr<class GTFGradientMark> GTFGradientMarkPtr;
-class GTFGradientMark
+struct GTFGradientMark
 {
-public:
-    static GTFGradientMarkPtr create() { return GTFGradientMarkPtr(new GTFGradientMark); }
-    GTFColor color;
-    float position; //0 to 1
-private:
-    GTF_DEFAULT_CTORS_EMPTY_IMPL(GTFGradientMark)
+	GTFColor color;
+	float position; //0 to 1	
 };
 
 class GTFGradient
@@ -31,18 +26,16 @@ public:
     GTFGradient();
     ~GTFGradient();
     void addMark(float position, GTFColor color);
-    void removeMark(GTFGradientMarkPtr mark);
+    void removeMark(GTFGradientMark* mark);
     void reverseMarks();
     void refreshCache();
     void getColorAt(float position, GTFColor& color) const;
     void computeColorAt(float position, GTFColor& color) const;
     
-    void getF32RGB(float position, float* rgb) const;
-    
-    std::list<GTFGradientMarkPtr> marks;
+	std::list<GTFGradientMark*> const & getMarksRef() const { return marks; };
     
 private:
-    
+	std::list<GTFGradientMark*> marks;
     
     GTFColor m_cachedValues[256];
 };

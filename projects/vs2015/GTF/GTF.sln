@@ -11,6 +11,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoiseGenerator", "..\NoiseG
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CalcGraph", "..\CalcGraph\CalcGraph.vcxproj", "{DB75BDFD-BF93-4F26-8BDB-4537C448EF38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94FAD135-ED82-4DE4-B0EC-A0AB598CD5EC} = {94FAD135-ED82-4DE4-B0EC-A0AB598CD5EC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

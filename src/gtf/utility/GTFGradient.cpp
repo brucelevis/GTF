@@ -21,12 +21,15 @@ GTFGradient::GTFGradient()
 
 GTFGradient::~GTFGradient()
 {
-    
+	for (GTFGradientMark* mark : marks)
+	{
+		delete mark;
+	}
 }
 
 void GTFGradient::reverseMarks()
 {
-    for(GTFGradientMarkPtr mark : marks)
+    for(GTFGradientMark* mark : marks)
     {
         mark->position = 1.0f - mark->position;
     }
@@ -35,14 +38,14 @@ void GTFGradient::reverseMarks()
 void GTFGradient::addMark(float position, GTFColor color)
 {
     position = glm::clamp(position, 0.0f, 1.0f);
-    GTFGradientMarkPtr newMark = GTFGradientMark::create();
+	GTFGradientMark* newMark = new GTFGradientMark();
     newMark->position = position;
     newMark->color = color;
     marks.push_back(newMark);
     refreshCache();
 }
 
-void GTFGradient::removeMark(GTFGradientMarkPtr mark)
+void GTFGradient::removeMark(GTFGradientMark* mark)
 {
     marks.remove(mark);
     refreshCache();
@@ -60,10 +63,10 @@ void GTFGradient::computeColorAt(float position, GTFColor& color) const
 {
     position = glm::clamp(position, 0.0f, 1.0f);
     
-    GTFGradientMarkPtr lower = nullptr;
-    GTFGradientMarkPtr upper = nullptr;
+    GTFGradientMark* lower = nullptr;
+    GTFGradientMark* upper = nullptr;
     
-    for(GTFGradientMarkPtr mark : marks)
+    for(GTFGradientMark* mark : marks)
     {
         if(mark->position < position)
         {
