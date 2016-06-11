@@ -19,6 +19,7 @@ public:
     {
         m_window = new CalcWindow("CalcGraph");
         registerWindow(m_window);
+        m_window->setVisible(true);
     }
 private:
     GTFWindow* m_window;

@@ -165,8 +165,8 @@ void GTFNodeGraph::drawHermite(ImDrawList* drawList, ImVec2 p1, ImVec2 p2, int S
         diff.x = 0;
     }
     
-	ImVec2 t1 = ImVec2(+180.0f + diff.x, 0.0f);
-	ImVec2 t2 = ImVec2(+180.0f + diff.x, 0.0f);
+	ImVec2 t1 = ImVec2(+180.0f + diff.x + abs(diff.y*1.5f), 0.0f);
+	ImVec2 t2 = ImVec2(+180.0f + diff.x + abs(diff.y*1.5f), 0.0f);
     
 	for (int step = 0; step <= STEPS; step++)
 	{
