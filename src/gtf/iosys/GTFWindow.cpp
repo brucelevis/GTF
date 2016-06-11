@@ -214,3 +214,11 @@ void GTFWindow::postFrame(double deltaTime)
     glfwSwapBuffers(m_nativeWindow->glfw_window);
     
 }
+
+void GTFWindow::setVisible(bool visible)
+{
+    if(visible)
+        glfwShowWindow(m_nativeWindow->glfw_window);
+    else
+        glfwHideWindow(m_nativeWindow->glfw_window);
+}

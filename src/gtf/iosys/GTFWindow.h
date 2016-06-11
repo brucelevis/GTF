@@ -19,6 +19,7 @@ public:
     virtual void preFrame(double deltaTime);
     virtual void frame(double deltaTime);
     virtual void postFrame(double deltaTime);
+    virtual void setVisible(bool visible);
     
     virtual void mouseMove(double x, double y);
     virtual void mouseButton(unsigned int button, bool pressed);
