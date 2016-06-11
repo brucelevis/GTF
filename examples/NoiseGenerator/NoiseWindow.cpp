@@ -112,8 +112,10 @@ void NoiseWindow::frame(double deltaTime)
         
         m_info.dirty |= ImGui::Checkbox("Is Wood", &m_info.wood);
         
-        static bool showPopup;
-        GTFGUIGradientPicker::displayWidget(&showPopup, &m_worker->m_gradient);
+        static bool showPopup = false;
+        static GTFGradientMark* draggingMark = nullptr;
+        static GTFGradientMark* selectedMark = nullptr;
+        m_info.dirty |= GTFGUIGradientPicker::displayWidget(&showPopup, &m_worker->m_gradient, draggingMark, selectedMark);
     }
     ImGui::End();
     
@@ -141,6 +143,8 @@ void NoiseWindow::frame(double deltaTime)
         m_texture->setup(EGTFRHITexInternalFormat::RHI_RGB8, m_info.resX, m_info.resY, EGTFRHITexFormat::RHI_RGB, EGTFRHIValueType::RHI_UNSIGNED_BYTE, m_info.image);
         delete [] m_info.image;
     }
+    
+    //ImGui::ShowTestWindow();
     
     // Rendering
     RHI->viewport(0, 0, m_windowWidth, m_windowHeight);

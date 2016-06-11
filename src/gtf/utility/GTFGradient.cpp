@@ -33,6 +33,8 @@ void GTFGradient::reverseMarks()
     {
         mark->position = 1.0f - mark->position;
     }
+    
+    refreshCache();
 }
 
 void GTFGradient::addMark(float position, GTFColor color)
@@ -42,7 +44,6 @@ void GTFGradient::addMark(float position, GTFColor color)
     newMark->position = position;
     newMark->color = color;
     marks.push_back(newMark);
-    marks.sort([](const GTFGradientMark * a, const GTFGradientMark * b) { return a->position < b->position; });
     
     refreshCache();
 }
@@ -99,7 +100,8 @@ void GTFGradient::computeColorAt(float position, GTFColor& color) const
     {
         //color[0] = color[1] = color[2] = 0;
         //color = GTFColor(0.0f);
-        color.r = color.g = color.b = 0.0f;
+        color.a = color.r = color.g = color.b = 1.0f;
+        return;
     }
     
     if(upper == lower)
@@ -118,8 +120,10 @@ void GTFGradient::computeColorAt(float position, GTFColor& color) const
 
 void GTFGradient::refreshCache()
 {
+    marks.sort([](const GTFGradientMark * a, const GTFGradientMark * b) { return a->position < b->position; });
+    
     for(int i = 0; i < 256; ++i)
     {
         computeColorAt(i/255.0f, m_cachedValues[i]);
-    }
+    }    
 }
