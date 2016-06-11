@@ -128,6 +128,7 @@
 		3F102EE31CFE38E600A11E17 /* GTFUniqueId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFUniqueId.h; sourceTree = "<group>"; };
 		3F102F901CFE399B00A11E17 /* GTFCRC32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = GTFCRC32.cpp; sourceTree = "<group>"; };
 		3F102F911CFE399B00A11E17 /* GTFCRC32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFCRC32.h; sourceTree = "<group>"; };
+		3F1C8D7E1D0C6C67009EB52E /* NoiseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoiseApp.h; sourceTree = "<group>"; };
 		3F20694F1CED0F0300EB5FFA /* libgtf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgtf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFErrorHandling.h; sourceTree = "<group>"; };
 		3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalcNodeGraph.cpp; sourceTree = "<group>"; };
@@ -385,6 +386,7 @@
 		3F8CFBEF1CF392D000A33B95 /* NoiseGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				3F1C8D7E1D0C6C67009EB52E /* NoiseApp.h */,
 				3F8CFBF21CF3935100A33B95 /* main.cpp */,
 				3F8CFC191CF793BA00A33B95 /* NoiseWindow.cpp */,
 				3F8CFC1A1CF793BA00A33B95 /* NoiseWindow.h */,

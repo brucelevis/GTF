@@ -7,23 +7,9 @@
 //
 
 #include <stdio.h>
+#include "NoiseApp.h"
 
-
-#include "GTFApp.h"
-#include "NoiseWindow.h"
-
-class NoiseApp : public GTFApp
-{
-public:
-    virtual void readyToStart()
-    {
-        m_window = new NoiseWindow("NoiseGenerator");
-        registerWindow(m_window);
-        setMainWindow(m_window);
-    }
-private:
-    GTFWindow* m_window;
-};
+NoiseApp* NoiseApp::instance { nullptr };
 
 int main(int argc, const char * argv[])
 {

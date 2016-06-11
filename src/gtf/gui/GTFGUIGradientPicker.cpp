@@ -20,55 +20,33 @@ static const float GRADIENT_BAR_WIDGET_HEIGHT = 25;
 static const float GRADIENT_BAR_EDITOR_HEIGHT = 40;
 static const float GRADIENT_MARK_DELETE_DIFFY = 40;
 
-bool GTFGUIGradientPicker::displayWidget(bool* showPopup,
-                                         GTFGradient* gradient,
+bool GTFGUIGradientPicker::displayWidget(GTFGradient* gradient)
+{
+    if(!gradient) return false;
+
+    ImVec2 widget_pos = ImGui::GetCursorScreenPos();
+   // ImDrawList* draw_list = ImGui::GetWindowDrawList();
+    
+    float maxWidth = glm::max(250.0f, ImGui::GetContentRegionAvailWidth() - 100.0f);
+    bool clicked = ImGui::InvisibleButton("gradient_bar", ImVec2(maxWidth, GRADIENT_BAR_WIDGET_HEIGHT));
+
+    GTFGUIGradientPicker::drawBar(gradient, widget_pos, maxWidth, GRADIENT_BAR_WIDGET_HEIGHT);
+    
+    return clicked;
+}
+
+bool GTFGUIGradientPicker::displayEditor(GTFGradient* gradient,
                                          GTFGradientMark* & draggingMark,
                                          GTFGradientMark* & selectedMark)
 {
     if(!gradient) return false;
     
     bool modified = false;
-    
-    ImVec2 picker_pos = ImGui::GetCursorScreenPos();
-   // ImDrawList* draw_list = ImGui::GetWindowDrawList();
-    
-    float maxWidth = glm::max(250.0f, ImGui::GetContentRegionAvailWidth() - 100.0f);
-    
-    ImGui::InvisibleButton("gradient_bar", ImVec2(maxWidth, GRADIENT_BAR_WIDGET_HEIGHT));
-    
-    if(ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
-    {
-        if(showPopup)
-        {
-            *showPopup = true;
-            ImGui::SetNextWindowPosCenter();
-            
-        }
-    }
-    
-    GTFGUIGradientPicker::drawBar(gradient, false, draggingMark, selectedMark, picker_pos, maxWidth, GRADIENT_BAR_WIDGET_HEIGHT);
-    
-    return showPopupFor(showPopup, gradient, draggingMark, selectedMark);
-}
-
-bool GTFGUIGradientPicker::showPopupFor(bool* showPopup,
-                                        GTFGradient* gradient,
-                                        GTFGradientMark* & draggingMark,
-                                        GTFGradientMark* & selectedMark)
-{
-    if(!gradient) return false;
-    if(showPopup && !*showPopup) return false;
-    
-    bool modified = false;
 
     ImGui::SetNextWindowSize(ImVec2(400, 400), ImGuiSetCond_Always);
     ImGui::SetNextWindowFocus();
     
-    if(!ImGui::Begin("Color Gradient Editor", showPopup, ImGuiWindowFlags_NoResize ))
-    {
-        ImGui::End();
-        return false;
-    }
+ 
     
     ImVec2 picker_pos = ImGui::GetCursorScreenPos();
     picker_pos.x += 10;
@@ -86,7 +64,8 @@ bool GTFGUIGradientPicker::showPopupFor(bool* showPopup,
         gradient->addMark(pos, newMarkCol);
     }
     
-    GTFGUIGradientPicker::drawBar(gradient, true, draggingMark, selectedMark, picker_pos, maxWidth, GRADIENT_BAR_EDITOR_HEIGHT);
+    GTFGUIGradientPicker::drawBar(gradient, picker_pos, maxWidth, GRADIENT_BAR_EDITOR_HEIGHT);
+    GTFGUIGradientPicker::drawMarks(gradient, draggingMark, selectedMark, picker_pos, maxWidth, GRADIENT_BAR_EDITOR_HEIGHT);
     
     if(!ImGui::IsMouseDown(0) && draggingMark)
     {
@@ -134,16 +113,11 @@ bool GTFGUIGradientPicker::showPopupFor(bool* showPopup,
         gradient->refreshCache();
     }
     
-    ImGui::End();
     
     return modified;
-    
 }
 
 void GTFGUIGradientPicker::drawBar(GTFGradient* gradient,
-                                   bool withMarks,
-                                   GTFGradientMark* & draggingMark,
-                                   GTFGradientMark* & selectedMark,
                                    struct ImVec2 const & bar_pos,
                                    float maxWidth,
                                    float height)
@@ -204,77 +178,89 @@ void GTFGUIGradientPicker::drawBar(GTFGradient* gradient,
                                            colorBU32, colorBU32, colorBU32, colorBU32);
     }
     
+    ImGui::SetCursorScreenPos(ImVec2(bar_pos.x, bar_pos.y + height + 10.0f));
+}
+
+
+
+void GTFGUIGradientPicker::drawMarks(GTFGradient* gradient,
+                                   GTFGradientMark* & draggingMark,
+                                   GTFGradientMark* & selectedMark,
+                                   struct ImVec2 const & bar_pos,
+                                   float maxWidth,
+                                   float height)
+{
+    unsigned int colorAU32 = 0;
+    unsigned int colorBU32 = 0;
+    float barBottom = bar_pos.y + height;
+    GTFGradientMark* prevMark = nullptr;
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
     
-    if(withMarks)
+    for(auto markIt = gradient->marks.begin(); markIt != gradient->marks.end(); ++markIt )
     {
-        for(auto markIt = gradient->marks.begin(); markIt != gradient->marks.end(); ++markIt )
+        GTFGradientMark* mark = *markIt;
+        
+        if(!selectedMark)
         {
-            GTFGradientMark* mark = *markIt;
+            selectedMark = mark;
+        }
+        
+        float to = bar_pos.x + mark->position * maxWidth;
+        
+        if(prevMark == nullptr)
+        {
+            colorAU32 = mark->color.asHEXABGR(true);
+        }
+        else
+        {
+            colorAU32 = prevMark->color.asHEXABGR(true);
+        }
+        
+        colorBU32 = mark->color.asHEXABGR(true);
+        
+        
+        draw_list->AddTriangleFilled(ImVec2(to, bar_pos.y + (height - 6)),
+                                     ImVec2(to - 6, barBottom),
+                                     ImVec2(to + 6, barBottom), IM_COL32(100, 100, 100, 255));
+        
+        draw_list->AddRectFilled(ImVec2(to - 6, barBottom),
+                                 ImVec2(to + 6, bar_pos.y + (height + 12)),
+                                 IM_COL32(100, 100, 100, 255), 1.0f, 1.0f);
+        
+        draw_list->AddRectFilled(ImVec2(to - 5, bar_pos.y + (height + 1)),
+                                 ImVec2(to + 5, bar_pos.y + (height + 11)),
+                                 IM_COL32(0, 0, 0, 255), 1.0f, 1.0f);
+        
+        if(selectedMark == mark)
+        {
+            draw_list->AddTriangleFilled(ImVec2(to, bar_pos.y + (height - 3)),
+                                         ImVec2(to - 4, barBottom + 1),
+                                         ImVec2(to + 4, barBottom + 1), IM_COL32(0, 255, 0, 255));
             
-            if(!selectedMark)
+            draw_list->AddRect(ImVec2(to - 5, bar_pos.y + (height + 1)),
+                               ImVec2(to + 5, bar_pos.y + (height + 11)),
+                               IM_COL32(0, 255, 0, 255), 1.0f, 1.0f);
+        }
+        
+        draw_list->AddRectFilledMultiColor(ImVec2(to - 3, bar_pos.y + (height + 3)),
+                                           ImVec2(to + 3, bar_pos.y + (height + 9)),
+                                           colorBU32, colorBU32, colorBU32, colorBU32);
+        
+        ImGui::SetCursorScreenPos(ImVec2(to - 6, barBottom));
+        ImGui::InvisibleButton("mark", ImVec2(12, 12));
+        
+        if(ImGui::IsItemHovered())
+        {
+            if(ImGui::IsMouseClicked(0))
             {
                 selectedMark = mark;
+                draggingMark = mark;
             }
-            
-            float to = bar_pos.x + mark->position * maxWidth;
-            
-            if(prevMark == nullptr)
-            {
-                colorAU32 = mark->color.asHEXABGR(true);
-            }
-            else
-            {
-                colorAU32 = prevMark->color.asHEXABGR(true);
-            }
-            
-            colorBU32 = mark->color.asHEXABGR(true);
-            
-        
-            
-            
-            draw_list->AddTriangleFilled(ImVec2(to, bar_pos.y + (height - 6)),
-                                                     ImVec2(to - 6, barBottom),
-                                                     ImVec2(to + 6, barBottom), IM_COL32(100, 100, 100, 255));
-            
-            draw_list->AddRectFilled(ImVec2(to - 6, barBottom),
-                                                 ImVec2(to + 6, bar_pos.y + (height + 12)),
-                                                 IM_COL32(100, 100, 100, 255), 1.0f, 1.0f);
-            
-            draw_list->AddRectFilled(ImVec2(to - 5, bar_pos.y + (height + 1)),
-                                                 ImVec2(to + 5, bar_pos.y + (height + 11)),
-                                                 IM_COL32(0, 0, 0, 255), 1.0f, 1.0f);
-            
-            if(selectedMark == mark)
-            {
-                draw_list->AddTriangleFilled(ImVec2(to, bar_pos.y + (height - 3)),
-                                                         ImVec2(to - 4, barBottom + 1),
-                                                         ImVec2(to + 4, barBottom + 1), IM_COL32(0, 255, 0, 255));
-                
-                draw_list->AddRect(ImVec2(to - 5, bar_pos.y + (height + 1)),
-                                               ImVec2(to + 5, bar_pos.y + (height + 11)),
-                                               IM_COL32(0, 255, 0, 255), 1.0f, 1.0f);
-            }
-            
-            draw_list->AddRectFilledMultiColor(ImVec2(to - 3, bar_pos.y + (height + 3)),
-                                                           ImVec2(to + 3, bar_pos.y + (height + 9)),
-                                                           colorBU32, colorBU32, colorBU32, colorBU32);
-            
-            ImGui::SetCursorScreenPos(ImVec2(to - 6, barBottom));
-            ImGui::InvisibleButton("mark", ImVec2(12, 12));
-            
-            if(ImGui::IsItemHovered())
-            {
-                if(ImGui::IsMouseClicked(0))
-                {
-                    selectedMark = mark;
-                    draggingMark = mark;
-                }
-            }
-            
-            
-            prevMark = mark;
         }
+        
+        
+        prevMark = mark;
     }
     
-    ImGui::SetCursorScreenPos(ImVec2(bar_pos.x, bar_pos.y + height + ((withMarks) ? 20.0f : 10.0f)));
+    ImGui::SetCursorScreenPos(ImVec2(bar_pos.x, bar_pos.y + height + 20.0f));
 }

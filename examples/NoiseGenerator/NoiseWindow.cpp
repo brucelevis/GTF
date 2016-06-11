@@ -7,6 +7,7 @@
 //
 
 #include "NoiseWindow.h"
+#include "NoiseApp.h"
 
 #include "GTFRHI.h"
 #include "GTFGUIGradientPicker.h"
@@ -18,6 +19,56 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
+class GradientEditorWindow : public GTFWindow
+{
+public:
+    GradientEditorWindow(class GTFGradient* gradient)
+    : GTFWindow("Color Gradient Editor", 400, 400)
+    , m_gradientRef(gradient)
+    {
+        RHI->setClearColor(0.3, 0.3, 0.28, 1.0);
+    }
+    virtual void frame(double deltaTime) override
+    {
+        ImGuiWindowFlags flags = 0;
+        flags |= ImGuiWindowFlags_NoCollapse;
+        flags |= ImGuiWindowFlags_NoMove;
+        flags |= ImGuiWindowFlags_NoResize;
+        flags |= ImGuiWindowFlags_NoTitleBar;
+        flags |= ImGuiWindowFlags_HorizontalScrollbar;
+        
+        ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Always);
+        ImGui::SetNextWindowSize(ImVec2(m_windowWidth - 40, m_windowHeight - 40), ImGuiSetCond_Always);
+        
+        ImGui::Begin("Color Gradient Editor", nullptr, flags	);
+        m_updated = GTFGUIGradientPicker::displayEditor(m_gradientRef, m_draggingMark, m_selectedMark);
+        ImGui::End();
+        
+        RHI->viewport(0, 0, m_windowWidth, m_windowHeight);
+        RHI->clearColorAndDepthBuffers();
+    }
+    
+    virtual bool wantToClose()
+    {
+        if(GTFWindow::wantToClose())
+        {
+            this->stopClosing();
+            this->setVisible(false);
+        }
+        
+        return false;
+    }
+    
+    bool updated() const { return m_updated; }
+    
+private:
+    GTFGradient* m_gradientRef { nullptr };
+    GTFGradientMark* m_draggingMark { nullptr };
+    GTFGradientMark* m_selectedMark { nullptr };
+    bool m_updated;
+};
+
+
 NoiseWindow::NoiseWindow(const char* title) : GTFWindow(title, 1040, 720)
 {
     RHI->setClearColor(0.3, 0.3, 0.28, 1.0);
@@ -28,6 +79,17 @@ NoiseWindow::NoiseWindow(const char* title) : GTFWindow(title, 1040, 720)
     
     m_info.dirty = true;
     m_worker->update(m_info);
+}
+
+void NoiseWindow::postSetMainInit()
+{
+    if(!m_gradientWindow)
+    {
+        m_gradientWindow = new GradientEditorWindow(&m_worker->m_gradient);
+        NoiseApp::instance->registerWindow(m_gradientWindow);
+    }
+    
+    setVisible(true);
 }
 
 void NoiseWindow::frame(double deltaTime)
@@ -112,10 +174,21 @@ void NoiseWindow::frame(double deltaTime)
         
         m_info.dirty |= ImGui::Checkbox("Is Wood", &m_info.wood);
         
-        static bool showPopup = false;
-        static GTFGradientMark* draggingMark = nullptr;
-        static GTFGradientMark* selectedMark = nullptr;
-        m_info.dirty |= GTFGUIGradientPicker::displayWidget(&showPopup, &m_worker->m_gradient, draggingMark, selectedMark);
+        //static bool showPopup = false;
+        //static GTFGradientMark* draggingMark = nullptr;
+        //static GTFGradientMark* selectedMark = nullptr;
+        
+      
+        if(GTFGUIGradientPicker::displayWidget(&m_worker->m_gradient) && m_gradientWindow)
+        {
+            m_gradientWindow->setVisible(true);
+        }
+        
+        if(m_gradientWindow)
+            m_info.dirty |= m_gradientWindow->updated();
+        
+        
+        //m_info.dirty |=
     }
     ImGui::End();
     

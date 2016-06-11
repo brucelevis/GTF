@@ -28,10 +28,10 @@ struct GTFNativeWindow
     
     void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        /*if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         {
             glfwSetWindowShouldClose(window, GLFW_TRUE);
-        }
+        }*/
     }
 };
 
@@ -56,6 +56,8 @@ GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height)
     {
         parentNative = GTFAPP->getMainWindow()->m_nativeWindow->glfw_window;
     }
+    
+    glfwWindowHint(GLFW_VISIBLE, false);
     
     GLFWwindow* window = glfwCreateWindow(width, height, title, NULL,  parentNative);
     
@@ -137,9 +139,14 @@ GTFWindow::~GTFWindow()
     delete m_nativeWindow;
 }
 
-bool GTFWindow::wantToClose() const
+bool GTFWindow::wantToClose()
 {
     return glfwWindowShouldClose(m_nativeWindow->glfw_window);
+}
+
+void GTFWindow::stopClosing()
+{
+    glfwSetWindowShouldClose(m_nativeWindow->glfw_window, false);
 }
 
 void GTFWindow::mouseMove(double x, double y)

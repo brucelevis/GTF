@@ -13,21 +13,21 @@
 class GTFGUIGradientPicker
 {
 public:
-    static bool displayWidget(bool* showPopup,
-                              GTFGradient* gradient,
+    static bool displayWidget(GTFGradient* gradient);
+    
+    static bool displayEditor(GTFGradient* gradient,
                               GTFGradientMark* & draggingMark,
                               GTFGradientMark* & selectedMark);
-    static bool showPopupFor(bool* showPopup,
-                             GTFGradient* gradient,
-                             GTFGradientMark* & draggingMark,
-                             GTFGradientMark* & selectedMark);
 private:
     static void drawBar(GTFGradient* gradient,
-                        bool withMarks,
-                        GTFGradientMark* & draggingMark,
-                        GTFGradientMark* & selectedMark,
                         struct ImVec2 const & bar_pos,
                         float maxWidth,
                         float height);
-    
+   
+    static void drawMarks(GTFGradient* gradient,
+                          GTFGradientMark* & draggingMark,
+                          GTFGradientMark* & selectedMark,
+                          struct ImVec2 const & bar_pos,
+                          float maxWidth,
+                          float height);
 };

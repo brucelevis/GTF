@@ -29,7 +29,8 @@ public:
     virtual void resize(int newWidth, int newHeight);
     virtual void fileDrop(int count, const char** paths);
     
-    virtual bool wantToClose() const;
+    virtual bool wantToClose();
+    virtual void stopClosing();
     
 public:
     //window properties
