@@ -17,7 +17,7 @@
 
 GeneratorWorker::GeneratorWorker()
 {
-    m_gradient.marks.clear();
+    /*m_gradient.getMarks().clear();
     m_gradient.addMark(0.0f, GTFColor(0xFFA0793D));
     m_gradient.addMark(0.2f, GTFColor(0xFFAA8347));
     m_gradient.addMark(0.3f, GTFColor(0xFFB48D51));
@@ -26,7 +26,7 @@ GeneratorWorker::GeneratorWorker()
     m_gradient.addMark(0.7f, GTFColor(0xFFD2AB6F));
     m_gradient.addMark(0.8f, GTFColor(0xFFDCB579));
     m_gradient.addMark(1.0f, GTFColor(0xFFE6BF83));
-    
+    */
     //m_gradient.addMark(0.0f, GTFColor(0xFFFFFF00));
     //m_gradient.addMark(0.2f, GTFColor(0xFFFFFF00));
     //m_gradient.addMark(0.3f, GTFColor(0xFF00FF00));
@@ -86,7 +86,7 @@ void GeneratorWorker::run()
             // Visit every pixel of the image and assign a color generated with Perlin noise
             int from = threadIndex * elementsPerCPU;
             int to = (threadIndex + 1) * elementsPerCPU;
-            GTFColor color;
+            //GTFColor color;
             for(int e = from; e < to; e++)
             {
                 int i = e % m_info.resX;
@@ -117,13 +117,14 @@ void GeneratorWorker::run()
                 
                 // Map the values to the [0, 255] interval, for simplicity we use
                 // 50 shaders of grey
+                float color[4];
                 m_gradient.getColorAt(n, color);
-                color.asU8A(&m_info.image[(e*3)+0]);
+                //color.asU8A(&m_info.image[(e*3)+0]);
                 
                 
-                //m_info.image[(kk*3)+0] = floor(255 * n);
-                //m_info.image[(kk*3)+1] = floor(255 * n);
-                //m_info.image[(kk*3)+2] = floor(255 * n);
+                m_info.image[(e*3)+0] = floor(255 * color[0]);
+                m_info.image[(e*3)+1] = floor(255 * color[1]);
+                m_info.image[(e*3)+2] = floor(255 * color[2]);
             }
         });
 	}

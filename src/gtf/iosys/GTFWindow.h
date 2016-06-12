@@ -46,6 +46,6 @@ protected:
     
 private:
     struct GTFNativeWindow* m_nativeWindow;
-    struct ImGuiState* m_imguiState;
+    struct ImGuiContext* m_imguiContext;
     
 };

@@ -120,21 +120,21 @@ GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height)
     
     
     m_nativeWindow->glfw_window = window;
-    m_imguiState = new ImGuiState();
-    ImGui::SetInternalState(m_imguiState);
+    m_imguiContext = new ImGuiContext();
+    ImGui::SetCurrentContext(m_imguiContext);
     GTFIMGUI_InitImGui();
     ImGuiGL3_CreateFontsTexture();
 }
 
 GTFWindow::~GTFWindow()
 {
-    ImGui::SetInternalState(m_imguiState);
+    ImGui::SetCurrentContext(m_imguiContext);
     
     if(GTFAPP->getMainWindow() != this)
-        m_imguiState->IO.Fonts = nullptr;
+        m_imguiContext->IO.Fonts = nullptr;
     
     ImGui::Shutdown();
-    delete m_imguiState;
+    delete m_imguiContext;
     glfwDestroyWindow(m_nativeWindow->glfw_window);
     delete m_nativeWindow;
 }
@@ -162,13 +162,13 @@ void GTFWindow::mouseButton(unsigned int button, bool pressed)
 
 void GTFWindow::mouseScroll(double xoffset, double yoffset)
 {
-    ImGuiIO& io = m_imguiState->IO;
+    ImGuiIO& io = m_imguiContext->IO;
     io.MouseWheel = yoffset;
 }
 
 void GTFWindow::keyEvent(int key, int scancode, int action, int mods)
 {
-    ImGuiIO& io = m_imguiState->IO;
+    ImGuiIO& io = m_imguiContext->IO;
     if (action == GLFW_PRESS)
         io.KeysDown[key] = true;
     if (action == GLFW_RELEASE)
@@ -181,7 +181,7 @@ void GTFWindow::keyEvent(int key, int scancode, int action, int mods)
 
 void GTFWindow::charInputEvent(unsigned int charCode)
 {
-    ImGuiIO& io = m_imguiState->IO;
+    ImGuiIO& io = m_imguiContext->IO;
     if (charCode > 0 && charCode < 0x10000)
         io.AddInputCharacter((unsigned short)charCode);
 }
@@ -199,7 +199,7 @@ void GTFWindow::fileDrop(int count, const char** paths)
 void GTFWindow::preFrame(double deltaTime)
 {
     glfwMakeContextCurrent(m_nativeWindow->glfw_window);
-    ImGui::SetInternalState(m_imguiState);
+    ImGui::SetCurrentContext(m_imguiContext);
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2((float)m_windowWidth, (float)m_windowHeight);
     io.DeltaTime = deltaTime;

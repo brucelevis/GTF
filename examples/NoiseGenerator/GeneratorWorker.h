@@ -9,7 +9,7 @@
 #pragma once 
 
 #include <thread>
-#include "GTFGradient.h"
+#include "imgui_color_gradient.h"
 
 struct GeneratorInfo
 {
@@ -31,7 +31,7 @@ class GeneratorWorker
 public:
     GeneratorWorker();
     bool update(GeneratorInfo& info);
-    GTFGradient m_gradient;
+    ImGradient m_gradient;
     
 private:
     void run();

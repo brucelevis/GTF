@@ -19,10 +19,11 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
+
 class GradientEditorWindow : public GTFWindow
 {
 public:
-    GradientEditorWindow(class GTFGradient* gradient)
+    GradientEditorWindow(class ImGradient* gradient)
     : GTFWindow("Color Gradient Editor", 400, 400)
     , m_gradientRef(gradient)
     {
@@ -41,7 +42,8 @@ public:
         ImGui::SetNextWindowSize(ImVec2(m_windowWidth - 40, m_windowHeight - 40), ImGuiSetCond_Always);
         
         ImGui::Begin("Color Gradient Editor", nullptr, flags	);
-        m_updated = GTFGUIGradientPicker::displayEditor(m_gradientRef, m_draggingMark, m_selectedMark);
+        //m_updated = GTFGUIGradientPicker::displayEditor(m_gradientRef, m_draggingMark, m_selectedMark);
+        m_updated = ImGui::GradientEditor(m_gradientRef, m_draggingMark, m_selectedMark);
         ImGui::End();
         
         RHI->viewport(0, 0, m_windowWidth, m_windowHeight);
@@ -62,9 +64,9 @@ public:
     bool updated() const { return m_updated; }
     
 private:
-    GTFGradient* m_gradientRef { nullptr };
-    GTFGradientMark* m_draggingMark { nullptr };
-    GTFGradientMark* m_selectedMark { nullptr };
+    ImGradient* m_gradientRef { nullptr };
+    ImGradientMark* m_draggingMark { nullptr };
+    ImGradientMark* m_selectedMark { nullptr };
     bool m_updated;
 };
 
@@ -179,7 +181,12 @@ void NoiseWindow::frame(double deltaTime)
         //static GTFGradientMark* selectedMark = nullptr;
         
       
-        if(GTFGUIGradientPicker::displayWidget(&m_worker->m_gradient) && m_gradientWindow)
+        /*if(GTFGUIGradientPicker::displayWidget(&m_worker->m_gradient) && m_gradientWindow)
+        {
+            m_gradientWindow->setVisible(true);
+        }*/
+        
+        if(ImGui::GradientButton(&m_worker->m_gradient) && m_gradientWindow)
         {
             m_gradientWindow->setVisible(true);
         }

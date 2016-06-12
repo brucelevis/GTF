@@ -25,6 +25,8 @@
 		3F102EE51CFE38E600A11E17 /* GTFUniqueId.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102EE31CFE38E600A11E17 /* GTFUniqueId.h */; };
 		3F102F921CFE399B00A11E17 /* GTFCRC32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F102F901CFE399B00A11E17 /* GTFCRC32.cpp */; };
 		3F102F931CFE399B00A11E17 /* GTFCRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102F911CFE399B00A11E17 /* GTFCRC32.h */; };
+		3F1C8D811D0CB288009EB52E /* imgui_color_gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1C8D7F1D0CB288009EB52E /* imgui_color_gradient.cpp */; };
+		3F1C8D821D0CB288009EB52E /* imgui_color_gradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F1C8D801D0CB288009EB52E /* imgui_color_gradient.h */; };
 		3F69E60E1CFEDB3500EF4639 /* GTFErrorHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */; };
 		3F69E6111D001B8C00EF4639 /* CalcNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */; };
 		3F69E6141D0039D200EF4639 /* GTFNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E6121D0039D200EF4639 /* GTFNodeGraph.cpp */; };
@@ -129,6 +131,8 @@
 		3F102F901CFE399B00A11E17 /* GTFCRC32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = GTFCRC32.cpp; sourceTree = "<group>"; };
 		3F102F911CFE399B00A11E17 /* GTFCRC32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFCRC32.h; sourceTree = "<group>"; };
 		3F1C8D7E1D0C6C67009EB52E /* NoiseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoiseApp.h; sourceTree = "<group>"; };
+		3F1C8D7F1D0CB288009EB52E /* imgui_color_gradient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_color_gradient.cpp; sourceTree = "<group>"; };
+		3F1C8D801D0CB288009EB52E /* imgui_color_gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_color_gradient.h; sourceTree = "<group>"; };
 		3F20694F1CED0F0300EB5FFA /* libgtf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgtf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFErrorHandling.h; sourceTree = "<group>"; };
 		3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalcNodeGraph.cpp; sourceTree = "<group>"; };
@@ -330,6 +334,8 @@
 				3F8CFB1D1CF3904300A33B95 /* stb_rect_pack.h */,
 				3F8CFB1E1CF3904300A33B95 /* stb_textedit.h */,
 				3F8CFB1F1CF3904300A33B95 /* stb_truetype.h */,
+				3F1C8D7F1D0CB288009EB52E /* imgui_color_gradient.cpp */,
+				3F1C8D801D0CB288009EB52E /* imgui_color_gradient.h */,
 			);
 			path = imgui;
 			sourceTree = "<group>";
@@ -459,6 +465,7 @@
 				3F8CFBCB1CF3904300A33B95 /* mikktspace.h in Headers */,
 				3F102EBF1CFCB8D900A11E17 /* GTFColor.h in Headers */,
 				3F102EBA1CFC82F100A11E17 /* GTFGradient.h in Headers */,
+				3F1C8D821D0CB288009EB52E /* imgui_color_gradient.h in Headers */,
 				3F102EB51CFC828D00A11E17 /* GTFGUIGradientPicker.h in Headers */,
 				3F8CFBC51CF3904300A33B95 /* stb_textedit.h in Headers */,
 				3F8CFBC61CF3904300A33B95 /* stb_truetype.h in Headers */,
@@ -598,6 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F9ACC6B1CFB0CD700A4A254 /* GTFRHI.cpp in Sources */,
+				3F1C8D811D0CB288009EB52E /* imgui_color_gradient.cpp in Sources */,
 				3F8CFBC01CF3904300A33B95 /* imgui_extra_widgets.cpp in Sources */,
 				3F8CFBCA1CF3904300A33B95 /* mikktspace.cpp in Sources */,
 				3F9ACC541CFA19FE00A4A254 /* ImGuiSetup_OGL3.cpp in Sources */,
