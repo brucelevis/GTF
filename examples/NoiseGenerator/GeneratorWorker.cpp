@@ -8,7 +8,7 @@
 
 #include "GeneratorWorker.h"
 #include "PerlinNoise.h"
-#include "GTFGradient.h"
+
 
 #include <cmath>
 #include <thread>
@@ -34,6 +34,16 @@ GeneratorWorker::GeneratorWorker()
     //m_gradient.addMark(0.6f, GTFColor(0xFF0000FF));
     //m_gradient.addMark(0.7f, GTFColor(0xFFFF00FF));
     //m_gradient.addMark(1.0f, GTFColor(0xFF0000FF));
+    
+    m_gradient.getMarks().clear();
+    m_gradient.addMark(0.0f, ImColor(0xA0, 0x79, 0x3D));
+    m_gradient.addMark(0.2f, ImColor(0xAA, 0x83, 0x47));
+    m_gradient.addMark(0.3f, ImColor(0xB4, 0x8D, 0x51));
+    m_gradient.addMark(0.4f, ImColor(0xBE, 0x97, 0x5B));
+    m_gradient.addMark(0.6f, ImColor(0xC8, 0xA1, 0x65));
+    m_gradient.addMark(0.7f, ImColor(0xD2, 0xAB, 0x6F));
+    m_gradient.addMark(0.8f, ImColor(0xDC, 0xB5, 0x79));
+    m_gradient.addMark(1.0f, ImColor(0xE6, 0xBF, 0x83));
 
 }
 

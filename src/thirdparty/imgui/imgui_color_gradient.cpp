@@ -319,21 +319,16 @@ namespace ImGui
         
         bool modified = false;
         
-        ImGui::SetNextWindowSize(ImVec2(400, 400), ImGuiSetCond_Always);
-        ImGui::SetNextWindowFocus();
-        
-        
-        
-        ImVec2 picker_pos = ImGui::GetCursorScreenPos();
-        picker_pos.x += 10;
+        ImVec2 bar_pos = ImGui::GetCursorScreenPos();
+        bar_pos.x += 10;
         float maxWidth = ImGui::GetContentRegionAvailWidth() - 20;
-        float barBottom = picker_pos.y + GRADIENT_BAR_EDITOR_HEIGHT;
+        float barBottom = bar_pos.y + GRADIENT_BAR_EDITOR_HEIGHT;
         
         ImGui::InvisibleButton("gradient_editor_bar", ImVec2(maxWidth, GRADIENT_BAR_EDITOR_HEIGHT));
         
         if(ImGui::IsItemHovered() && ImGui::IsMouseClicked(0))
         {
-            float pos = (ImGui::GetIO().MousePos.x - picker_pos.x) / maxWidth;
+            float pos = (ImGui::GetIO().MousePos.x - bar_pos.x) / maxWidth;
             
             float newMarkCol[4];
             gradient->getColorAt(pos, newMarkCol);
@@ -342,8 +337,8 @@ namespace ImGui
             gradient->addMark(pos, ImColor(newMarkCol[0], newMarkCol[1], newMarkCol[2]));
         }
         
-        DrawGradientBar(gradient, picker_pos, maxWidth, GRADIENT_BAR_EDITOR_HEIGHT);
-        DrawGradientMarks(gradient, draggingMark, selectedMark, picker_pos, maxWidth, GRADIENT_BAR_EDITOR_HEIGHT);
+        DrawGradientBar(gradient, bar_pos, maxWidth, GRADIENT_BAR_EDITOR_HEIGHT);
+        DrawGradientMarks(gradient, draggingMark, selectedMark, bar_pos, maxWidth, GRADIENT_BAR_EDITOR_HEIGHT);
         
         if(!ImGui::IsMouseDown(0) && draggingMark)
         {
@@ -353,8 +348,10 @@ namespace ImGui
         if(ImGui::IsMouseDragging(0) && draggingMark)
         {
             float increment = ImGui::GetIO().MouseDelta.x / maxWidth;
+            bool insideZone = (ImGui::GetIO().MousePos.x > bar_pos.x) &&
+                              (ImGui::GetIO().MousePos.x < bar_pos.x + maxWidth);
             
-            if(increment != 0.0f)
+            if(increment != 0.0f && insideZone)
             {
                 draggingMark->position += increment;
                 draggingMark->position = ImClamp(draggingMark->position, 0.0f, 1.0f);
@@ -392,3 +389,4 @@ namespace ImGui
         return modified;
     }
 };
+

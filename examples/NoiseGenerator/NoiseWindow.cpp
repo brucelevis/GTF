@@ -10,7 +10,6 @@
 #include "NoiseApp.h"
 
 #include "GTFRHI.h"
-#include "GTFGUIGradientPicker.h"
 
 #include "imgui.h"
 #define IMGUI_DEFINE_MATH_OPERATORS
