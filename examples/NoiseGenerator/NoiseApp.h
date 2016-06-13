@@ -19,11 +19,11 @@ public:
     virtual void readyToStart()
     {
         instance = this;
-        m_window = new NoiseWindow("NoiseGenerator");
-        registerWindow(m_window);
-        setMainWindow(m_window);
-        m_window->postSetMainInit();
+		noiseWindow = new NoiseWindow("NoiseGenerator");
+        registerWindow(noiseWindow);
+        setMainWindow(noiseWindow);
+		noiseWindow->postSetMainInit();
     }
-private:
-    NoiseWindow* m_window;
+
+    NoiseWindow* noiseWindow;
 };

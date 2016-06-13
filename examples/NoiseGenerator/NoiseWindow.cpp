@@ -51,13 +51,15 @@ public:
     
     virtual bool wantToClose()
     {
-        if(GTFWindow::wantToClose())
+		bool wants = GTFWindow::wantToClose();
+        if(wants)
         {
-            this->stopClosing();
-            this->setVisible(false);
+			NoiseApp::instance->noiseWindow->nullifyGradientWindow();
+            //this->stopClosing();
+            //this->setVisible(false);
         }
         
-        return false;
+        return wants;
     }
     
     bool updated() const { return m_updated; }
@@ -84,11 +86,7 @@ NoiseWindow::NoiseWindow(const char* title) : GTFWindow(title, 1040, 720)
 
 void NoiseWindow::postSetMainInit()
 {
-    if(!m_gradientWindow)
-    {
-        m_gradientWindow = new GradientEditorWindow(&m_worker->m_gradient);
-        NoiseApp::instance->registerWindow(m_gradientWindow);
-    }
+    
     
     setVisible(true);
 }
@@ -185,9 +183,9 @@ void NoiseWindow::frame(double deltaTime)
             m_gradientWindow->setVisible(true);
         }*/
         
-        if(ImGui::GradientButton(&m_worker->m_gradient) && m_gradientWindow)
+        if(ImGui::GradientButton(&m_worker->m_gradient))
         {
-            m_gradientWindow->setVisible(true);
+			m_createGradientEditorWindow = true;
         }
         
         if(m_gradientWindow)
@@ -228,4 +226,19 @@ void NoiseWindow::frame(double deltaTime)
     // Rendering
     RHI->viewport(0, 0, m_windowWidth, m_windowHeight);
     RHI->clearColorAndDepthBuffers();
+}
+
+void NoiseWindow::postFrame(double deltaTime)
+{
+	GTFWindow::postFrame(deltaTime);
+
+	if (m_createGradientEditorWindow && !m_gradientWindow)
+	{
+		m_gradientWindow = new GradientEditorWindow(&m_worker->m_gradient);
+		NoiseApp::instance->registerWindow(m_gradientWindow);
+		m_createGradientEditorWindow = false;
+		m_gradientWindow->setVisible(true);
+	}
+
+	
 }
