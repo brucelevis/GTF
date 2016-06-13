@@ -25,7 +25,8 @@ struct GTFNativeWindow
 {
     GLFWwindow* glfw_window;
     GTFWindow* gtf_window;
-    
+	ImGuiLocalGLProperties imgui_GLProperties;
+
     void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         /*if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -112,10 +113,10 @@ GTFWindow::GTFWindow(const char* title, unsigned int width, unsigned int height)
         {
             std::cout << "ERROR: MPMainWindow::run : Can't initalize RHI!";
         }
-        
-        ImGuiGL3_CreateDeviceObjects();
     }
     
+	ImGuiGL3_CreateLocalDeviceObjects(m_nativeWindow->imgui_GLProperties);
+
     glfwSwapInterval(1);
     
     
@@ -217,7 +218,10 @@ void GTFWindow::frame(double deltaTime)
 
 void GTFWindow::postFrame(double deltaTime)
 {
+
     ImGui::Render();
+	ImGuiGL3_RenderDrawLists(ImGui::GetDrawData(), m_nativeWindow->imgui_GLProperties);
+
     glfwSwapBuffers(m_nativeWindow->glfw_window);
     
 }
@@ -228,4 +232,9 @@ void GTFWindow::setVisible(bool visible)
         glfwShowWindow(m_nativeWindow->glfw_window);
     else
         glfwHideWindow(m_nativeWindow->glfw_window);
+}
+
+void GTFWindow::invalidateLocalRenderContextObjects()
+{
+	ImGuiGL3_InvalidateLocalDeviceObjects(m_nativeWindow->imgui_GLProperties);
 }

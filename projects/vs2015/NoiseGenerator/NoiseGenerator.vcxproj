@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\examples\NoiseGenerator\GeneratorWorker.h" />
+    <ClInclude Include="..\..\..\examples\NoiseGenerator\NoiseApp.h" />
     <ClInclude Include="..\..\..\examples\NoiseGenerator\NoiseWindow.h" />
     <ClInclude Include="..\..\..\examples\NoiseGenerator\PerlinNoise.h" />
   </ItemGroup>

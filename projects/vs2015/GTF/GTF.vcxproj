@@ -131,7 +131,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\gtf\gui\GTFGUIGradientPicker.cpp" />
     <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_OGL3.cpp" />
     <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_Shared.cpp" />
     <ClCompile Include="..\..\..\src\gtf\iosys\GTFApp.cpp" />
@@ -140,11 +139,11 @@
     <ClCompile Include="..\..\..\src\gtf\render\GTFRHI.cpp" />
     <ClCompile Include="..\..\..\src\gtf\utility\GTFColor.cpp" />
     <ClCompile Include="..\..\..\src\gtf\utility\GTFCRC32.cpp" />
-    <ClCompile Include="..\..\..\src\gtf\utility\GTFGradient.cpp" />
     <ClCompile Include="..\..\..\src\gtf\utility\GTFLangUtils.cpp" />
     <ClCompile Include="..\..\..\src\gtf\utility\GTFNodeGraph.cpp" />
     <ClCompile Include="..\..\..\src\gtf\utility\GTFUniqueId.cpp" />
     <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_color_gradient.cpp" />
     <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_extra_widgets.cpp" />
@@ -154,7 +153,6 @@
     <ClCompile Include="..\..\..\src\thirdparty\tinylibs\tiny_obj_loader.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\gtf\gui\GTFGUIGradientPicker.h" />
     <ClInclude Include="..\..\..\src\gtf\gui\ImGuiSetup.h" />
     <ClInclude Include="..\..\..\src\gtf\iosys\GTFApp.h" />
     <ClInclude Include="..\..\..\src\gtf\iosys\GTFWindow.h" />
@@ -163,13 +161,13 @@
     <ClInclude Include="..\..\..\src\gtf\utility\GTFColor.h" />
     <ClInclude Include="..\..\..\src\gtf\utility\GTFCRC32.h" />
     <ClInclude Include="..\..\..\src\gtf\utility\GTFErrorHandling.h" />
-    <ClInclude Include="..\..\..\src\gtf\utility\GTFGradient.h" />
     <ClInclude Include="..\..\..\src\gtf\utility\GTFLangUtils.h" />
     <ClInclude Include="..\..\..\src\gtf\utility\GTFNodeGraph.h" />
     <ClInclude Include="..\..\..\src\gtf\utility\GTFUniqueId.h" />
     <ClInclude Include="..\..\..\src\thirdparty\imgui\imconfig.h" />
     <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui.h" />
     <ClInclude Include="..\..\..\src\thirdparty\imgui\imguidock.h" />
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui_color_gradient.h" />
     <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui_extra_widgets.h" />
     <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui_internal.h" />
     <ClInclude Include="..\..\..\src\thirdparty\imgui\stb_rect_pack.h" />

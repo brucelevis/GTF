@@ -58,9 +58,6 @@
     <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_extra_widgets.cpp">
       <Filter>src\thirdparty\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\gtf\gui\GTFGUIGradientPicker.cpp">
-      <Filter>src\gtf\gui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_OGL3.cpp">
       <Filter>src\gtf\gui</Filter>
     </ClCompile>
@@ -85,9 +82,6 @@
     <ClCompile Include="..\..\..\src\gtf\utility\GTFCRC32.cpp">
       <Filter>src\gtf\utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\gtf\utility\GTFGradient.cpp">
-      <Filter>src\gtf\utility</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\gtf\utility\GTFLangUtils.cpp">
       <Filter>src\gtf\utility</Filter>
     </ClCompile>
@@ -96,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\gtf\utility\GTFUniqueId.cpp">
       <Filter>src\gtf\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_color_gradient.cpp">
+      <Filter>src\thirdparty\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +141,6 @@
     <ClInclude Include="..\..\..\src\thirdparty\imgui\stb_truetype.h">
       <Filter>src\thirdparty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\gtf\gui\GTFGUIGradientPicker.h">
-      <Filter>src\gtf\gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\gtf\gui\ImGuiSetup.h">
       <Filter>src\gtf\gui</Filter>
     </ClInclude>
@@ -171,9 +165,6 @@
     <ClInclude Include="..\..\..\src\gtf\utility\GTFErrorHandling.h">
       <Filter>src\gtf\utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\gtf\utility\GTFGradient.h">
-      <Filter>src\gtf\utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\gtf\utility\GTFLangUtils.h">
       <Filter>src\gtf\utility</Filter>
     </ClInclude>
@@ -182,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\gtf\utility\GTFUniqueId.h">
       <Filter>src\gtf\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui_color_gradient.h">
+      <Filter>src\thirdparty\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

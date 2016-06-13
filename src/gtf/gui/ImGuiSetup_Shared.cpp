@@ -59,7 +59,7 @@ void GTFIMGUI_InitImGui()
     io.DeltaTime = 1.0f/60.0f;
     
     //io.RenderDrawListsFn = ImImpl_RenderDrawLists;
-    io.RenderDrawListsFn = ImGuiGL3_RenderDrawLists;
+	io.RenderDrawListsFn = nullptr; // ImGuiGL3_RenderDrawLists;
     
     //LoadFontsTexture();
     

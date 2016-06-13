@@ -42,7 +42,7 @@ int GTFApp::run(int argc, const char * argv[])
     glfwSetErrorCallback(error_callback);
     
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, 1);
     
@@ -76,9 +76,11 @@ int GTFApp::run(int argc, const char * argv[])
         {
             m_registeredWindows.remove(window);
             
+			window->invalidateLocalRenderContextObjects();
+
             if(m_registeredWindows.size() == 0)
             {
-                ImGuiGL3_InvalidateDeviceObjects();
+                ImGuiGL3_InvalidateSharedDeviceObjects();
             }
             
             quit |= (window == m_mainWindow);

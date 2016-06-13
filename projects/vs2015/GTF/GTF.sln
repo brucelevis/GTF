@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CalcGraph", "..\CalcGraph\C
 		{94FAD135-ED82-4DE4-B0EC-A0AB598CD5EC} = {94FAD135-ED82-4DE4-B0EC-A0AB598CD5EC}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{A995B7B3-AC43-490A-A85B-A3BB4F0D6BD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -50,5 +52,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2B4E76E-DB45-4F12-BDCD-59D24AE574A9} = {A995B7B3-AC43-490A-A85B-A3BB4F0D6BD4}
+		{DB75BDFD-BF93-4F26-8BDB-4537C448EF38} = {A995B7B3-AC43-490A-A85B-A3BB4F0D6BD4}
 	EndGlobalSection
 EndGlobal

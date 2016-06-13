@@ -38,5 +38,8 @@
     <ClInclude Include="..\..\..\examples\NoiseGenerator\PerlinNoise.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\examples\NoiseGenerator\NoiseApp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

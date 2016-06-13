@@ -32,6 +32,8 @@ public:
     virtual bool wantToClose();
     virtual void stopClosing();
     
+	void invalidateLocalRenderContextObjects();
+
 public:
     //window properties
     bool m_mousePressed[3] = { false, false, false };
