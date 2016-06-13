@@ -50,7 +50,7 @@ CalcWindow::CalcWindow(const char* title) : GTFWindow(title, 1040, 720)
     
     calcGraphInstance = new CalcNodeGraph(calcGraphType);
     
-    RHI->setClearColor(0.3, 0.3, 0.28, 1.0);
+    RHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
 }
 
 void CalcWindow::frame(double deltaTime)
@@ -65,10 +65,10 @@ void CalcWindow::frame(double deltaTime)
     flags |= ImGuiWindowFlags_HorizontalScrollbar;
     
     
-    int propertiesWith = 250;
+    float propertiesWith = 250;
     
-    ImGui::SetNextWindowPos(ImVec2(m_windowWidth - propertiesWith - 20, 20), ImGuiSetCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(propertiesWith, m_windowHeight - 40), ImGuiSetCond_Always);
+    ImGui::SetNextWindowPos(ImVec2(m_windowWidth - propertiesWith - 20.0f, 20.0f), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(propertiesWith, m_windowHeight - 40.0f), ImGuiSetCond_Always);
     
     ImGui::Begin("NodeProperties", nullptr, flags	);
     {
@@ -89,7 +89,7 @@ void CalcWindow::frame(double deltaTime)
     ImGui::End();
     
     ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(m_windowWidth - propertiesWith - 60, m_windowHeight - 40), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(m_windowWidth - propertiesWith - 60.0f, m_windowHeight - 40.0f), ImGuiSetCond_Always);
     
     if(ImGui::Begin("Graph", nullptr, flags))
     {

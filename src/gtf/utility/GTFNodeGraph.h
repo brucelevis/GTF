@@ -55,7 +55,7 @@ public:
     
     virtual ~GTFNodeConnectionBase(){};
     
-    int posX, posY;
+    float posX, posY;
     bool isInput { false };
     bool isReady { true };
     bool isDirty { false };
@@ -96,8 +96,8 @@ public:
     virtual ~GTFNode();
     virtual void update() = 0;
     
-    int posX, posY;
-    int width, height;
+    float posX, posY;
+	float width, height;
     bool dirty { true };
     bool selected { false };
     bool mouseClicking { false };
@@ -170,7 +170,7 @@ class GTFNodeGraph
 public:
     GTFNodeGraph(GTFNodeGraphType* type) : graphType(type){};
     virtual ~GTFNodeGraph();
-    virtual GTFNode* createNode(GTFUniqueId typeId, int atX, int atY);
+    virtual GTFNode* createNode(GTFUniqueId typeId, float atX, float atY);
     virtual void updateNodes();
     virtual void updateGUI();
     

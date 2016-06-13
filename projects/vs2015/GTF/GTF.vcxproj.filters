@@ -32,6 +32,9 @@
     <Filter Include="src\gtf\utility">
       <UniqueIdentifier>{6511373e-3aca-461d-8464-a1d139c1d5d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\thirdparty\glfw">
+      <UniqueIdentifier>{10d09441-891a-4ca2-8097-fca907add74d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\thirdparty\tinylibs\glad.c">
@@ -93,6 +96,48 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\thirdparty\imgui\imgui_color_gradient.cpp">
       <Filter>src\thirdparty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\context.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\vulkan.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\wgl_context.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\win32_init.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\win32_joystick.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\win32_monitor.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\win32_time.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\win32_tls.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\win32_window.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\window.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\monitor.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\init.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\input.c">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\external\glfw\src\egl_context.c">
+      <Filter>src\thirdparty\glfw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +221,27 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\thirdparty\imgui\imgui_color_gradient.h">
       <Filter>src\thirdparty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\glfw\src\wgl_context.h">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\glfw\src\win32_joystick.h">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\glfw\src\win32_platform.h">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\glfw\src\internal.h">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\glfw\include\GLFW\glfw3.h">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\glfw\include\GLFW\glfw3native.h">
+      <Filter>src\thirdparty\glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\external\glfw\src\egl_context.h">
+      <Filter>src\thirdparty\glfw</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

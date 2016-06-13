@@ -25,13 +25,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -69,39 +69,46 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\$(Platform)\$(Configuration)\</OutDir>
     <TargetName>lib$(ProjectName)</TargetName>
     <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
-    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\$(Platform)\$(Configuration)\</OutDir>
     <TargetName>lib$(ProjectName)</TargetName>
     <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
-    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>lib$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)..\..\..\external\glfw\include;$(SolutionDir)..\..\..\external\FBX\2016.1.2\include;$(SolutionDir)..\..\..\src\thirdparty\tinylibs;$(SolutionDir)..\..\..\src\thirdparty\stb;$(SolutionDir)..\..\..\src\thirdparty\imgui;$(SolutionDir)..\..\..\src\thirdparty\glm;$(SolutionDir)..\..\..\src\gtf\utility;$(SolutionDir)..\..\..\src\gtf\render;$(SolutionDir)..\..\..\src\gtf\iosys;$(SolutionDir)..\..\..\src\gtf\gui;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>lib$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_GLFW_WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_GLFW_WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,10 +118,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_GLFW_WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,6 +133,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_GLFW_WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -131,6 +141,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\external\glfw\src\context.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\egl_context.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\init.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\input.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\monitor.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\vulkan.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\wgl_context.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\win32_init.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\win32_joystick.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\win32_monitor.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\win32_time.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\win32_tls.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\win32_window.c" />
+    <ClCompile Include="..\..\..\external\glfw\src\window.c" />
     <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_OGL3.cpp" />
     <ClCompile Include="..\..\..\src\gtf\gui\ImGuiSetup_Shared.cpp" />
     <ClCompile Include="..\..\..\src\gtf\iosys\GTFApp.cpp" />
@@ -153,6 +177,13 @@
     <ClCompile Include="..\..\..\src\thirdparty\tinylibs\tiny_obj_loader.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\external\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="..\..\..\external\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="..\..\..\external\glfw\src\egl_context.h" />
+    <ClInclude Include="..\..\..\external\glfw\src\internal.h" />
+    <ClInclude Include="..\..\..\external\glfw\src\wgl_context.h" />
+    <ClInclude Include="..\..\..\external\glfw\src\win32_joystick.h" />
+    <ClInclude Include="..\..\..\external\glfw\src\win32_platform.h" />
     <ClInclude Include="..\..\..\src\gtf\gui\ImGuiSetup.h" />
     <ClInclude Include="..\..\..\src\gtf\iosys\GTFApp.h" />
     <ClInclude Include="..\..\..\src\gtf\iosys\GTFWindow.h" />

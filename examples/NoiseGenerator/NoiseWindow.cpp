@@ -26,7 +26,7 @@ public:
     : GTFWindow("Color Gradient Editor", 400, 400)
     , m_gradientRef(gradient)
     {
-        RHI->setClearColor(0.3, 0.3, 0.28, 1.0);
+        RHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
     }
     virtual void frame(double deltaTime) override
     {
@@ -38,7 +38,7 @@ public:
         flags |= ImGuiWindowFlags_HorizontalScrollbar;
         
         ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Always);
-        ImGui::SetNextWindowSize(ImVec2(m_windowWidth - 40, m_windowHeight - 40), ImGuiSetCond_Always);
+        ImGui::SetNextWindowSize(ImVec2(m_windowWidth - 40.0f, m_windowHeight - 40.0f), ImGuiSetCond_Always);
         
         ImGui::Begin("Color Gradient Editor", nullptr, flags	);
         //m_updated = GTFGUIGradientPicker::displayEditor(m_gradientRef, m_draggingMark, m_selectedMark);
@@ -74,7 +74,7 @@ private:
 
 NoiseWindow::NoiseWindow(const char* title) : GTFWindow(title, 1040, 720)
 {
-    RHI->setClearColor(0.3, 0.3, 0.28, 1.0);
+    RHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
     m_worker = new GeneratorWorker();
     
     m_texture = RHI->createTexture();
@@ -139,8 +139,8 @@ void NoiseWindow::frame(double deltaTime)
     flags |= ImGuiWindowFlags_NoTitleBar;
     flags |= ImGuiWindowFlags_HorizontalScrollbar;
     
-    ImGui::SetNextWindowPos(ImVec2(m_windowWidth - 420, 20), ImGuiSetCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(400, m_windowHeight - 40), ImGuiSetCond_Always);
+    ImGui::SetNextWindowPos(ImVec2(m_windowWidth - 420.0f, 20.0f), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(400.0f, m_windowHeight - 40.0f), ImGuiSetCond_Always);
     
     ImGui::Begin("Options", nullptr, flags	);
     {
@@ -197,11 +197,11 @@ void NoiseWindow::frame(double deltaTime)
     ImGui::End();
     
     ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(m_windowWidth - 460, m_windowHeight - 40), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(m_windowWidth - 460.0f, m_windowHeight - 40.0f), ImGuiSetCond_Always);
     
     if(ImGui::Begin("Texture", nullptr, flags))
     {
-        ImGui::Image(reinterpret_cast<ImTextureID>(m_texture->getName()), ImVec2(m_info.resX, m_info.resY));
+        ImGui::Image(reinterpret_cast<ImTextureID>(m_texture->getName()), ImVec2(float(m_info.resX), float(m_info.resY)));
         if(ImGui::IsWindowHovered() && !ImGui::IsAnyItemActive() && ImGui::IsMouseDragging(0, 0.0f))
         {
             ImVec2 scrolling = ImVec2(ImGui::GetScrollX(), ImGui::GetScrollY());

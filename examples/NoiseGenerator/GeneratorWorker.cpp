@@ -128,13 +128,13 @@ void GeneratorWorker::run()
                 // Map the values to the [0, 255] interval, for simplicity we use
                 // 50 shaders of grey
                 float color[4];
-                m_gradient.getColorAt(n, color);
+                m_gradient.getColorAt(float(n), color);
                 //color.asU8A(&m_info.image[(e*3)+0]);
                 
                 
-                m_info.image[(e*3)+0] = floor(255 * color[0]);
-                m_info.image[(e*3)+1] = floor(255 * color[1]);
-                m_info.image[(e*3)+2] = floor(255 * color[2]);
+                m_info.image[(e*3)+0] = (unsigned char)floor(255 * color[0]);
+                m_info.image[(e*3)+1] = (unsigned char)floor(255 * color[1]);
+                m_info.image[(e*3)+2] = (unsigned char)floor(255 * color[2]);
             }
         });
 	}

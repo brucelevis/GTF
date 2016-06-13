@@ -142,7 +142,7 @@ GTFWindow::~GTFWindow()
 
 bool GTFWindow::wantToClose()
 {
-    return glfwWindowShouldClose(m_nativeWindow->glfw_window);
+    return glfwWindowShouldClose(m_nativeWindow->glfw_window) ? true : false;
 }
 
 void GTFWindow::stopClosing()
@@ -152,8 +152,8 @@ void GTFWindow::stopClosing()
 
 void GTFWindow::mouseMove(double x, double y)
 {
-    m_mouseCoords[0] = x;
-    m_mouseCoords[1] = y;
+    m_mouseCoords[0] = (float)x;
+    m_mouseCoords[1] = (float)y;
 }
 
 void GTFWindow::mouseButton(unsigned int button, bool pressed)
@@ -164,7 +164,7 @@ void GTFWindow::mouseButton(unsigned int button, bool pressed)
 void GTFWindow::mouseScroll(double xoffset, double yoffset)
 {
     ImGuiIO& io = m_imguiContext->IO;
-    io.MouseWheel = yoffset;
+    io.MouseWheel = (float)yoffset;
 }
 
 void GTFWindow::keyEvent(int key, int scancode, int action, int mods)
@@ -203,7 +203,7 @@ void GTFWindow::preFrame(double deltaTime)
     ImGui::SetCurrentContext(m_imguiContext);
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2((float)m_windowWidth, (float)m_windowHeight);
-    io.DeltaTime = deltaTime;
+    io.DeltaTime = (float)deltaTime;
     io.MousePos = ImVec2((float)m_mouseCoords[0], (float)m_mouseCoords[1]);
     io.MouseDown[0] = m_mousePressed[0];
     io.MouseDown[1] = m_mousePressed[1];

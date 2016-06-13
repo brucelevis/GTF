@@ -49,7 +49,7 @@ void ImGradient::removeMark(ImGradientMark* mark)
 void ImGradient::getColorAt(float position, float* color) const
 {
     position = ImClamp(position, 0.0f, 1.0f);    
-    int cachePos = (position * 255);
+    int cachePos = int(position * 255);
     cachePos *= 3;
     color[0] = m_cachedValues[cachePos+0];
     color[1] = m_cachedValues[cachePos+1];
@@ -256,11 +256,11 @@ namespace ImGui
             
             draw_list->AddRectFilled(ImVec2(to - 6, barBottom),
                                      ImVec2(to + 6, bar_pos.y + (height + 12)),
-                                     IM_COL32(100, 100, 100, 255), 1.0f, 1.0f);
+                                     IM_COL32(100, 100, 100, 255), 0.0f, 0);
             
             draw_list->AddRectFilled(ImVec2(to - 5, bar_pos.y + (height + 1)),
                                      ImVec2(to + 5, bar_pos.y + (height + 11)),
-                                     IM_COL32(0, 0, 0, 255), 1.0f, 1.0f);
+                                     IM_COL32(0, 0, 0, 255), 0.0f, 0);
             
             if(selectedMark == mark)
             {
@@ -270,7 +270,7 @@ namespace ImGui
                 
                 draw_list->AddRect(ImVec2(to - 5, bar_pos.y + (height + 1)),
                                    ImVec2(to + 5, bar_pos.y + (height + 11)),
-                                   IM_COL32(0, 255, 0, 255), 1.0f, 1.0f);
+                                   IM_COL32(0, 255, 0, 255), 0.0f, 0);
             }
             
             draw_list->AddRectFilledMultiColor(ImVec2(to - 3, bar_pos.y + (height + 3)),

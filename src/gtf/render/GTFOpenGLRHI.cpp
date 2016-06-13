@@ -262,11 +262,11 @@ void MPOpenGLTexture::clearWithColor(float r, float g, float b, float a)
     
     unsigned char* colorBuff = new unsigned char[numPixels * numComponents * componentSize];
     
-    for(int pix = 0; pix < numPixels; pix++)
+    for(size_t pix = 0; pix < numPixels; pix++)
     {
         for(int comp = 0; comp < numComponents; comp++)
         {
-            colorBuff[(pix * numComponents) + comp] = compColor[comp] * 255;
+            colorBuff[(pix * numComponents) + comp] = (unsigned char)(compColor[comp] * 255);
         }
     }
     
@@ -302,9 +302,9 @@ void MPOpenGLTexture::flipY()
     unsigned char* newBuffer = new unsigned char[numPixels * numComponents * componentSize];
     copyToBuffer(buffer, m_format, m_type);
     
-    for (int row = 0; row < m_height; row++)
+    for (unsigned int row = 0; row < m_height; row++)
     {
-        for (int col = 0; col < m_width-1; col++)
+        for (unsigned int col = 0; col < m_width-1; col++)
         {
             size_t leftImageIdx = componentSize * numComponents * (((m_height - (row + 1)) * m_width) + col);
             size_t rightImageIdx = componentSize * numComponents * ((row * m_width) + col);
@@ -417,7 +417,7 @@ void MPOpenGLFrameBuffer::setup(GTFRHITexture2DPtr* attachments,
     
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_name);
     
-    for(int i = 0; i < n_numAttachments; ++i)
+    for(unsigned int i = 0; i < n_numAttachments; ++i)
     {
         m_attachments[i] = attachments[i];
         

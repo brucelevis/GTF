@@ -274,7 +274,7 @@ static void replaceSubStr ( char const * const aSource ,
 		lNewSubStr = aNewSubStr ;
 	}
 	p = aSource ;
-	unsigned long lOldSubLen = strlen ( aOldSubStr ) ;
+	size_t lOldSubLen = strlen ( aOldSubStr ) ;
 	* aoDestination = '\0' ;
 	while ( ( pOccurence = strstr ( p , aOldSubStr ) ) != NULL )
 	{
@@ -351,7 +351,7 @@ static char const * ensureFilesExist( char * const aDestination ,
 	char * lDestination = aDestination ;
 	char const * p ;
 	char const * p2 ;
-	unsigned long lLen ;
+	size_t lLen ;
 
 	if ( ! aSourcePathsAndNames )
 	{

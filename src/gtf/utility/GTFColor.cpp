@@ -62,32 +62,32 @@ float* GTFColor::asF32A(float* color, bool includeAlpha) const
 
 unsigned int GTFColor::asHEXARGB( bool includeAlpha) const
 {
-    unsigned int uiR = r * 255;
-    unsigned int uiG = g * 255;
-    unsigned int uiB = b * 255;
-    unsigned int uiA = a * 255;
+    unsigned int uiR = unsigned int(r * 255);
+    unsigned int uiG = unsigned int(g * 255);
+    unsigned int uiB = unsigned int(b * 255);
+    unsigned int uiA = unsigned int(a * 255);
     
     return (includeAlpha * uiA << 24) + (uiR << 16) + (uiG << 8) + uiB;
 }
 
 unsigned int GTFColor::asHEXABGR( bool includeAlpha) const
 {
-    unsigned int uiR = r * 255;
-    unsigned int uiG = g * 255;
-    unsigned int uiB = b * 255;
-    unsigned int uiA = a * 255;
+    unsigned int uiR = unsigned int(r * 255);
+    unsigned int uiG = unsigned int(g * 255);
+    unsigned int uiB = unsigned int(b * 255);
+    unsigned int uiA = unsigned int(a * 255);
     
     return (includeAlpha * uiA << 24) | (uiB << 16) | (uiG << 8) | uiR;
 }
 
 unsigned char* GTFColor::asU8A(unsigned char* color, bool includeAlpha) const
 {
-    color[0] = floor(r * 255);
-    color[1] = floor(g * 255);
-    color[2] = floor(b * 255);
+    color[0] = (unsigned char)floor(r * 255);
+    color[1] = (unsigned char)floor(g * 255);
+    color[2] = (unsigned char)floor(b * 255);
     
     if (includeAlpha)
-        color[3] = floor(a * 255);
+        color[3] = (unsigned char)floor(a * 255);
     
     return color;
 }

@@ -54,7 +54,7 @@ void GTFNodeGraphType::registerNodeType(GTFNodeTypeBase* nodeType)
 
 
 
-GTFNode* GTFNodeGraph::createNode(GTFUniqueId typeId, int atX, int atY)
+GTFNode* GTFNodeGraph::createNode(GTFUniqueId typeId, float atX, float atY)
 {
     auto typeIt = graphType->nodeTypeRegistry.find(typeId);
     if(typeIt != graphType->nodeTypeRegistry.end())
@@ -79,7 +79,7 @@ GTFNode* GTFNodeGraph::createNode(GTFUniqueId typeId, int atX, int atY)
             
             
             con->posX = 0;
-            con->posY = titleSize.y + inputTextSize.y + textSize.y / 2.0f;
+            con->posY = titleSize.y + inputTextSize.y + (textSize.y / 2.0f);
             
             inputTextSize.y += textSize.y;
             inputTextSize.y += 4.0f;		// size between text entries
