@@ -62,20 +62,20 @@ float* GTFColor::asF32A(float* color, bool includeAlpha) const
 
 unsigned int GTFColor::asHEXARGB( bool includeAlpha) const
 {
-    unsigned int uiR = unsigned int(r * 255);
-    unsigned int uiG = unsigned int(g * 255);
-    unsigned int uiB = unsigned int(b * 255);
-    unsigned int uiA = unsigned int(a * 255);
+    unsigned int uiR = (unsigned int)(r * 255);
+    unsigned int uiG = (unsigned int)(g * 255);
+    unsigned int uiB = (unsigned int)(b * 255);
+    unsigned int uiA = (unsigned int)(a * 255);
     
     return (includeAlpha * uiA << 24) + (uiR << 16) + (uiG << 8) + uiB;
 }
 
 unsigned int GTFColor::asHEXABGR( bool includeAlpha) const
 {
-    unsigned int uiR = unsigned int(r * 255);
-    unsigned int uiG = unsigned int(g * 255);
-    unsigned int uiB = unsigned int(b * 255);
-    unsigned int uiA = unsigned int(a * 255);
+    unsigned int uiR = (unsigned int)(r * 255);
+    unsigned int uiG = (unsigned int)(g * 255);
+    unsigned int uiB = (unsigned int)(b * 255);
+    unsigned int uiA = (unsigned int)(a * 255);
     
     return (includeAlpha * uiA << 24) | (uiB << 16) | (uiG << 8) | uiR;
 }
