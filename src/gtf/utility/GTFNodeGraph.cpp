@@ -673,11 +673,13 @@ void GTFNodeGraph::updateGUI()
         nodeList.push_back(lastClickedNode);
     }
     
+    renderLines(draw_list, curOffset - scrolling);
+    
 	for (GTFNode* node : nodeList)
 		displayNode(draw_list, curOffset - scrolling , node, node_selected);
     
 	updateDraging(curOffset - scrolling);
-	renderLines(draw_list, curOffset - scrolling);
+	
     
     draw_list->ChannelsMerge();
     
