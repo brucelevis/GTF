@@ -700,11 +700,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				3F0D62361D0F159800D3C9D2 /* GTF_ALL */,
 				3F20694E1CED0F0300EB5FFA /* gtf */,
 				3F8CFBE31CF3928800A33B95 /* NoiseGenerator */,
 				3F102EC41CFE091D00A11E17 /* CalcGraph */,
 				3F1C8D831D0DD22A009EB52E /* ParticleEditor */,
-				3F0D62361D0F159800D3C9D2 /* GTF_ALL */,
 			);
 		};
 /* End PBXProject section */
