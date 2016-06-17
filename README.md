@@ -2,7 +2,7 @@
 **Graphics Tools Framework**
 A Framework to create C/C++ desktop tools oriented to 2D/3D graphics manipulation. 
 This project started as an extraction of reaprofitable code from the <a href="https://www.youtube.com/watch?v=f0P1ZqO0zOk" target="_blank">TexPainter project</a>. 
-The idea is to implement a feature-rich library that powers tools like TexPainter and others with similar needs.
+The idea is to implement a feature-rich library to empower  tools like TexPainter and other tools with similar needs.
 
 Highlighted Features
 --------------------
@@ -31,13 +31,13 @@ Help needed for EVERYTHING! but mostly...
 
 Examples
 --------
-**CalcGraph Example**
+**CalcGraph Example (video)**
 <br />
 <a href="http://www.youtube.com/watch?v=m6eteEPQ0Lg" target="_blank">
 <img src="http://img.youtube.com/vi/m6eteEPQ0Lg/0.jpg"/>
 </a>
 
-**NoiseGenerator Example**
+**NoiseGenerator Example (video)**
 <br />
 <a href="http://www.youtube.com/watch?v=XCk2LmzZI3A" target="_blank">
 <img src="http://img.youtube.com/vi/XCk2LmzZI3A/0.jpg"/>
