@@ -49,14 +49,14 @@ Developed by [David Gallardo](https://twitter.com/galloscript) portalg@gmail.com
 
 Libraries
 ---------
-GLFW - OpenGL windows
-ImGui - Grahic user interface
-glm - maths
-Autodesk FBX - FBX mesh loading
-tiny_obj_loader - OBJ mesh loading
-stb headers - texture loading/write, text utilites, etc...
-glad - OpenGL functions loader
-khrplatform - khronos types
-mikktspace - Synched normals
-tinyfielddialogs - load/save dialogs
+- GLFW - OpenGL windows
+- ImGui - Grahic user interface
+- glm - maths
+- Autodesk FBX - FBX mesh loading
+- tiny_obj_loader - OBJ mesh loading
+- stb headers - texture loading/write, text utilites, etc...
+- glad - OpenGL functions loader
+- khrplatform - khronos types
+- mikktspace - Synched normals
+- tinyfielddialogs - load/save dialogs
 
