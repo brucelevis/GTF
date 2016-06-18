@@ -57,14 +57,6 @@
 		3F102F931CFE399B00A11E17 /* GTFCRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102F911CFE399B00A11E17 /* GTFCRC32.h */; };
 		3F1C8D811D0CB288009EB52E /* imgui_color_gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1C8D7F1D0CB288009EB52E /* imgui_color_gradient.cpp */; };
 		3F1C8D821D0CB288009EB52E /* imgui_color_gradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F1C8D801D0CB288009EB52E /* imgui_color_gradient.h */; };
-		3F1C8D8A1D0DD22B009EB52E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD25ACA1D06359700135BF5 /* IOKit.framework */; };
-		3F1C8D8B1D0DD22B009EB52E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD25AC81D06356C00135BF5 /* CoreVideo.framework */; };
-		3F1C8D8D1D0DD22B009EB52E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8CFC141CF39B5600A33B95 /* OpenGL.framework */; };
-		3F1C8D8E1D0DD22B009EB52E /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8CFBDC1CF391BE00A33B95 /* AppKit.framework */; };
-		3F1C8D8F1D0DD22B009EB52E /* libgtf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F20694F1CED0F0300EB5FFA /* libgtf.a */; };
-		3F1C8D9B1D0DD2A0009EB52E /* ParticleEditorApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1C8D991D0DD2A0009EB52E /* ParticleEditorApp.cpp */; };
-		3F1C8D9E1D0DD2B2009EB52E /* ParticleEditorWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1C8D9C1D0DD2B2009EB52E /* ParticleEditorWindow.cpp */; };
-		3F1C8DA11D0DD2C9009EB52E /* ParticleLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1C8D9F1D0DD2C9009EB52E /* ParticleLogic.cpp */; };
 		3F69E60E1CFEDB3500EF4639 /* GTFErrorHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */; };
 		3F69E6111D001B8C00EF4639 /* CalcNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */; };
 		3F69E6141D0039D200EF4639 /* GTFNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F69E6121D0039D200EF4639 /* GTFNodeGraph.cpp */; };
@@ -151,15 +143,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		3F1C8D901D0DD22B009EB52E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		3F8CFBE21CF3928800A33B95 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -207,13 +190,6 @@
 		3F1C8D7E1D0C6C67009EB52E /* NoiseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoiseApp.h; sourceTree = "<group>"; };
 		3F1C8D7F1D0CB288009EB52E /* imgui_color_gradient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_color_gradient.cpp; sourceTree = "<group>"; };
 		3F1C8D801D0CB288009EB52E /* imgui_color_gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_color_gradient.h; sourceTree = "<group>"; };
-		3F1C8D941D0DD22B009EB52E /* ParticleEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ParticleEditor; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F1C8D991D0DD2A0009EB52E /* ParticleEditorApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEditorApp.cpp; sourceTree = "<group>"; };
-		3F1C8D9A1D0DD2A0009EB52E /* ParticleEditorApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEditorApp.h; sourceTree = "<group>"; };
-		3F1C8D9C1D0DD2B2009EB52E /* ParticleEditorWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEditorWindow.cpp; sourceTree = "<group>"; };
-		3F1C8D9D1D0DD2B2009EB52E /* ParticleEditorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEditorWindow.h; sourceTree = "<group>"; };
-		3F1C8D9F1D0DD2C9009EB52E /* ParticleLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleLogic.cpp; sourceTree = "<group>"; };
-		3F1C8DA01D0DD2C9009EB52E /* ParticleLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleLogic.h; sourceTree = "<group>"; };
 		3F20694F1CED0F0300EB5FFA /* libgtf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgtf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F69E60D1CFEDB3500EF4639 /* GTFErrorHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTFErrorHandling.h; sourceTree = "<group>"; };
 		3F69E60F1D001B8C00EF4639 /* CalcNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CalcNodeGraph.cpp; sourceTree = "<group>"; };
@@ -280,18 +256,6 @@
 				3F102ECC1CFE091D00A11E17 /* OpenGL.framework in Frameworks */,
 				3F102ECD1CFE091D00A11E17 /* AppKit.framework in Frameworks */,
 				3F102ECE1CFE091D00A11E17 /* libgtf.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F1C8D891D0DD22B009EB52E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3F1C8D8A1D0DD22B009EB52E /* IOKit.framework in Frameworks */,
-				3F1C8D8B1D0DD22B009EB52E /* CoreVideo.framework in Frameworks */,
-				3F1C8D8D1D0DD22B009EB52E /* OpenGL.framework in Frameworks */,
-				3F1C8D8E1D0DD22B009EB52E /* AppKit.framework in Frameworks */,
-				3F1C8D8F1D0DD22B009EB52E /* libgtf.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,19 +339,6 @@
 			path = CalcGraph;
 			sourceTree = "<group>";
 		};
-		3F1C8D951D0DD279009EB52E /* ParticleEditor */ = {
-			isa = PBXGroup;
-			children = (
-				3F1C8D991D0DD2A0009EB52E /* ParticleEditorApp.cpp */,
-				3F1C8D9A1D0DD2A0009EB52E /* ParticleEditorApp.h */,
-				3F1C8D9C1D0DD2B2009EB52E /* ParticleEditorWindow.cpp */,
-				3F1C8D9D1D0DD2B2009EB52E /* ParticleEditorWindow.h */,
-				3F1C8D9F1D0DD2C9009EB52E /* ParticleLogic.cpp */,
-				3F1C8DA01D0DD2C9009EB52E /* ParticleLogic.h */,
-			);
-			path = ParticleEditor;
-			sourceTree = "<group>";
-		};
 		3F1C8DA21D0DD32D009EB52E /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,7 +362,6 @@
 				3F20694F1CED0F0300EB5FFA /* libgtf.a */,
 				3F8CFBE41CF3928800A33B95 /* NoiseGenerator */,
 				3F102ED31CFE091E00A11E17 /* CalcGraph */,
-				3F1C8D941D0DD22B009EB52E /* ParticleEditor */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,7 +449,6 @@
 		3F8CFBED1CF3929F00A33B95 /* examples */ = {
 			isa = PBXGroup;
 			children = (
-				3F1C8D951D0DD279009EB52E /* ParticleEditor */,
 				3F102ED41CFE098500A11E17 /* CalcGraph */,
 				3F8CFBEF1CF392D000A33B95 /* NoiseGenerator */,
 			);
@@ -628,23 +577,6 @@
 			productReference = 3F102ED31CFE091E00A11E17 /* CalcGraph */;
 			productType = "com.apple.product-type.tool";
 		};
-		3F1C8D831D0DD22A009EB52E /* ParticleEditor */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3F1C8D911D0DD22B009EB52E /* Build configuration list for PBXNativeTarget "ParticleEditor" */;
-			buildPhases = (
-				3F1C8D841D0DD22A009EB52E /* Sources */,
-				3F1C8D891D0DD22B009EB52E /* Frameworks */,
-				3F1C8D901D0DD22B009EB52E /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ParticleEditor;
-			productName = NoiseGenerator;
-			productReference = 3F1C8D941D0DD22B009EB52E /* ParticleEditor */;
-			productType = "com.apple.product-type.tool";
-		};
 		3F20694E1CED0F0300EB5FFA /* gtf */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F2069531CED0F0300EB5FFA /* Build configuration list for PBXNativeTarget "gtf" */;
@@ -704,7 +636,6 @@
 				3F20694E1CED0F0300EB5FFA /* gtf */,
 				3F8CFBE31CF3928800A33B95 /* NoiseGenerator */,
 				3F102EC41CFE091D00A11E17 /* CalcGraph */,
-				3F1C8D831D0DD22A009EB52E /* ParticleEditor */,
 			);
 		};
 /* End PBXProject section */
@@ -718,16 +649,6 @@
 				3F69E6111D001B8C00EF4639 /* CalcNodeGraph.cpp in Sources */,
 				3F102EDA1CFE27E400A11E17 /* CalcWindow.cpp in Sources */,
 				3F102ED71CFE276600A11E17 /* main.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F1C8D841D0DD22A009EB52E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3F1C8D9E1D0DD2B2009EB52E /* ParticleEditorWindow.cpp in Sources */,
-				3F1C8D9B1D0DD2A0009EB52E /* ParticleEditorApp.cpp in Sources */,
-				3F1C8DA11D0DD2C9009EB52E /* ParticleLogic.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,41 +772,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = CalcGraph;
-			};
-			name = Release;
-		};
-		3F1C8D921D0DD22B009EB52E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					../../src/thirdparty/glm,
-					../../src/thirdparty/imgui,
-					../../src/thirdparty/tinylibs,
-					../../src/thirdparty/stb,
-					../../external/FBX/2016.1.2/include,
-					../../src/gtf,
-				);
-				PRODUCT_NAME = ParticleEditor;
-			};
-			name = Debug;
-		};
-		3F1C8D931D0DD22B009EB52E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					../../src/thirdparty/glm,
-					../../src/thirdparty/imgui,
-					../../src/thirdparty/tinylibs,
-					../../src/thirdparty/stb,
-					../../external/FBX/2016.1.2/include,
-					../../src/gtf,
-				);
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = ParticleEditor;
 			};
 			name = Release;
 		};
@@ -1077,21 +963,13 @@
 				3F0D62391D0F159800D3C9D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3F102ED01CFE091D00A11E17 /* Build configuration list for PBXNativeTarget "CalcGraph" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3F102ED11CFE091D00A11E17 /* Debug */,
 				3F102ED21CFE091D00A11E17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3F1C8D911D0DD22B009EB52E /* Build configuration list for PBXNativeTarget "ParticleEditor" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3F1C8D921D0DD22B009EB52E /* Debug */,
-				3F1C8D931D0DD22B009EB52E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
