@@ -1,7 +1,7 @@
 # GTF
 **Graphics Tools Framework**
 A Framework to create C/C++ desktop tools oriented to 2D/3D graphics manipulation. 
-This project started as an extraction of reaprofitable code from the <a href="https://www.youtube.com/watch?v=f0P1ZqO0zOk" target="_blank">TexPainter project</a>. 
+This project started as an extraction of reusable code from the <a href="https://www.youtube.com/watch?v=f0P1ZqO0zOk" target="_blank">TexPainter project</a>. 
 The idea is to implement a feature-rich library to empower  tools like TexPainter and other tools with similar needs.
 
 Highlighted Features
