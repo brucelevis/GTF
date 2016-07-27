@@ -67,7 +67,7 @@ void CalcWindow::frame(double deltaTime)
     float propertiesWith = 250;
     
     ImGui::SetNextWindowPos(ImVec2(m_windowWidth - propertiesWith - 20.0f, 20.0f), ImGuiSetCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(propertiesWith, m_windowHeight - 40.0f), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(propertiesWith, m_windowHeight - 240.0f), ImGuiSetCond_Always);
     
     ImGui::Begin("NodeProperties", nullptr, flags	);
     {
@@ -84,6 +84,23 @@ void CalcWindow::frame(double deltaTime)
             }
             
         }
+    }
+    ImGui::End();
+    
+    ImGui::SetNextWindowPos(ImVec2(m_windowWidth - propertiesWith - 20.0f, m_windowHeight - 200.0f), ImGuiSetCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(propertiesWith, 180.0f), ImGuiSetCond_Always);
+    
+    if(ImGui::Begin("Controls", nullptr, flags))
+    {
+        ImGui::Text("Controls");
+        ImGui::Separator(); ImGui::Spacing();
+        
+         ImGui::Text("Right-Click to open menu."); ImGui::Spacing();
+        ImGui::Text("Drag connections to link."); ImGui::Spacing();
+        ImGui::Text("[Shit]+Click on a node for multi \nselection."); ImGui::Spacing();
+        ImGui::Text("[Ctrl]+Click on a connection \nto break links."); ImGui::Spacing();
+        ImGui::Text("[Supr] to delete selected nodes"); ImGui::Spacing();
+        
     }
     ImGui::End();
     
