@@ -6,3 +6,4 @@ projects/Xcode/build
 *.sdf
 *.vcxproj.user
 *.VC.opendb
+build/

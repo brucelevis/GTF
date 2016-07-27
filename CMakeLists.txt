@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
+project(GTF)
+
 #set( GTF_OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin )
 set( GTF_OUTPUT_DIR bin )
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${GTF_OUTPUT_DIR} )
@@ -31,11 +33,11 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     SET (CMAKE_CXX_FLAGS_RELEASE        "-O4 -DNDEBUG")
     SET (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 
-    SET (CMAKE_AR      "/usr/bin/llvm-ar")
-    SET (CMAKE_LINKER  "/usr/bin/llvm-ld")
-    SET (CMAKE_NM      "/usr/bin/llvm-nm")
-    SET (CMAKE_OBJDUMP "/usr/bin/llvm-objdump")
-    SET (CMAKE_RANLIB  "/usr/bin/llvm-ranlib")
+    SET (CMAKE_AR      "/usr/bin/ar")
+    SET (CMAKE_LINKER  "/usr/bin/ld")
+    SET (CMAKE_NM      "/usr/bin/nm")
+    SET (CMAKE_OBJDUMP "/usr/bin/objdump")
+    SET (CMAKE_RANLIB  "/usr/bin/ranlib")
 
 add_definitions(-D_GLFW_COCOA)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
