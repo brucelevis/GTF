@@ -8,10 +8,10 @@
 
 #pragma once
 
-#include "GTFApp.h"
+#include <gtf/App.h>
 #include "NoiseWindow.h"
 
-class NoiseApp : public GTFApp
+class NoiseApp : public gtf::App
 {
 public:
     static NoiseApp* instance;

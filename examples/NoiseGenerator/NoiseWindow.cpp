@@ -9,24 +9,24 @@
 #include "NoiseWindow.h"
 #include "NoiseApp.h"
 
-#include "GTFRHI.h"
+#include <gtf/RHI.h>
 
-#include "imgui.h"
+#include <imgui.h>
 #define IMGUI_DEFINE_MATH_OPERATORS
-#include "imgui_internal.h"
+#include <imgui_internal.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+#include <stb_image_write.h>
 
 
-class GradientEditorWindow : public GTFWindow
+class GradientEditorWindow : public gtf::Window
 {
 public:
     GradientEditorWindow(class ImGradient* gradient)
-    : GTFWindow("Color Gradient Editor", 400, 400)
+    : Window("Color Gradient Editor", 400, 400)
     , m_gradientRef(gradient)
     {
-        RHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
+        gtf::GRHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
     }
     virtual void frame(double deltaTime) override
     {
@@ -45,13 +45,13 @@ public:
         m_updated = ImGui::GradientEditor(m_gradientRef, m_draggingMark, m_selectedMark);
         ImGui::End();
         
-        RHI->viewport(0, 0, m_windowWidth, m_windowHeight);
-        RHI->clearColorAndDepthBuffers();
+        gtf::GRHI->viewport(0, 0, m_windowWidth, m_windowHeight);
+		gtf::GRHI->clearColorAndDepthBuffers();
     }
     
     virtual bool wantToClose()
     {
-		bool wants = GTFWindow::wantToClose();
+		bool wants = gtf::Window::wantToClose();
         if(wants)
         {
 			NoiseApp::instance->noiseWindow->nullifyGradientWindow();
@@ -72,13 +72,13 @@ private:
 };
 
 
-NoiseWindow::NoiseWindow(const char* title) : GTFWindow(title, 1040, 720)
+NoiseWindow::NoiseWindow(const char* title) : Window(title, 1040, 720)
 {
-    RHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
+    gtf::GRHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
     m_worker = new GeneratorWorker();
     
-    m_texture = RHI->createTexture();
-    m_texture->setup(EGTFRHITexInternalFormat::RHI_RGB8, 512, 512, EGTFRHITexFormat::RHI_RGB, EGTFRHIValueType::RHI_UNSIGNED_BYTE);
+    m_texture = gtf::GRHI->createTexture();
+    m_texture->setup(gtf::ERHITexInternalFormat::RHI_RGB8, 512, 512, gtf::ERHITexFormat::RHI_RGB, gtf::ERHIValueType::RHI_UNSIGNED_BYTE);
     
     m_info.dirty = true;
     m_worker->update(m_info);
@@ -217,20 +217,20 @@ void NoiseWindow::frame(double deltaTime)
     if(m_worker->update(m_info))
     {
         //m_texture->copyFromBuffer(m_info.image);
-        m_texture->setup(EGTFRHITexInternalFormat::RHI_RGB8, m_info.resX, m_info.resY, EGTFRHITexFormat::RHI_RGB, EGTFRHIValueType::RHI_UNSIGNED_BYTE, m_info.image);
+        m_texture->setup(gtf::ERHITexInternalFormat::RHI_RGB8, m_info.resX, m_info.resY, gtf::ERHITexFormat::RHI_RGB, gtf::ERHIValueType::RHI_UNSIGNED_BYTE, m_info.image);
         delete [] m_info.image;
     }
     
     //ImGui::ShowTestWindow();
     
     // Rendering
-    RHI->viewport(0, 0, m_windowWidth, m_windowHeight);
-    RHI->clearColorAndDepthBuffers();
+    gtf::GRHI->viewport(0, 0, m_windowWidth, m_windowHeight);
+    gtf::GRHI->clearColorAndDepthBuffers();
 }
 
 void NoiseWindow::postFrame(double deltaTime)
 {
-	GTFWindow::postFrame(deltaTime);
+	gtf::Window::postFrame(deltaTime);
 
 	if (m_createGradientEditorWindow && !m_gradientWindow)
 	{

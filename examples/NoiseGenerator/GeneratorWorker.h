@@ -9,7 +9,7 @@
 #pragma once 
 
 #include <thread>
-#include "imgui_color_gradient.h"
+#include <imgui_color_gradient.h>
 
 struct GeneratorInfo
 {

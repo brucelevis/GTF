@@ -8,8 +8,7 @@
 
 #pragma once
 
-#include "GTFNodeGraph.h"
-
+#include <gtf/NodeGraph.h>
 #include <cstdint>
 #include <list>
 #include <vector>
@@ -38,7 +37,7 @@ struct ConnectionDesc
 };
 
 
-class CalcNode : public GTFNode
+class CalcNode : public gtf::Node
 {
 public:
     CalcNode(ECalcNodeType _t) : type(_t){};
@@ -47,7 +46,7 @@ public:
     ECalcNodeType type;
     int number { 0 };
     
-    static CalcNode* CAST(GTFNode* node){ return dynamic_cast<CalcNode*>(node); }
+    static CalcNode* CAST(gtf::Node* node){ return dynamic_cast<CalcNode*>(node); }
 };
 
 class CalcNumberNode : public CalcNode

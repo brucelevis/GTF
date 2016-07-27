@@ -7,12 +7,10 @@
 //
 
 #include <stdio.h>
-
-
-#include "GTFApp.h"
+#include <gtf/App.h>
 #include "CalcWindow.h"
 
-class CalcApp : public GTFApp
+class CalcApp : public gtf::App
 {
 public:
     virtual void readyToStart() override
@@ -22,11 +20,11 @@ public:
         m_window->setVisible(true);
     }
 private:
-    GTFWindow* m_window;
+    gtf::Window* m_window;
 };
 
 int main(int argc, const char * argv[])
 {
-    GTFApp* app = new CalcApp();
+    gtf::App* app = new CalcApp();
     return app->run(argc, argv);
 }

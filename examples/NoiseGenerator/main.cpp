@@ -13,6 +13,6 @@ NoiseApp* NoiseApp::instance { nullptr };
 
 int main(int argc, const char * argv[])
 {
-    GTFApp* app = new NoiseApp();
+    gtf::App* app = new NoiseApp();
     return app->run(argc, argv);
 }

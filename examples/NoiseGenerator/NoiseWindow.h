@@ -8,11 +8,13 @@
 
 #pragma once
 
-#include "GTFWindow.h"
-#include "GeneratorWorker.h"
-#include "GTFRHI.h"
+#include <gtf/Window.h>
+#include <gtf/RHI.h>
 
-class NoiseWindow : public GTFWindow
+#include "GeneratorWorker.h"
+
+
+class NoiseWindow : public gtf::Window
 {
 public:
     NoiseWindow(const char* title);
@@ -23,7 +25,7 @@ public:
 private:
     GeneratorWorker* m_worker;
     GeneratorInfo m_info;
-    GTFRHITexture2DPtr m_texture;
+    gtf::RHITexture2DPtr m_texture;
     class GradientEditorWindow* m_gradientWindow {nullptr};
     int m_currentRes { 2 };
 	bool m_createGradientEditorWindow{ false };

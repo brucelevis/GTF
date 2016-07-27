@@ -8,16 +8,16 @@
 
 #pragma once
 
-#include "GTFWindow.h"
+#include <gtf/Window.h>
 #include "CalcNodeGraph.h"
 
-class CalcWindow : public GTFWindow
+class CalcWindow : public gtf::Window
 {
 public:
     CalcWindow(const char* title);
     ~CalcWindow(){};
     virtual void frame(double deltaTime) override;
     
-    GTFNodeGraphType* calcGraphType;
+    gtf::NodeGraphType* calcGraphType;
     CalcNodeGraph* calcGraphInstance;
 };

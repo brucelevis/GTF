@@ -9,13 +9,13 @@
 #pragma once
 
 #include "CalcNodes.h"
-#include "imgui.h"
+#include <imgui.h>
 
 
-class CalcNodeGraph : public GTFNodeGraph
+class CalcNodeGraph : public gtf::NodeGraph
 {
 public:
-    CalcNodeGraph(GTFNodeGraphType* type ) : GTFNodeGraph(type){};
+    CalcNodeGraph(gtf::NodeGraphType* type ) : NodeGraph(type){};
     
     
     
