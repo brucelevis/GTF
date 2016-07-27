@@ -23,11 +23,16 @@ Coming soon
 Help needed for EVERYTHING! but mostly...
 -----------------------------------------
 - API Design, some decisions I made are not the best ones
-- Build system implementation/configuration, maybe CMake?
 - Replacing GLFW with something that let us use DirectX in the future
 - Replacing tinyfielddialogs, while it is a very useful library I prefer a more native-os-api approach
 - Experience with *bgfx* to discuss about it's integration here instead of the current render hardware interface
 
+
+Build
+------
+	mkdir build
+	cd build
+	cmake [-G generator] ../
 
 Examples
 --------
