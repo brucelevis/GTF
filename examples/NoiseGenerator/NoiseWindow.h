@@ -10,6 +10,7 @@
 
 #include <gtf/Window.h>
 #include <gtf/RHI.h>
+#include <memory>
 
 #include "GeneratorWorker.h"
 
@@ -18,6 +19,7 @@ class NoiseWindow : public gtf::Window
 {
 public:
     NoiseWindow(const char* title);
+	~NoiseWindow();
 	virtual void frame(double deltaTime) override;
 	virtual void postFrame(double deltaTime) override;
     void postSetMainInit();
@@ -25,7 +27,7 @@ public:
 private:
     GeneratorWorker* m_worker;
     GeneratorInfo m_info;
-    gtf::RHITexture2DPtr m_texture;
+    std::unique_ptr<gtf::RHITexture2D> m_texture;
     class GradientEditorWindow* m_gradientWindow {nullptr};
     int m_currentRes { 2 };
 	bool m_createGradientEditorWindow{ false };

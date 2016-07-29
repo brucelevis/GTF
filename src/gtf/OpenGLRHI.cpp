@@ -157,7 +157,7 @@ static GLenum RHI_OGL_COMPARE_FUNC[] =
 };*/
 
 ////// OpenGLTexture //////
-void OpenGLTexture::create()
+OpenGLTexture::OpenGLTexture()
 {
     glGenTextures(1, &m_name);
 }
@@ -275,9 +275,9 @@ void OpenGLTexture::clearWithColor(float r, float g, float b, float a)
     delete [] colorBuff;
 }
 
-RHITexture2DPtr OpenGLTexture::cloneTexture(bool withData)
+RHITexture2D* OpenGLTexture::cloneTexture(bool withData)
 {
-    RHITexture2DPtr newTex = GRHI->createTexture();
+    RHITexture2D* newTex = GRHI->createTexture();
     unsigned char* buffer = nullptr;
     if(withData)
     {
@@ -332,7 +332,7 @@ void OpenGLTexture::flipY()
 
 /////// CUBE MAP ///////
 
-void OpenGLCubeMap::create()
+OpenGLCubeMap::OpenGLCubeMap()
 {
     glGenTextures(1, &m_name);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_name);
@@ -349,17 +349,12 @@ OpenGLCubeMap::~OpenGLCubeMap()
     glDeleteTextures(1, &m_name);
 }
 
-void OpenGLCubeMap::setup(RHITexture2DPtr * faces, int lodLvl)
+void OpenGLCubeMap::setup(RHITexture2D** faces, int lodLvl)
 {
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_name);
     
     for(int i = 0; i < 6; i++)
-    {
-        if(lodLvl <= 6)
-        {
-            m_sides[lodLvl][i] = faces[i];
-        }
-        
+    {        
         RHITextureInfo texInfo;
         faces[i]->getInfo(texInfo);
         unsigned char* image = (unsigned char*)malloc(texInfo.size);
@@ -397,7 +392,7 @@ void OpenGLCubeMap::unbind()
 }
 
 ///// OpenGLFrameBuffer /////
-void OpenGLFrameBuffer::create()
+OpenGLFrameBuffer::OpenGLFrameBuffer()
 {
     glGenFramebuffers(1, &m_name);
     
@@ -408,9 +403,9 @@ OpenGLFrameBuffer::~OpenGLFrameBuffer()
     glDeleteFramebuffers(1, &m_name);
 }
 
-void OpenGLFrameBuffer::setup(RHITexture2DPtr* attachments,
+void OpenGLFrameBuffer::setup(RHITexture2D** attachments,
                                 unsigned int numAttachments,
-                                RHITexture2DPtr depthAttach)
+                                RHITexture2D* depthAttach)
 {
     assert(numAttachments <= 10);
     
@@ -501,9 +496,9 @@ void OpenGLFrameBuffer::getPixelAt(int x, int y, unsigned int attachIndex, void*
 }
 
 void OpenGLFrameBuffer::copyAttachmentToTexture(unsigned int attachmentIndex,
-                                                  RHITexture2DPtr outputTex)
+                                                  RHITexture2D* outputTex)
 {
-    RHITexture2DPtr attachment = m_attachments[attachmentIndex];
+    RHITexture2D* attachment = m_attachments[attachmentIndex];
     RHITextureInfo info;
     attachment->getInfo(info);
     
@@ -540,12 +535,11 @@ OpenGLShaderSource::~OpenGLShaderSource()
     }
 }
 
-void OpenGLShaderSource::compileSource(std::string const & sourceStr, ERHIShaderType type)
+void OpenGLShaderSource::compileSource(const char * sourceStr, ERHIShaderType type)
 {
     m_type = type;
     m_name = glCreateShader(RHI_OGL_SHADER_TYPE[type]);
-    m_sourceStr = sourceStr;
-    
+       
     std::string parsedSource = GRHI->solveShaderHeaders(sourceStr);
     const char* src = parsedSource.c_str();
     glShaderSource(m_name, (GLsizeiptr)1, &src, NULL);
@@ -563,7 +557,7 @@ void OpenGLShaderSource::compileSource(std::string const & sourceStr, ERHIShader
 }
 
 /////// OpenGLShaderProgram //////
-void OpenGLShaderProgram::create()
+OpenGLShaderProgram::OpenGLShaderProgram()
 {
     
 }
@@ -574,25 +568,16 @@ OpenGLShaderProgram::~OpenGLShaderProgram()
     glDeleteProgram(m_name);
 }
 
-void OpenGLShaderProgram::attachSource(RHIShaderSourcePtr source)
-{
-    auto elem = std::find(m_attachedSources.begin(), m_attachedSources.end(), source);
-    if(elem == m_attachedSources.end())
-    {
-        //m_attachedSources.erase(elem);
-        m_attachedSources.push_back(source);
-    }
-}
-
-void OpenGLShaderProgram::link()
+void OpenGLShaderProgram::link(RHIShaderSource** sources, size_t sourceCount)
 {
     m_uniformNames.clear();
     glDeleteProgram(m_name);
     m_name = glCreateProgram();
     
-    for(auto elem : m_attachedSources)
+	for (size_t s = 0; s < sourceCount; ++s)
     {
-        glAttachShader(m_name, elem->getName());
+		if(sources[s])
+			glAttachShader(m_name, sources[s]->getName());
     }
     
     glLinkProgram(m_name);
@@ -612,13 +597,13 @@ void OpenGLShaderProgram::active()
     glUseProgram(m_name);
 }
 
-int OpenGLShaderProgram::getUniformLocation(const std::string & ref)
+int OpenGLShaderProgram::getUniformLocation(const char * ref)
 {
     auto foundElement = m_uniformNames.find(ref);
 
     if(foundElement == m_uniformNames.end())
     {
-        int uniformName = glGetUniformLocation(m_name, ref.c_str());
+        int uniformName = glGetUniformLocation(m_name, ref);
         m_uniformNames.insert(std::make_pair(ref, uniformName));
         return uniformName;
     }
@@ -628,37 +613,37 @@ int OpenGLShaderProgram::getUniformLocation(const std::string & ref)
     }
 }
 
-void OpenGLShaderProgram::setUniform1ui(const std::string & ref, unsigned int value)
+void OpenGLShaderProgram::setUniform1ui(const char * ref, unsigned int value)
 {
     glUniform1ui(getUniformLocation(ref), value);
 }
 
-void OpenGLShaderProgram::setUniform1i(const std::string & ref, int value)
+void OpenGLShaderProgram::setUniform1i(const char * ref, int value)
 {
     glUniform1i(getUniformLocation(ref), value);
 }
 
-void OpenGLShaderProgram::setUniform1f(const std::string & ref, float v1)
+void OpenGLShaderProgram::setUniform1f(const char * ref, float v1)
 {
     glUniform1f(getUniformLocation(ref), v1);
 }
 
-void OpenGLShaderProgram::setUniform2f(const std::string & ref, float v1, float v2)
+void OpenGLShaderProgram::setUniform2f(const char * ref, float v1, float v2)
 {
     glUniform2f(getUniformLocation(ref), v1, v2);
 }
 
-void OpenGLShaderProgram::setUniform4f(const std::string & ref, float v1, float v2, float v3, float v4)
+void OpenGLShaderProgram::setUniform4f(const char * ref, float v1, float v2, float v3, float v4)
 {
     glUniform4f(getUniformLocation(ref), v1, v2, v3, v4);
 }
 
-void OpenGLShaderProgram::setUniform4x4m(const std::string & ref, float* mat4x4)
+void OpenGLShaderProgram::setUniform4x4m(const char * ref, float* mat4x4)
 {
     glUniformMatrix4fv(getUniformLocation(ref), 1, GL_FALSE, mat4x4);
 }
 
-void OpenGLShaderProgram::setUniform3fv(const std::string & ref, unsigned int numElems, float* vec3array)
+void OpenGLShaderProgram::setUniform3fv(const char * ref, unsigned int numElems, float* vec3array)
 {
     glUniform3fv(getUniformLocation(ref), numElems, vec3array);
 }
@@ -680,8 +665,7 @@ void OpenGLVAO::render()
 
 }
 
-void OpenGLVAO::setup(RHIVertex* vertexList,
-                        unsigned int vertexCount)
+void OpenGLVAO::setup(RHIVertexAttributeList const & attrs, void* vertexList, unsigned int vertexCount)
 {
     m_vertexCount = vertexCount;
     
@@ -689,9 +673,26 @@ void OpenGLVAO::setup(RHIVertex* vertexList,
     glBindVertexArray(m_name);
     glGenBuffers(1, &m_meshVBO);
     glBindBuffer(GL_ARRAY_BUFFER, m_meshVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(RHIVertex), vertexList, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertexCount * attrs.getStructSize(), vertexList, GL_STATIC_DRAW);
     
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RHIVertex), (void *)offsetof(RHIVertex, x));
+	auto list = attrs.getIterableList();
+	int attrCount = 0;
+
+	for (auto const & attr : list)
+	{
+		glVertexAttribPointer(
+			attrCount,
+			attr.components, 
+			RHI_OGL_VALUE_TYPE[attr.type], 
+			attr.normalized ? GL_TRUE : GL_FALSE, 
+			attrs.getStructSize(),
+			(void*)attr.offset);
+		glEnableVertexAttribArray(attrCount);
+		++attrCount;
+	}
+
+
+   /* glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RHIVertex), (void *)offsetof(RHIVertex, x));
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RHIVertex), (void *)offsetof(RHIVertex, nx));
     glEnableVertexAttribArray(1);
@@ -701,7 +702,7 @@ void OpenGLVAO::setup(RHIVertex* vertexList,
     glEnableVertexAttribArray(3);
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(RHIVertex), (void *)offsetof(RHIVertex, bnx));
     glEnableVertexAttribArray(4);
-    
+    */
     //glGenBuffers(1, &m_indexVBO);
     //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexVBO);
     //glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned int), indexList, GL_STATIC_DRAW);
@@ -710,6 +711,7 @@ void OpenGLVAO::setup(RHIVertex* vertexList,
 }
 
 //// OpenGLUVRegionVAO /////
+/*
 OpenGLUVRegionVAO::~OpenGLUVRegionVAO()
 {
     glDeleteBuffers(1, &m_meshVBO);
@@ -740,7 +742,7 @@ void OpenGLUVRegionVAO::setup(RHIUVRegionVertex* vertexList,
     
     glBindVertexArray(0);
 }
-
+*/
 
 ///// OpenGLRHI /////
 int OpenGLRHI::init()
@@ -872,60 +874,46 @@ void OpenGLRHI::setBlendEquation(ERHIBlendEquation colorEq,
                             RHI_OGL_BLEND_EQ[alphaEq]);
 }
 
-RHIVAOPtr OpenGLRHI::createVertexBufferObject()
+RHIVAO* OpenGLRHI::createVertexBufferObject()
 {
-    return RHIVAOPtr(new OpenGLVAO);
+    return new OpenGLVAO;
 }
 
-RHIUVRegionVAOPtr OpenGLRHI::createUVRegionVAO()
+RHIShaderProgram* OpenGLRHI::createProgram()
 {
-    return RHIUVRegionVAOPtr(new OpenGLUVRegionVAO);
+	return new OpenGLShaderProgram();
 }
 
-RHIShaderProgramPtr OpenGLRHI::createProgram()
+RHIShaderSource* OpenGLRHI::createSource()
 {
-    RHIShaderProgramPtr prog = RHIShaderProgramPtr(new OpenGLShaderProgram());
-    prog->create();
-    return prog;
+    return new OpenGLShaderSource();
 }
 
-RHIShaderSourcePtr OpenGLRHI::createSource()
+RHITexture2D* OpenGLRHI::createTexture()
 {
-    return RHIShaderSourcePtr(new OpenGLShaderSource());
+    return new OpenGLTexture();
 }
 
-RHITexture2DPtr OpenGLRHI::createTexture()
+RHICubeMap* OpenGLRHI::createCubeMap()
 {
-    RHITexture2DPtr tmp = RHITexture2DPtr(new OpenGLTexture);
-    tmp->create();
-    return tmp;
+    return new OpenGLCubeMap;
 }
 
-RHICubeMapPtr OpenGLRHI::createCubeMap()
+RHIFrameBuffer* OpenGLRHI::createFramebuffer()
 {
-    RHICubeMapPtr tmp = RHICubeMapPtr(new OpenGLCubeMap);
-    tmp->create();
-    return tmp;
+    return new OpenGLFrameBuffer;
 }
-
-RHIFrameBufferPtr OpenGLRHI::createFramebuffer()
-{
-    RHIFrameBufferPtr tmp = RHIFrameBufferPtr(new OpenGLFrameBuffer);
-    tmp->create();
-    return tmp;
-}
-
 
 //add a new shader header source
-void OpenGLRHI::addShaderHeader(std::string const & headerName, std::string const & headerContent)
+void OpenGLRHI::addShaderHeader(const char * headerName, const char * headerContent)
 {
     m_shaderHeaders.insert(std::make_pair(headerName, headerContent));
 }
 
 //replaces all hader included in GLSL source file by it's content
-std::string OpenGLRHI::solveShaderHeaders(std::string const & shaderSource)
+std::string OpenGLRHI::solveShaderHeaders(const char * shaderSource)
 {
-    std::string newSource = shaderSource;
+    std::string newSource(shaderSource);
     
     for(auto headerPair : m_shaderHeaders)
     {

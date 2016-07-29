@@ -9,7 +9,6 @@
 #pragma once
 
 #include <stdlib.h>
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -122,6 +121,7 @@ enum ERHICompareFunc
     RHI_NEVER = 7
 };
 
+/*
 struct RHIVertex
 {
     float x = 0, y = 0, z = 0;          //position
@@ -133,8 +133,24 @@ struct RHIVertex
 
 struct RHIUVRegionVertex
 {
-    float x, y;
-    float faceId, regionId;
+	float x, y;
+	float faceId, regionId;
+};
+*/
+
+struct RHIVertexAttribute
+{
+	size_t offset;
+	unsigned int components;
+	ERHIValueType type;
+	bool normalized;
+	
+
+	RHIVertexAttribute(size_t _o, unsigned int _c, ERHIValueType _t, bool _n)
+		: offset(_o)
+		, components(_c)
+		, type(_t)
+		, normalized(_n) {};
 };
 
 struct RHITextureInfo
@@ -160,12 +176,10 @@ struct RHITexturePreset : public RHITextureInfo
     unsigned int numParams = 0;
 };
 
-typedef std::shared_ptr<class RHITexture2D> RHITexture2DPtr;
 class RHITexture2D
 {
 public:
     virtual ~RHITexture2D(){};
-    virtual void create() = 0;
     void setup(RHITextureInfo const & info);
     void setup(RHITexturePreset const & preset);
     virtual void setup(ERHITexInternalFormat inFormat,
@@ -183,37 +197,34 @@ public:
     virtual void copyToBuffer(void* buffer, ERHITexFormat format, ERHIValueType valType) = 0;
     virtual void copyFromBuffer(void* buffer) = 0;
     virtual void clearWithColor(float r, float g = 0.0f, float b = 0.0f, float a = 0.0f) = 0;
-    virtual RHITexture2DPtr cloneTexture(bool withData = false) = 0;
+    virtual class RHITexture2D * cloneTexture(bool withData = false) = 0;
     virtual void flipY() = 0;
 };
 
-typedef std::shared_ptr<class RHICubeMap> RHICubeMapPtr;
+
 class RHICubeMap
 {
 public:
     virtual ~RHICubeMap(){};
-    virtual void create() = 0;
-    virtual void setup(RHITexture2DPtr * faces, int lodLvl) = 0;
+    virtual void setup(class RHITexture2D ** faces, int lodLvl) = 0;
     virtual void bindAt(unsigned int texUnit) = 0;
     virtual void unbind() = 0;
-    virtual RHITexture2DPtr getSide(unsigned int lodLvl, unsigned int side) = 0;
 };
 
 class RHIFrameBuffer
 {
 public:
     virtual ~RHIFrameBuffer(){};
-    virtual void create() = 0;
-    virtual void setup(RHITexture2DPtr* attachments,
+    virtual void setup(RHITexture2D ** attachments,
                        unsigned int numAttachments = 1,
-                       RHITexture2DPtr depthAttach = nullptr) = 0;
+                       RHITexture2D * depthAttach = nullptr) = 0;
     virtual void bindForDrawing() = 0;
     virtual void bindForReading() = 0;
     virtual void unbindForDrawing() = 0;
     virtual void unbindForReading() = 0;
     virtual unsigned int getName() const = 0;
     virtual void getPixelAt(int x, int y, unsigned int attachIndex, void* buffer) = 0;
-    virtual void copyAttachmentToTexture(unsigned int attachment, RHITexture2DPtr outputTex) = 0;
+    virtual void copyAttachmentToTexture(unsigned int attachment, RHITexture2D * outputTex) = 0;
     virtual void clearAttachment(unsigned int attachIndex,
                                  float r = 0.0f,
                                  float g = 0.0f,
@@ -223,62 +234,55 @@ public:
     virtual void clearDepthBuffer(float d = 1.0f) = 0;
 };
 
-typedef std::shared_ptr<RHIFrameBuffer> RHIFrameBufferPtr;
-
 class RHIShaderSource
 {
 public:
     virtual ~RHIShaderSource(){};
-    virtual void compileSource(std::string const & sourceStr, ERHIShaderType type) = 0;
+    virtual void compileSource(const char * sourceStr, ERHIShaderType type) = 0;
     virtual unsigned int getName() const = 0;
     virtual ERHIShaderType getType() const = 0;
-    virtual std::string const & getSourceStr() const = 0;
 };
-
-typedef std::shared_ptr<RHIShaderSource> RHIShaderSourcePtr;
 
 class RHIShaderProgram
 {
 public:
     virtual ~RHIShaderProgram(){};
-    virtual void create() = 0;
-    virtual void attachSource(RHIShaderSourcePtr source) = 0;
-    virtual void link() = 0;
+    virtual void link(RHIShaderSource** sources, size_t sourceCount) = 0;
     virtual void active() = 0;
-    virtual std::vector<RHIShaderSourcePtr> & getAttachedSourcesList() = 0;
-    
-    virtual void setUniform1ui(const std::string & ref, unsigned int value) = 0;
-    virtual void setUniform1i(const std::string & ref, int value) = 0;
-    virtual void setUniform1f(const std::string & ref, float v1) = 0;
-    virtual void setUniform2f(const std::string & ref, float v1, float v2) = 0;
-    virtual void setUniform4f(const std::string & ref, float v1, float v2, float v3, float v4) = 0;
-    virtual void setUniform4x4m(const std::string & ref, float* mat4x4) = 0;
-    virtual void setUniform3fv(const std::string & ref, unsigned int numElems, float* vec3array) = 0;
+        
+    virtual void setUniform1ui(const char * ref, unsigned int value) = 0;
+    virtual void setUniform1i(const char * ref, int value) = 0;
+    virtual void setUniform1f(const char * ref, float v1) = 0;
+    virtual void setUniform2f(const char * ref, float v1, float v2) = 0;
+    virtual void setUniform4f(const char * ref, float v1, float v2, float v3, float v4) = 0;
+    virtual void setUniform4x4m(const char * ref, float* mat4x4) = 0;
+    virtual void setUniform3fv(const char * ref, unsigned int numElems, float* vec3array) = 0;
 };
 
-typedef std::shared_ptr<RHIShaderProgram> RHIShaderProgramPtr;
+
+class RHIVertexAttributeList
+{
+public:
+	RHIVertexAttributeList(size_t structSize);
+	void addAttribute(RHIVertexAttribute & attr);
+	void addAttribute(size_t offset, unsigned int components, ERHIValueType type = ERHIValueType::RHI_FLOAT, bool normalized = false);
+	std::vector<RHIVertexAttribute> const & getIterableList() const;
+	unsigned int getStructSize() const;
+private:
+	std::vector<RHIVertexAttribute> m_attrList;
+	unsigned int m_totalStructSize{ 0 };
+};
 
 class RHIVAO
 {
 public:
     virtual ~RHIVAO(){};
     virtual void render() = 0;
-    virtual void setup(RHIVertex* vertexList,
-                       unsigned int vertexCount) = 0;
+	virtual void setup(RHIVertexAttributeList const & list, void* vertexList, unsigned int vertexCount) = 0;
 };
 
-typedef std::shared_ptr<RHIVAO> RHIVAOPtr;
 
-class RHIUVRegionVAO
-{
-public:
-    virtual ~RHIUVRegionVAO(){};
-    virtual void render() = 0;
-    virtual void setup(RHIUVRegionVertex* vertexList,
-                       size_t vertexCount) = 0;
-};
 
-typedef std::shared_ptr<RHIUVRegionVAO> RHIUVRegionVAOPtr;
 
 class RHI
 {
@@ -303,19 +307,19 @@ public:
                                   ERHIBlendEquation alphaEq = ERHIBlendEquation::RHI_FUNC_ADD) = 0;
     
     //factory methods
-    virtual RHIVAOPtr createVertexBufferObject() = 0;
-    virtual RHIUVRegionVAOPtr createUVRegionVAO() = 0;
-    virtual RHIShaderProgramPtr createProgram() = 0;
-    virtual RHIShaderSourcePtr createSource() = 0;
-    virtual RHITexture2DPtr createTexture() = 0;
-    virtual RHICubeMapPtr createCubeMap() = 0;
-    virtual RHIFrameBufferPtr createFramebuffer() = 0;
+    virtual RHIVAO * createVertexBufferObject() = 0;
+    virtual RHIShaderProgram * createProgram() = 0;
+    virtual RHIShaderSource * createSource() = 0;
+    virtual RHITexture2D * createTexture() = 0;
+    virtual RHICubeMap * createCubeMap() = 0;
+    virtual RHIFrameBuffer * createFramebuffer() = 0;
     
     //shader utils
-    //add a new shader header source
-    virtual void addShaderHeader(std::string const & headerName, std::string const & headerContent) = 0;
-    //replaces all hader included in shder source file by it's content
-    virtual std::string solveShaderHeaders(std::string const & shaderSource) = 0;
+	//add a new shader header source
+	virtual void addShaderHeader(const char * headerName, const char * headerContent) = 0;
+
+	//replaces all header included in shader source by it's content
+	virtual std::string solveShaderHeaders(const char * shaderSource) = 0;
 };
 
 extern RHI* GRHI;

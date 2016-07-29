@@ -77,11 +77,16 @@ NoiseWindow::NoiseWindow(const char* title) : Window(title, 1040, 720)
     gtf::GRHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
     m_worker = new GeneratorWorker();
     
-    m_texture = gtf::GRHI->createTexture();
+    m_texture.reset(gtf::GRHI->createTexture());
     m_texture->setup(gtf::ERHITexInternalFormat::RHI_RGB8, 512, 512, gtf::ERHITexFormat::RHI_RGB, gtf::ERHIValueType::RHI_UNSIGNED_BYTE);
     
     m_info.dirty = true;
     m_worker->update(m_info);
+}
+
+NoiseWindow::~NoiseWindow()
+{
+
 }
 
 void NoiseWindow::postSetMainInit()
