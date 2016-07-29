@@ -12,3 +12,8 @@
 __class(){}; \
 __class(__class const &){}; \
 __class const & operator=(__class const &){ return *this; };
+
+namespace gtf
+{
+	void getFileExtension(const char* path, char* outExt, int bufferSize);
+}
