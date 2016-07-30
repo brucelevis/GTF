@@ -15,5 +15,6 @@ __class const & operator=(__class const &){ return *this; };
 
 namespace gtf
 {
+	// store in outExt the path extension (dot included) in lower case
 	void getFileExtension(const char* path, char* outExt, int bufferSize);
 }

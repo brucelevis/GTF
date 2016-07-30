@@ -45,6 +45,7 @@ public:
 		~Shape();
 
 	public:
+		std::string name;
 		unsigned int shapeId;
 		VertexData* data{ nullptr };
 		size_t vertexCount;
@@ -55,6 +56,7 @@ public:
 	StaticMesh();
 	~StaticMesh();
 
+	void clear();
 	Shape const * getShape(size_t shapeIndex) const;
 	size_t getShapeCount() const { return m_shapes.size(); }
 	void addShape(Shape* newShape) { m_shapes.push_back(newShape); }

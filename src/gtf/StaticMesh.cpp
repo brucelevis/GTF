@@ -14,6 +14,8 @@ namespace gtf
 
 bool loadFBX(const char * fbxPath, StaticMesh & mesh, float & pct)
 {
+	std::cout << "loadFBX : " << fbxPath << std::endl;
+	
 	std::string path(fbxPath);
 
 	// Create the FBX SDK manager
@@ -81,7 +83,7 @@ bool loadFBX(const char * fbxPath, StaticMesh & mesh, float & pct)
 
 			if ((fbxMesh->GetPolygonVertexCount() % 3) > 0)
 			{
-				std::cout << "MPOBJLoader::loadFromFile : Incorrect number of positions" << std::endl;
+				std::cout << "loadFBX : Incorrect number of positions" << std::endl;
 				continue;
 			}
 
@@ -146,6 +148,13 @@ bool loadFBX(const char * fbxPath, StaticMesh & mesh, float & pct)
 				pct = ic / float(vertexCount);
 			}
 
+			newShape->name = fbxMesh->GetName();
+			if (newShape->name.length() == 0)
+			{
+				char shapeNum[10];
+				sprintf(shapeNum, "shape%d", shapeIndex);
+				newShape->name = shapeNum;
+			}
 			newShape->vertexCount = vertexCount;
 			newShape->haveNormals = haveNormals;
 			newShape->haveTexCoords = haveTexCoords;
@@ -167,7 +176,7 @@ bool loadFBX(const char * fbxPath, StaticMesh & mesh, float & pct)
 
 bool loadOBJ(const char * objPath, StaticMesh & mesh, float & pct)
 {
-	std::cout << "MPOBJLoader::loadFromFile : " << objPath << std::endl;
+	std::cout << "loadOBJ : " << objPath << std::endl;
 
 	std::string path(objPath);
 	std::string basePath = path.substr(0, path.find_last_of("\\/") + 1).c_str();
@@ -192,11 +201,11 @@ bool loadOBJ(const char * objPath, StaticMesh & mesh, float & pct)
 	{
 		const tinyobj::shape_t & objShape = shapes[shapeIndex];
 
-		printf("shape[%d].name = %s\n", shapeIndex, objShape.name.c_str());
-		printf("shape[%d].indices: %ld\n", shapeIndex, objShape.mesh.indices.size());
-		printf("shape[%d].positions: %ld\n", shapeIndex, objShape.mesh.positions.size());
-		printf("shape[%d].texcoords: %ld\n", shapeIndex, objShape.mesh.texcoords.size());
-		printf("shape[%d].normals: %ld\n", shapeIndex, objShape.mesh.normals.size());
+		printf("objShape[%d].name = %s\n", shapeIndex, objShape.name.c_str());
+		printf("objShape[%d].indices: %ld\n", shapeIndex, objShape.mesh.indices.size());
+		printf("objShape[%d].positions: %ld\n", shapeIndex, objShape.mesh.positions.size());
+		printf("objShape[%d].texcoords: %ld\n", shapeIndex, objShape.mesh.texcoords.size());
+		printf("objShape[%d].normals: %ld\n", shapeIndex, objShape.mesh.normals.size());
 
 		//printf("Size of shape[%ld].material_ids: %ld\n", i, objShape.mesh.material_ids.size());
 		//assert((objShape.mesh.indices.size() % 3) == 0);
@@ -255,13 +264,19 @@ bool loadOBJ(const char * objPath, StaticMesh & mesh, float & pct)
 		}
 
 		delete [] indexData;
-
+		newShape->name = objShape.name;
+		if (newShape->name.length() == 0)
+		{
+			char shapeNum[10];
+			sprintf(shapeNum, "shape%d", shapeIndex);
+			newShape->name = shapeNum;
+		}
 		newShape->vertexCount = vertexCount;
 		newShape->haveNormals = haveNormals;
 		newShape->haveTexCoords = haveTexCoords;
 		newShape->shapeId = shapeIndex;
 
-		printf("------- shape[%d] \"%s\" END ------------------\n", shapeIndex, objShape.name.c_str());
+		printf("------- objShape[%d] \"%s\" END ------------------\n", shapeIndex, objShape.name.c_str());
 
 		++shapeIndex;
 	}
@@ -405,19 +420,21 @@ void computeTangentSpace(StaticMesh::Shape* shape, float & pct)
 
 bool StaticMeshLoader::loadFromFile(const char * path, StaticMesh & mesh)
 {
+	mesh.clear();
+
 	char ext[6] = { 0 };
-	getFileExtension(path, ext, 6);
+	getFileExtension(path, ext, sizeof(ext));
 
 	m_currentAction = ELoadingAction::LOADING_FROM_FILE;
 	m_loadedPct = 0.0f;
 
 	if (strcmp(ext, ".fbx") == 0)
 	{
-		return loadFBX(path, mesh, m_loadedPct);
+		if (!loadFBX(path, mesh, m_loadedPct)) return false;
 	}
 	else if (strcmp(ext, ".obj") == 0)
 	{
-		return loadOBJ(path, mesh, m_loadedPct);
+		if (!loadOBJ(path, mesh, m_loadedPct)) return false;
 	}
 
 	for (StaticMesh::Shape* shape : mesh.m_shapes)
@@ -436,7 +453,7 @@ bool StaticMeshLoader::loadFromFile(const char * path, StaticMesh & mesh)
 		computeTangentSpace(shape, m_loadedPct);
 	}
 
-	return false;
+	return true;
 }
 
 void StaticMeshLoader::getLoadingStatus(ELoadingAction & currentAction, float & pct)
@@ -464,8 +481,15 @@ StaticMesh::StaticMesh()
 
 StaticMesh::~StaticMesh()
 {
+	clear();
+}
+
+void StaticMesh::clear()
+{
 	for (Shape* shape : m_shapes)
 		delete shape;
+
+	m_shapes.clear();
 }
 
 StaticMesh::Shape const * StaticMesh::getShape(size_t shapeIndex) const
