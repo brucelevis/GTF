@@ -4,21 +4,29 @@ A Framework to create C/C++ desktop tools oriented to 2D/3D graphics manipulatio
 This project started as an extraction of reusable code from the <a href="https://www.youtube.com/watch?v=f0P1ZqO0zOk" target="_blank">TexPainter project</a>. 
 The idea is to implement a feature-rich library to empower  tools like TexPainter and other tools with similar needs.
 
+Changelog
+---------
+** 30 Jul 2016 **
+- You can now build GTF with CMAKE in Windows and OSX 
+- RHI Refactor (removed shared_ptr usage, added configurable vertex attribute list for VAOs)
+- Implemented mesh loading (OBJ and FBX)
+- Added 3D Mesh viewer Example
+
 Highlighted Features
 --------------------
 - Multiple windows with shared OpenGL 3 context on Windows and MacOSX
 - Non destructive ImGui integration with additional widgets
 - Abstract render hardware interface 
 - Template class collection for custom node graphs
+- 3D Mesh loader (OBJ and FBX)
 
 Coming soon
 -----------
 - Texture loader (JPEG, PNG, TGA, HDR)
 - Texture writer (PNG, TGA, HDR) 
-- 3D Mesh loader (OBJ, FBX)
 - Save/Load dialogs helper
 - A docking system based on the LumixEngine implementation
-- 3D Mesh viewer (as example)
+- Improved 3D Mesh viewer example with textures (color and normal map)
 
 Help needed for EVERYTHING! but mostly...
 -----------------------------------------
@@ -26,7 +34,6 @@ Help needed for EVERYTHING! but mostly...
 - Replacing GLFW with something that let us use DirectX in the future
 - Replacing tinyfielddialogs, while it is a very useful library I prefer a more native-os-api approach
 - Experience with *bgfx* to discuss about it's integration here instead of the current render hardware interface
-
 
 Build
 ------
@@ -36,6 +43,12 @@ Build
 
 Examples
 --------
+**MeshViewer Example (video)**
+<br />
+<a href="http://www.youtube.com/watch?v=1QZ2a1jzXLc" target="_blank">
+<img src="http://img.youtube.com/vi/1QZ2a1jzXLc/0.jpg"/>
+</a>
+
 **CalcGraph Example (video)**
 <br />
 <a href="http://www.youtube.com/watch?v=m6eteEPQ0Lg" target="_blank">
