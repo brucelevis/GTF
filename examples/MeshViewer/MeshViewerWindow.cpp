@@ -44,9 +44,15 @@ void MeshViewerWindow::fileDrop(int count, const char** paths)
 	if (m_loader.loadFromFile(paths[0], m_mesh))
 	{
 		//reset camera
+		m_frame.scale = 1.0f;
+		m_frame.position = glm::vec3(0.0f);
+		m_frame.viewPosition = glm::vec3(0.0f, 0.0f, -150.0f);
+		m_frame.rotation = glm::vec3(0.0f);
+		m_frame.scaleFactor = 1.0f;
+
 		m_projectionMatrix = glm::perspective(45.0f, (float)m_windowWidth / glm::max(1.0f, (float)m_windowHeight), 1.0f, 1000.0f);
-		m_viewMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0, 0, -150));
 		m_modelMatrix = glm::mat4(1.0);
+		m_viewMatrix = glm::translate(glm::mat4(1.0), m_frame.viewPosition);
 
 		glm::vec2 topLeft(0, 0), bottomRight(0, 0);
 		float midZ = 0.0f;
@@ -106,7 +112,7 @@ void MeshViewerWindow::fileDrop(int count, const char** paths)
 		std::cout << "fixTranslate preProj = (" << fixTranslate.x << ", " << fixTranslate.y << ")" << std::endl;
 		fixTranslate = ivpMatrix * fixTranslate;
 		fixTranslate /= fixTranslate.w;
-		//fixTranslate.z = 0;
+		fixTranslate.z = 0;
 		std::cout << "fixTranslate = (" << fixTranslate.x << ", " << fixTranslate.y << ")" << std::endl;
 		
 		topLeft += glm::vec2(fixX, -fixY);
@@ -137,9 +143,9 @@ void MeshViewerWindow::fileDrop(int count, const char** paths)
 		}
 
 		std::cout << "fixScale = " << fixScale << std::endl;
-		m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(fixScale, fixScale, fixScale));
-		m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(fixTranslate));
-		
+		m_frame.scale = fixScale;
+		m_frame.scaleFactor = fixScale;
+		m_frame.position = glm::vec3(fixTranslate);		
 	}
 
 	
@@ -154,36 +160,54 @@ void MeshViewerWindow::frame(double deltaTime)
 	flags |= ImGuiWindowFlags_NoResize;
 	flags |= ImGuiWindowFlags_NoTitleBar;
 	flags |= ImGuiWindowFlags_HorizontalScrollbar;
-	float infoWidth = 250.0f;
+	float infoWidth = 280.0f;
 	ImGui::SetNextWindowPos(ImVec2(m_windowWidth - infoWidth - 20.0f, m_windowHeight - 200.0f), ImGuiSetCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(infoWidth, 180.0f), ImGuiSetCond_Always);
 	if (ImGui::Begin("Info", nullptr, flags))
 	{
 		ImGui::Text("Info");
 		ImGui::Separator(); ImGui::Spacing();
-		ImGui::Text("Drag and Drop a FBX or OBJ mesh\nfile into this window");
+		ImGui::Text("Drag and Drop a FBX or OBJ mesh\nfile into this window."); ImGui::Spacing();
+		ImGui::Text("Left click and drag to rotate."); ImGui::Spacing();
+		ImGui::Text("Right click and drag to translate."); ImGui::Spacing();
+		ImGui::Text("Use mouse wheel to scale."); ImGui::Spacing();
 	}
 	ImGui::End();
 
-	//TODO: MESH TRANSFORM WITH MOUSE
+	//MESH TRANSFORM WITH MOUSE
+	if (ImGui::IsMouseDown(0))
+	{
+		m_frame.rotation.y += ImGui::GetIO().MouseDelta.x * deltaTime;
+		m_frame.rotation.x += ImGui::GetIO().MouseDelta.y * deltaTime;
+	}
+	else if (ImGui::IsMouseDown(1))
+	{
+		m_frame.viewPosition.x += ImGui::GetIO().MouseDelta.x * 0.2f;
+		m_frame.viewPosition.y -= ImGui::GetIO().MouseDelta.y * 0.2f;
+	}
+	
+	m_frame.scale = glm::max(0.01f, m_frame.scale + (ImGui::GetIO().MouseWheel * float(deltaTime) * m_frame.scaleFactor) * 3.0f);
+		
+	//update transform
+	m_modelMatrix = glm::rotate(glm::mat4(), m_frame.rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	m_modelMatrix = glm::rotate(m_modelMatrix, m_frame.rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(m_frame.scale));
+	m_modelMatrix = glm::translate(m_modelMatrix, m_frame.position);
+	m_viewMatrix = glm::translate(glm::mat4(), glm::vec3(m_frame.viewPosition));
 
-	//render
-	gtf::GRHI->viewport(0, 0, m_windowWidth, m_windowHeight);
-	gtf::GRHI->clearColorAndDepthBuffers();
-
-	//gtf::GRHI->setBlend(false);
-	gtf::GRHI->setDepthTest(true);
-
+	//active shader program
 	m_gfx.renderMeshProgram->active();
 	m_gfx.renderMeshProgram->setUniform4x4m("uProjectionMatrix", glm::value_ptr(m_projectionMatrix));
 	m_gfx.renderMeshProgram->setUniform4x4m("uModelMatrix", glm::value_ptr(m_modelMatrix));
 	m_gfx.renderMeshProgram->setUniform4x4m("uViewMatrix", glm::value_ptr(m_viewMatrix));
 
+	//render
+	gtf::GRHI->viewport(0, 0, m_windowWidth, m_windowHeight);
+	gtf::GRHI->clearColorAndDepthBuffers();
+	gtf::GRHI->setDepthTest(true);
+
 	for (auto vao : m_vaos)
 	{
 		vao->render();
 	}
-
-	gtf::GRHI->setBackfaceCulling(false);
-	//gtf::GRHI->setBlend(true);
 }

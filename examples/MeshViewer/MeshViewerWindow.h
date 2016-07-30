@@ -26,4 +26,13 @@ private:
 	gtf::RHIVertexAttributeList m_attrList;
 	BuiltInGfxData m_gfx;
 	glm::mat4 m_modelMatrix, m_viewMatrix, m_projectionMatrix;
+
+	struct
+	{
+		glm::vec3 position;
+		glm::vec3 viewPosition;
+		glm::vec3 rotation;
+		float scale;
+		float scaleFactor;
+	} m_frame;
 };
