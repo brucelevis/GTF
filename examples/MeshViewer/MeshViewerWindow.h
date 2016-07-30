@@ -15,8 +15,10 @@ class MeshViewerWindow : public gtf::Window
 public:
 	MeshViewerWindow();
 	~MeshViewerWindow();
+	virtual void resize(int newWidth, int newHeight);
 	virtual void fileDrop(int count, const char** paths) override;
 	virtual void frame(double deltaTime) override;
+	
 private:
 	gtf::StaticMesh m_mesh;
 	gtf::StaticMeshLoader m_loader;
