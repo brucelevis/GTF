@@ -447,6 +447,10 @@ bool StaticMeshLoader::loadFromFile(const char * path, StaticMesh & mesh)
 	{
 		if (!loadOBJ(path, mesh, m_loadedPct)) return false;
 	}
+	else
+	{
+		return false;
+	}
 
 	for (StaticMesh::Shape* shape : mesh.m_shapes)
 	{

@@ -21,7 +21,7 @@ public:
 	
 private:
 	gtf::StaticMesh m_mesh;
-	gtf::StaticMeshLoader m_loader;
+	gtf::StaticMeshLoader m_meshLoader;
 	std::vector< std::shared_ptr<gtf::RHIVAO> > m_vaos;
 	gtf::RHIVertexAttributeList m_attrList;
 	BuiltInGfxData m_gfx;

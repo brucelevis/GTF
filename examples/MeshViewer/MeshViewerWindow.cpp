@@ -36,12 +36,9 @@ void MeshViewerWindow::resize(int newWidth, int newHeight)
 
 void MeshViewerWindow::fileDrop(int count, const char** paths)
 {
-	
-
 	if (count != 1) return;
 
-	
-	if (m_loader.loadFromFile(paths[0], m_mesh))
+	if (m_meshLoader.loadFromFile(paths[0], m_mesh))
 	{
 		//reset camera
 		m_frame.scale = 1.0f;
