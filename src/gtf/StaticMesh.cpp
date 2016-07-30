@@ -242,21 +242,32 @@ bool loadOBJ(const char * objPath, StaticMesh & mesh, float & pct)
 			for (unsigned int vc = 0; vc < 3; vc++)
 			{
 				unsigned int index = indexData[ic + vc];
-				vertexData[ic + vc].posX = objShape.mesh.positions[3 * index + 0];
-				vertexData[ic + vc].posY = objShape.mesh.positions[3 * index + 1];
-				vertexData[ic + vc].posZ = objShape.mesh.positions[3 * index + 2];
+
+				//this boundary check prevents a crash with buggy OBJ files
+				if ((3 * index + 2) < objShape.mesh.positions.size()) 
+				{
+					vertexData[ic + vc].posX = objShape.mesh.positions[3 * index + 0];
+					vertexData[ic + vc].posY = objShape.mesh.positions[3 * index + 1];
+					vertexData[ic + vc].posZ = objShape.mesh.positions[3 * index + 2];
+				}
 
 				if (haveTexCoords)
 				{
-					vertexData[ic + vc].tcX = objShape.mesh.texcoords[2 * index + 0];
-					vertexData[ic + vc].tcY = objShape.mesh.texcoords[2 * index + 1];
+					if((2 * index + 1) < objShape.mesh.texcoords.size())
+					{
+						vertexData[ic + vc].tcX = objShape.mesh.texcoords[2 * index + 0];
+						vertexData[ic + vc].tcY = objShape.mesh.texcoords[2 * index + 1];
+					}
 				}
 
 				if (haveNormals)
 				{
-					vertexData[ic + vc].normX = objShape.mesh.normals[3 * index + 0];
-					vertexData[ic + vc].normY = objShape.mesh.normals[3 * index + 1];
-					vertexData[ic + vc].normZ = objShape.mesh.normals[3 * index + 2];
+					if((3 * index + 2) < objShape.mesh.normals.size())
+					{
+						vertexData[ic + vc].normX = objShape.mesh.normals[3 * index + 0];
+						vertexData[ic + vc].normY = objShape.mesh.normals[3 * index + 1];
+						vertexData[ic + vc].normZ = objShape.mesh.normals[3 * index + 2];
+					}	
 				}
 			}
 
