@@ -469,7 +469,7 @@ StaticMesh::VertexData* StaticMesh::Shape::allocateData(size_t dataSize)
 	return data;
 }
 
-StaticMesh::Shape::~Shape()
+StaticMesh::Shape::~Shape() noexcept
 {
 	delete[] data;
 }

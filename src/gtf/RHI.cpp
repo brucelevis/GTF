@@ -12,13 +12,6 @@ namespace gtf
 {
 RHI* GRHI(nullptr);
 
-static size_t RHI_GENERIC_VALUE_TYPE_SIZES[] =
-{
-	4,
-	4,
-	1
-};
-
 void RHITexture2D::setup(RHITextureInfo const & info)
 {
     setup(info.internalFormat,

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 
 namespace gtf
 {
@@ -42,11 +43,11 @@ public:
 	{
 	public:
 		VertexData* allocateData(size_t dataSize);
-		~Shape();
+		~Shape() noexcept;
 
 	public:
 		std::string name;
-		unsigned int shapeId;
+        unsigned int shapeId;
 		VertexData* data{ nullptr };
 		size_t vertexCount;
 		bool haveNormals;

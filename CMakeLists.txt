@@ -40,6 +40,10 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     SET (CMAKE_RANLIB  "/usr/bin/ranlib")
 
 	add_definitions(-D_GLFW_COCOA)
+
+	#copy depencencies
+	file(COPY external/FBX/2016.1.2/lib/clang/release/libfbxsdk.dylib DESTINATION ${GTF_OUTPUT_DIR})
+
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	#add_definitions(-D_GLFW_LINUX)
 else()	
@@ -103,6 +107,7 @@ foreach( EXAMPLE ${GTF_EXAMPLES} )
 
 	if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")	
 		target_link_libraries(${EXAMPLE} ${MACOS_LIBRARIES})
+		target_link_libraries(${EXAMPLE} fbxsdk)
 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	else()	
 		target_link_libraries(${EXAMPLE} libfbxsdk)
