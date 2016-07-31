@@ -52,26 +52,47 @@ in mat4 ex_ModelViewMatrix;
 out vec4 out_Color;
 
 const vec3 lightSource = normalize(vec3(0.0, 0.5, 1.0));
-const vec3 ambient = vec3(0.5);
+const vec3 ambient = vec3(0.4);
 const vec3 specular = vec3(0.05);
-const vec3 diffuse = vec3(0.5);
-const float shininess = 0.8;
+const vec3 diffuse = vec3(0.45);
+const float shininess = 0.5;
 
-void main (void)  //20
+uniform sampler2D uNormalMap;
+uniform uint uWithNormalMap;
+uniform sampler2D uColorMap;
+uniform uint uWithColorMap;
+
+
+void main (void) 
 {  
 	mat3 tangentToWorld = mat3(ex_Tangent.x, ex_Binormal.x, ex_Normal.x,
                                ex_Tangent.y, ex_Binormal.y, ex_Normal.y,
                                ex_Tangent.z, ex_Binormal.z, ex_Normal.z);
-
+	
 	vec3 v = ex_EyeSpacePosition.xyz;
-	vec3 N = normalize(((vec3(0.5, 0.5, 1.0) * 2.0) - 1.0) * tangentToWorld);
-	vec3 L = normalize(lightSource - v);   
+	vec3 N;
+	if(uWithNormalMap == 1u)
+	{
+		 vec3 normalSampled = texture(uNormalMap, ex_TexCoord.xy).rgb;
+		 N = normalize(((normalSampled * 2.0) - 1.0) * tangentToWorld);
+	}
+	else
+	{
+		N = normalize(((vec3(0.5, 0.5, 1.0) * 2.0) - 1.0) * tangentToWorld);
+	}
+	
+	vec3 baseColor = vec3(1.0, 1.0, 1.0);
+	if(uWithColorMap == 1u)
+	{
+		 baseColor = texture(uColorMap, ex_TexCoord.xy).rgb;
+	}
+
+		vec3 L = normalize(lightSource - v);   
 	vec3 E = normalize(-v);
 	vec3 R = normalize(-reflect(L,N));  
  
-	//30
 	//calculate Diffuse Term:  
-	vec3 Idiff = diffuse * max(dot(N,L), 0.0);
+	vec3 Idiff = baseColor * diffuse * max(dot(N,L), 0.0);
 	Idiff = clamp(Idiff, 0.0, 1.0);     
    
 	// calculate Specular Term:
@@ -79,7 +100,8 @@ void main (void)  //20
 	Ispec = clamp(Ispec, 0.0, 1.0); 
 	
 	// write Total Color:  
-	out_Color = vec4(ambient + Idiff + Ispec, 1.0);     
+	vec3 colorAmbient = baseColor * ambient;
+	out_Color = vec4(colorAmbient + Idiff, 1.0);     
 }
 
 )";

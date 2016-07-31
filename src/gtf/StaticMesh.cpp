@@ -429,6 +429,21 @@ void computeTangentSpace(StaticMesh::Shape* shape, float & pct)
 	delete interface;
 }
 
+bool StaticMeshLoader::isMeshFile(const char * path)
+{
+	char ext[6] = { 0 };
+	getFileExtension(path, ext, sizeof(ext));
+	static const char* meshExtensions[2] = { ".fbx" , ".obj" };
+	bool result = false;
+
+	for (int i = 0; i < 2; ++i)
+	{
+		result |= (strcmp(ext, meshExtensions[i]) == 0);
+	}
+	
+	return result;
+}
+
 bool StaticMeshLoader::loadFromFile(const char * path, StaticMesh & mesh)
 {
 	mesh.clear();
@@ -471,7 +486,7 @@ bool StaticMeshLoader::loadFromFile(const char * path, StaticMesh & mesh)
 	return true;
 }
 
-void StaticMeshLoader::getLoadingStatus(ELoadingAction & currentAction, float & pct)
+void StaticMeshLoader::getLoadingStatus(ELoadingAction & currentAction, float & pct) const
 {
 	currentAction = m_currentAction;
 	pct = m_loadedPct;

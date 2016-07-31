@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <memory>
 #include <string>
 
 namespace gtf
@@ -17,9 +16,10 @@ public:
 		COMPUTING_NORMALS,
 		COMPUTING_TANGENTS
 	};
-
+	
+	static bool isMeshFile(const char * path);
 	bool loadFromFile(const char * path, class StaticMesh & mesh);
-	void getLoadingStatus(ELoadingAction & currentAction, float & pct);
+	void getLoadingStatus(ELoadingAction & currentAction, float & pct) const;
 private:
 	float m_loadedPct;
 	ELoadingAction m_currentAction{ ELoadingAction::IDLE };

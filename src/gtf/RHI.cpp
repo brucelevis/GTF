@@ -12,13 +12,14 @@ namespace gtf
 {
 RHI* GRHI(nullptr);
 
-void RHITexture2D::setup(RHITextureInfo const & info)
+void RHITexture2D::setup(RHITextureInfo const & info, const void * data)
 {
     setup(info.internalFormat,
           info.bufferW,
           info.bufferH,
           info.format,
-          info.type);
+          info.type,
+		  data);
 }
 
 void RHITexture2D::setup(RHITexturePreset const & preset)

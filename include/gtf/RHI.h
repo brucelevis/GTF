@@ -180,7 +180,7 @@ class RHITexture2D
 {
 public:
     virtual ~RHITexture2D(){};
-    void setup(RHITextureInfo const & info);
+    void setup(RHITextureInfo const & info, const void* data = nullptr);
     void setup(RHITexturePreset const & preset);
     virtual void setup(ERHITexInternalFormat inFormat,
                        unsigned int bufferW,

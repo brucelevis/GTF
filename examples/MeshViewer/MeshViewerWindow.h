@@ -20,12 +20,16 @@ public:
 	virtual void frame(double deltaTime) override;
 	
 private:
+	BuiltInGfxData m_gfx;
 	gtf::StaticMesh m_mesh;
 	gtf::StaticMeshLoader m_meshLoader;
-	std::vector< std::shared_ptr<gtf::RHIVAO> > m_vaos;
-	gtf::RHIVertexAttributeList m_attrList;
-	BuiltInGfxData m_gfx;
 	glm::mat4 m_modelMatrix, m_viewMatrix, m_projectionMatrix;
+
+	//RHI
+	gtf::RHIVertexAttributeList m_attrList;
+	std::vector< std::shared_ptr<gtf::RHIVAO> > m_vaos;
+	std::shared_ptr<gtf::RHITexture2D> m_normaMap{ nullptr };
+	std::shared_ptr<gtf::RHITexture2D> m_colorMap{ nullptr };
 
 	struct
 	{
