@@ -2,33 +2,25 @@
 **Graphics Tools Framework**
 A Framework to create C/C++ desktop tools oriented to 2D/3D graphics manipulation. 
 This project started as an extraction of reusable code from the <a href="https://www.youtube.com/watch?v=f0P1ZqO0zOk" target="_blank">TexPainter project</a>. 
-The idea is to implement a feature-rich library to empower  tools like TexPainter and other tools with similar needs.
-
-Changelog
----------
-** 30 Jul 2016 **
-- You can now build GTF with CMAKE in Windows and OSX 
-- RHI Refactor (removed shared_ptr usage, added configurable vertex attribute list for VAOs)
-- Implemented mesh loading (OBJ and FBX)
-- Added 3D Mesh viewer Example
+The idea is to implement a feature-rich library to empower tools like TexPainter and others with similar needs.
 
 Highlighted Features
 --------------------
 - Multiple windows with shared OpenGL 3 context on Windows and MacOSX
-- Non destructive ImGui integration with additional widgets
 - Abstract render hardware interface 
+- 2D Texture resource & loader (PNG, TGA, JPEG and HDR)
+- 3D Mesh resource & loader (OBJ and FBX)
+- ImGui integration with additional widgets
 - Template class collection for custom node graphs
-- 3D Mesh loader (OBJ and FBX)
 
 Coming soon
 -----------
-- Texture loader (JPEG, PNG, TGA, HDR)
 - Texture writer (PNG, TGA, HDR) 
 - Save/Load dialogs helper
 - A docking system based on the LumixEngine implementation
-- Improved 3D Mesh viewer example with textures (color and normal map)
+- Improved node graph system
 
-Help needed for EVERYTHING! but mostly...
+Help needed for...
 -----------------------------------------
 - API Design, some decisions I made are not the best ones
 - Replacing GLFW with something that let us use DirectX in the future
@@ -77,4 +69,16 @@ Libraries
 - khrplatform - khronos types
 - mikktspace - Synched normals
 - tinyfielddialogs - load/save dialogs
+
+Changelog
+---------
+** 31 Jul 2016 **
+- Texture2D resource with loader (JPEG, PNG, TGA, HDR)
+- Improved 3D Mesh viewer example with textures (color and normal map)
+
+** 30 Jul 2016 **
+- You can now build GTF with CMAKE in Windows and OSX 
+- RHI Refactor (removed shared_ptr usage, added configurable vertex attribute list for VAOs)
+- Implemented mesh loading (OBJ and FBX)
+- Added 3D Mesh viewer Example
 
