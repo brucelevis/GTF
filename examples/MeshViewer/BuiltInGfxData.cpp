@@ -55,7 +55,7 @@ const vec3 lightSource = normalize(vec3(0.0, 0.5, 1.0));
 const vec3 ambient = vec3(0.4);
 const vec3 specular = vec3(0.05);
 const vec3 diffuse = vec3(0.45);
-const float shininess = 0.5;
+const float shininess = 0.05;
 
 uniform sampler2D uNormalMap;
 uniform uint uWithNormalMap;

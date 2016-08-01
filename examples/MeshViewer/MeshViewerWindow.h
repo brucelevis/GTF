@@ -4,9 +4,9 @@
 #include <gtf/StaticMesh.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/euler_angles.hpp>
-#include <glm/gtc/type_ptr.hpp>
+
+
+#include <list>
 
 #include "BuiltInGfxData.h"
 
@@ -27,9 +27,14 @@ private:
 
 	//RHI
 	gtf::RHIVertexAttributeList m_attrList;
-	std::vector< std::shared_ptr<gtf::RHIVAO> > m_vaos;
-	std::shared_ptr<gtf::RHITexture2D> m_normaMap{ nullptr };
-	std::shared_ptr<gtf::RHITexture2D> m_colorMap{ nullptr };
+	struct TexturedShape
+	{
+		std::string name;
+		std::shared_ptr<gtf::RHIVAO> vao;
+		std::shared_ptr<gtf::RHITexture2D> normalMap;
+		std::shared_ptr<gtf::RHITexture2D> colorMap;
+	};
+	std::list< TexturedShape > m_texturedShapes;
 
 	struct
 	{
@@ -38,5 +43,8 @@ private:
 		glm::vec3 rotation;
 		float scale;
 		float scaleFactor;
+		float rotAccelX{ 0.0f };
+		float rotAccelY{ 0.0f };
 	} m_frame;
+
 };

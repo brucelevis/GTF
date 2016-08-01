@@ -2,7 +2,12 @@
 #include "MeshViewerWindow.h"
 #include <imgui.h>
 #include <iostream>
+
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
+
 #include <tinyfiledialogs.h>
 
 #include <gtf/Texture2D.h>
@@ -47,9 +52,8 @@ void MeshViewerWindow::fileDrop(int pathCount, const char** paths)
 		{
 			if (!meshLoadedThisDrop && m_meshLoader.loadFromFile(paths[pathIndex], m_mesh))
 			{
-				m_normaMap.reset();
-				m_colorMap.reset();
-
+				m_texturedShapes.clear();
+	
 				//reset camera
 				m_frame.scale = 1.0f;
 				m_frame.position = glm::vec3(0.0f);
@@ -67,16 +71,22 @@ void MeshViewerWindow::fileDrop(int pathCount, const char** paths)
 				glm::mat4 vpMatrix = m_projectionMatrix * m_viewMatrix;
 				glm::mat4 ivpMatrix = glm::inverse(vpMatrix);
 
-				m_vaos.clear();
+				
 				int shapeCount = m_mesh.getShapeCount();
+
+
 				for (int s = 0; s < shapeCount; ++s)
 				{
 					gtf::StaticMesh::Shape const * shape = m_mesh.getShape(s);
 					std::shared_ptr<gtf::RHIVAO> newVAO(gtf::GRHI->createVertexBufferObject());
 					newVAO->setup(m_attrList, shape->data, shape->vertexCount);
-					m_vaos.push_back(newVAO);
-
-
+					
+					//m_vaos.push_back(newVAO);
+					TexturedShape texturedShape;
+					texturedShape.name = shape->name;
+					texturedShape.vao = newVAO;
+					m_texturedShapes.push_back(texturedShape);
+					
 					//trying to calculate a default transformation to fid the viewport
 					for (size_t vc = 0; vc < shape->vertexCount; vc++)
 					{
@@ -183,38 +193,49 @@ void MeshViewerWindow::frame(double deltaTime)
 		const char * textureFilterPatterns[3] = { "*.png", "*.tga", "*.jpg" };
 
 		//TODO: Load Textures
-		if (ImGui::Button("Set Normal Map"))
-		{
-			const char * texFilePath = tinyfd_openFileDialog("Set Normal Map", "./", 3, textureFilterPatterns, NULL, 0);
-			gtf::Texture2D normalMapResource;
-			gtf::Texture2DLoader tex2DLoader;
-			if (texFilePath && tex2DLoader.loadFromFile(texFilePath, normalMapResource))
-			{
-				gtf::RHITextureInfo info;
-				gtf::fillRHITextureInfo(normalMapResource, info);
-				m_normaMap.reset(gtf::GRHI->createTexture());
-				m_normaMap->setup(info, normalMapResource.getData());
-			}
-		}
+		const char * normalMapBtnFormat = "Set NormalMap %s";
+		const char * colorMapBtnFormat = "Set ColorMap %s";
 
 		ImGui::Checkbox("Toggle Normal Map", &withNormalMap);
-
-		ImGui::Spacing();
-		if (ImGui::Button("Set Color Map"))
-		{
-			const char * texFilePath = tinyfd_openFileDialog("Set Color Map", "./", 3, textureFilterPatterns, NULL, 0);
-			gtf::Texture2D colorMapResource;
-			gtf::Texture2DLoader tex2DLoader;
-			if (texFilePath && tex2DLoader.loadFromFile(texFilePath, colorMapResource))
-			{
-				gtf::RHITextureInfo info;
-				gtf::fillRHITextureInfo(colorMapResource, info);
-				m_colorMap.reset(gtf::GRHI->createTexture());
-				m_colorMap->setup(info, colorMapResource.getData());
-			}
-		}
-
 		ImGui::Checkbox("Toggle Color Map", &withColorMap);
+		ImGui::Spacing();
+
+		for (auto & texturedShape : m_texturedShapes)
+		{
+			char normalMapBtnText[1024];
+			sprintf_s(normalMapBtnText, normalMapBtnFormat, texturedShape.name.c_str());
+			if (ImGui::Button(normalMapBtnText))
+			{
+				const char * texFilePath = tinyfd_openFileDialog("Set Normal Map", "./", 3, textureFilterPatterns, NULL, 0);
+				gtf::Texture2D normalMapResource;
+				gtf::Texture2DLoader tex2DLoader;
+				if (texFilePath && tex2DLoader.loadFromFile(texFilePath, normalMapResource))
+				{
+					gtf::RHITextureInfo info;
+					gtf::fillRHITextureInfo(normalMapResource, info);
+					texturedShape.normalMap.reset(gtf::GRHI->createTexture());
+					texturedShape.normalMap->setup(info, normalMapResource.getData());
+				}
+			}
+
+			char colorMapBtnText[1024];
+			sprintf_s(colorMapBtnText, colorMapBtnFormat, texturedShape.name.c_str());
+			if (ImGui::Button(colorMapBtnText))
+			{
+				const char * texFilePath = tinyfd_openFileDialog("Set Color Map", "./", 3, textureFilterPatterns, NULL, 0);
+				gtf::Texture2D colorMapResource;
+				gtf::Texture2DLoader tex2DLoader;
+				if (texFilePath && tex2DLoader.loadFromFile(texFilePath, colorMapResource))
+				{
+					gtf::RHITextureInfo info;
+					gtf::fillRHITextureInfo(colorMapResource, info);
+					texturedShape.colorMap.reset(gtf::GRHI->createTexture());
+					texturedShape.colorMap->setup(info, colorMapResource.getData());
+				}
+			}
+
+			ImGui::Spacing();
+		}
 	}
 	ImGui::End();
 
@@ -232,15 +253,24 @@ void MeshViewerWindow::frame(double deltaTime)
 	ImGui::End();
 
 	//MESH TRANSFORM WITH MOUSE
-	if (ImGui::IsMouseDown(0))
+	if (!ImGui::GetIO().WantCaptureMouse)
 	{
-		m_frame.rotation.y += ImGui::GetIO().MouseDelta.x * float(deltaTime);
-		m_frame.rotation.x += ImGui::GetIO().MouseDelta.y * float(deltaTime);
-	}
-	else if (ImGui::IsMouseDown(1))
-	{
-		m_frame.viewPosition.x += ImGui::GetIO().MouseDelta.x * 0.025f;
-		m_frame.viewPosition.y -= ImGui::GetIO().MouseDelta.y * 0.025f;
+		if (ImGui::IsMouseDown(0))
+		{
+			m_frame.rotAccelX += ImGui::GetIO().MouseDelta.y * float(deltaTime) * 3.0f;
+			m_frame.rotAccelY += ImGui::GetIO().MouseDelta.x * float(deltaTime) * 3.0f;
+			
+		}
+		else if (ImGui::IsMouseDown(1))
+		{
+			m_frame.viewPosition.x += ImGui::GetIO().MouseDelta.x * 0.025f;
+			m_frame.viewPosition.y -= ImGui::GetIO().MouseDelta.y * 0.025f;
+		}
+
+		m_frame.rotation.y += m_frame.rotAccelY * float(deltaTime);
+		m_frame.rotation.x += m_frame.rotAccelX * float(deltaTime);
+		m_frame.rotAccelX -= m_frame.rotAccelX * float(deltaTime) * 3.0f;
+		m_frame.rotAccelY -= m_frame.rotAccelY * float(deltaTime) * 3.0f;
 	}
 	
 	m_frame.scale = glm::max(0.01f, m_frame.scale + (ImGui::GetIO().MouseWheel * float(deltaTime) * m_frame.scaleFactor) * 3.0f);
@@ -260,35 +290,37 @@ void MeshViewerWindow::frame(double deltaTime)
 	m_gfx.renderMeshProgram->setUniform4x4m("uModelMatrix", glm::value_ptr(m_modelMatrix));
 	m_gfx.renderMeshProgram->setUniform4x4m("uViewMatrix", glm::value_ptr(m_viewMatrix));
 
-	if (m_normaMap && withNormalMap)
-	{
-		m_normaMap->bindAt(0);
-		m_gfx.renderMeshProgram->setUniform1i("uNormalMap", 0);
-		m_gfx.renderMeshProgram->setUniform1ui("uWithNormalMap", 1);
-	}
-	else
-	{
-		m_gfx.renderMeshProgram->setUniform1ui("uWithNormalMap", 0);
-	}
 
-	if (m_colorMap && withColorMap)
-	{
-		m_colorMap->bindAt(1);
-		m_gfx.renderMeshProgram->setUniform1i("uColorMap", 1);
-		m_gfx.renderMeshProgram->setUniform1ui("uWithColorMap", 1);
-	}
-	else
-	{
-		m_gfx.renderMeshProgram->setUniform1ui("uWithColorMap", 0);
-	}
 
 	//render
 	gtf::GRHI->viewport(0, 0, m_windowWidth, m_windowHeight);
 	gtf::GRHI->clearColorAndDepthBuffers();
 	gtf::GRHI->setDepthTest(true);
 
-	for (auto vao : m_vaos)
+	for (auto & texturedShape : m_texturedShapes)
 	{
-		vao->render();
+		if (texturedShape.normalMap && withNormalMap)
+		{
+			texturedShape.normalMap->bindAt(0);
+			m_gfx.renderMeshProgram->setUniform1i("uNormalMap", 0);
+			m_gfx.renderMeshProgram->setUniform1ui("uWithNormalMap", 1);
+		}
+		else
+		{
+			m_gfx.renderMeshProgram->setUniform1ui("uWithNormalMap", 0);
+		}
+
+		if (texturedShape.colorMap && withColorMap)
+		{
+			texturedShape.colorMap->bindAt(1);
+			m_gfx.renderMeshProgram->setUniform1i("uColorMap", 1);
+			m_gfx.renderMeshProgram->setUniform1ui("uWithColorMap", 1);
+		}
+		else
+		{
+			m_gfx.renderMeshProgram->setUniform1ui("uWithColorMap", 0);
+		}
+
+		texturedShape.vao->render();
 	}
 }
