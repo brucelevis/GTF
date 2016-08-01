@@ -203,7 +203,7 @@ void MeshViewerWindow::frame(double deltaTime)
 		for (auto & texturedShape : m_texturedShapes)
 		{
 			char normalMapBtnText[1024];
-			sprintf_s(normalMapBtnText, normalMapBtnFormat, texturedShape.name.c_str());
+			sprintf(normalMapBtnText, normalMapBtnFormat, texturedShape.name.c_str());
 			if (ImGui::Button(normalMapBtnText))
 			{
 				const char * texFilePath = tinyfd_openFileDialog("Set Normal Map", "./", 3, textureFilterPatterns, NULL, 0);
@@ -219,7 +219,7 @@ void MeshViewerWindow::frame(double deltaTime)
 			}
 
 			char colorMapBtnText[1024];
-			sprintf_s(colorMapBtnText, colorMapBtnFormat, texturedShape.name.c_str());
+			sprintf(colorMapBtnText, colorMapBtnFormat, texturedShape.name.c_str());
 			if (ImGui::Button(colorMapBtnText))
 			{
 				const char * texFilePath = tinyfd_openFileDialog("Set Color Map", "./", 3, textureFilterPatterns, NULL, 0);
@@ -271,9 +271,11 @@ void MeshViewerWindow::frame(double deltaTime)
 		m_frame.rotation.x += m_frame.rotAccelX * float(deltaTime);
 		m_frame.rotAccelX -= m_frame.rotAccelX * float(deltaTime) * 3.0f;
 		m_frame.rotAccelY -= m_frame.rotAccelY * float(deltaTime) * 3.0f;
+        
+        m_frame.scale = glm::max(0.01f, m_frame.scale + (ImGui::GetIO().MouseWheel * float(deltaTime) * m_frame.scaleFactor) * 3.0f);
 	}
 	
-	m_frame.scale = glm::max(0.01f, m_frame.scale + (ImGui::GetIO().MouseWheel * float(deltaTime) * m_frame.scaleFactor) * 3.0f);
+	
 		
 	//update transform
 	
